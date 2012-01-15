@@ -1,0 +1,33 @@
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "bundle/solarized"]
+	path = bundle/solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = https://github.com/edsono/vim-matchit.git
+[submodule "bundle/zencoding"]
+	path = bundle/zencoding
+	url = https://github.com/mattn/zencoding-vim.git
+[submodule "bundle/groovy"]
+	path = bundle/groovy
+	url = https://github.com/mwaisgold/groovy-vim-files.git
+[submodule "bundle/snipmant"]
+	path = bundle/snipmant
+	url = https://github.com/msanders/snipmate.vim.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = https://github.com/vim-scripts/The-NERD-Commenter.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/indent-guides"]
+	path = bundle/indent-guides
+	url = git://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/Command-T
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = https://github.com/tpope/vim-surround.git
