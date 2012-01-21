@@ -34,3 +34,9 @@
 [submodule "bundle/easymotion"]
 	path = bundle/easymotion
 	url = https://github.com/Lokaltog/vim-easymotion
+[submodule "bundle/sparkup"]
+	path = bundle/sparkup
+	url = https://github.com/bingaman/vim-sparkup
+[submodule "bundle/ctrlp"]
+	path = bundle/ctrlp
+	url = https://github.com/kien/ctrlp.vim

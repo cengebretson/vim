@@ -80,7 +80,8 @@ set listchars=tab:» ,trail:.,extends:#,nbsp:.
 " Autocommand to reload the status vim plugin for color changes
 autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
 
-
+" use system clipboard for copy/paste
+set clipboard=unnamed
 
 
 
@@ -119,10 +120,18 @@ autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 let mapleader = ','
 
 " Fast editing of the .vimrc
-map <leader>e :e $MYVIMRC<cr>
+map <leader>v :e $MYVIMRC<cr>
 
 " remap the esc key
 map! jj <Esc>
+
+" standard regex during searches
+nnoremap / /\v
+vnoremap / /\v
+
+" easier to find matching characters
+nnoremap <tab> %
+vnoremap <tab> %
 
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
@@ -130,6 +139,14 @@ nnoremap ; :
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+
+" Toggle relative line numbers
+nmap <silent> <F1> :set relativenumber!<CR>
+imap <silent> <F1> :set relativenumber!<CR>
+
+" Toggle normal line numbers
+nmap <silent> <F2> :set nu!<CR>
+imap <silent> <F2> :set nu!<CR>
 
 " upper/lower word
 nmap <leader>u mQviwU`Q
@@ -144,6 +161,9 @@ nmap <silent> <leader>cd :lcd %:h<CR>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
+
+" Underline aline with =
+nnoremap <leader>1 yypVr=
 
 "clearing highlighted search
 nmap <silent> <leader>/ :nohlsearch<CR>
@@ -164,14 +184,19 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>vsp :ev %%
-map <leader>et :tabe %%
-
-" Swap two words
-silent <nmap> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
+map <leader>et :tabe %%    
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
+" clean up white space quickly
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" remapping movement keys for split windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 if has("gui_macvim")
 
@@ -189,26 +214,20 @@ if has("gui_macvim")
     imap <D-]> <Esc>>>i
     imap <D-[> <Esc><<i
 
-else
+    " In MacVim, you can have multiple tabs open. This mapping makes
+    " ctrl-tab switch between them, like browser tabs.
+    noremap <c-tab> :tabnext<cr>
 
-    " Map command-[ and command-] to indenting or outdenting
-    " while keeping the original selection in visual mode
-    vmap <A-]> >gv
-    vmap <A-[> <gv
-
-    nmap <A-]> >>
-    nmap <A-[> <<
-
-    omap <A-]> >>
-    omap <A-[> <<
-
-    imap <A-]> <Esc>>>i
-    imap <A-[> <Esc><<i
-
-    " Make shift-insert work like in Xterm
-    map <S-Insert> <MiddleMouse>
-    map! <S-Insert> <MiddleMouse>
 endif
+
+" movement by screen line instead of file line
+nnoremap j gj
+nnoremap k gk
+
+
+
+
+
 
 
 "--------------"
@@ -222,31 +241,28 @@ if has('gui_running')
     set lines=40               	" 40 lines of text instead of 24
 
     if has("autocmd")
-	" Automatically resize splits when resizing MacVim window
-    	autocmd VimResized * wincmd =
+        " Automatically resize splits when resizing MacVim window
+        autocmd VimResized * wincmd =
     endif
 
 
 else
-    set term=builtin_ansi       " Make arrow and other keys work
+    set term=ansi               " Make arrow and other keys work
+    imap OA <esc>ki
+    imap OB <esc>ji
+    imap OC <esc>li
+    imap OD <esc>hi
+    nmap OA k
+    nmap OB j
+    nmap OC l
+    nmap OD h
+
+    autocmd FileType * set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 endif
-
-
 
 " Set font according to system
-if has('mac')
-    set gfn=Inconsolata:h14
-    set shell=/bin/bash
-elseif has('win32') || has('win64')
-    set gfn=Consolas:h10
-else
-    set gfn=Monospace\ 10
-    set shell=/bin/bash
-endif
-
-
-
-
+set gfn=Inconsolata:h14
+set shell=/bin/bash
 
 
 

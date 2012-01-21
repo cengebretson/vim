@@ -1,6 +1,7 @@
 **Introduction**
 
 First a quick thanks to everyone who has posted their `.vimrc` files and vim setups online so wannabe vim users like me can learn and copy from :o). Some of the more helpful vim setups I have stumbled across include:
+
 	
 * Good ideas from Steve Francia's vim setup at [spf13-vim](https://github.com/spf13/spf13-vim)
 * Lots of tips and tricks from [Stackoverflow](http://stackoverflow.com/questions/tagged/vim?sort=votes&pagesize=50)
@@ -39,6 +40,7 @@ Vim feels like one of those tools that you could work with for years but still l
 * Tips from [www.zinkwazi.com](http://www.zinkwazi.com/unix/notes/vimtips.html)
 * Favorite vim tricks from [Stackoverflow](http://stackoverflow.com/questions/726894/what-are-the-dark-corners-of-vim-your-mom-never-told-you-about)
 * Great intro to vim at [Walking without Crutches](http://walking-without-crutches.heroku.com/)
+* Another good writeup on getting [started with Vim](http://stevelosh.com/blog/2010/09/coming-home-to-vim/)
 
 ----
 
