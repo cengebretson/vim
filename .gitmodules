@@ -10,9 +10,6 @@
 [submodule "bundle/groovy"]
 	path = bundle/groovy
 	url = https://github.com/mwaisgold/groovy-vim-files.git
-[submodule "bundle/snipmant"]
-	path = bundle/snipmant
-	url = https://github.com/msanders/snipmate.vim.git
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/vim-scripts/The-NERD-Commenter.git
