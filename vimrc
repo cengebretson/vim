@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.0              "
-" Last Changed: 01/20/2012 "
+" Version 1.1              "
+" Last Changed: 04/17/2012 "
 "--------------------------"
 
 
@@ -99,7 +99,7 @@ set nowrap                    " wrap long lines
 set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
 set autoindent                " indent at the same level of the previous line
 set shiftwidth=4              " use indents of 4 spaces
-set expandtab                 " tabs are spaces, not tabs
+set noexpandtab               " tabs are tabs, not spaces
 set tabstop=4                 " an indentation every four columns
 set softtabstop=4             " let backspace delete indent
 
@@ -108,9 +108,10 @@ autocmd FileType * autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$
 
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
+autocmd FileType * set noexpandtab
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 expandtab
 
 
 
@@ -131,10 +132,6 @@ map! jj <Esc>
 " standard regex during searches
 nnoremap / /\v
 vnoremap / /\v
-
-" easier to find matching characters
-nnoremap <tab> %
-vnoremap <tab> %
 
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
