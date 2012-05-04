@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.1              "
-" Last Changed: 04/17/2012 "
+" Version 1.2              "
+" Last Changed: 05/01/2012 "
 "--------------------------"
 
 
@@ -44,20 +44,19 @@ au BufNewFile,BufRead *.json set ft=javascript
 
 
 
-
-
-
 "----------"
 "  VIM UI  "
 "----------"
 
-color jellybeans               " load a colorscheme
+color mustang                  " load a colorscheme
 
 set showmode                   " display the current mode
 set showcmd                    " show incomplete cmds down the bottom
 
 set cursorline                 " highlight current line
-hi cursorline guibg=#333333    " highlight bg color of current line
+hi cursorline guibg=#333333
+set cursorcolumn
+hi cursorcolumn guibg=#262626
 
 set backspace=indent,eol,start " backspace settings
 set linespace=0                " No extra spaces between rows
@@ -129,10 +128,6 @@ map <leader>v :e $MYVIMRC<cr>
 " remap the esc key
 map! jj <Esc>
 
-" standard regex during searches
-nnoremap / /\v
-vnoremap / /\v
-
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
 
@@ -178,25 +173,21 @@ map <Leader>= <C-w>=
 " set text wrapping toggles
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
-" Some helpers to edit mode
-" http://vimcasts.org/e/14
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>vsp :ev %%
-map <leader>et :tabe %%    
-
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " clean up white space quickly
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>w :%s/(\w)\s\+$/\1/<cr>:let @/=''<CR>
 
 " remapping movement keys for split windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
 
 if has("gui_macvim")
 
@@ -244,20 +235,6 @@ if has('gui_running')
         " Automatically resize splits when resizing MacVim window
         autocmd VimResized * wincmd =
     endif
-
-
-else
-    set term=ansi               " Make arrow and other keys work
-    imap OA <esc>ki
-    imap OB <esc>ji
-    imap OC <esc>li
-    imap OD <esc>hi
-    nmap OA k
-    nmap OB j
-    nmap OC l
-    nmap OD h
-
-    autocmd FileType * set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 endif
 
 " Set font according to system
@@ -272,10 +249,10 @@ set shell=/bin/bash
 "---------"
 
 " solarized options {
-    let g:solarized_termtrans=1
-    let g:solarized_termcolors=256
-    let g:solarized_contrast="high"
-    let g:solarized_visibility="high"
+    let g:solarized_termtrans  = 1
+    let g:solarized_termcolors = 256
+    let g:solarized_contrast   = "high"
+    let g:solarized_visibility = "high"
 " }
 
 
@@ -287,22 +264,22 @@ set shell=/bin/bash
 " vim indent {
     set ts=4 sw=4 et
     let g:indent_guides_start_level = 2
-    let g:indent_guides_guide_size = 1
+    let g:indent_guides_guide_size  = 1
 " }
 
 
 " Tabularize {
     if exists(":Tabularize")
-        nmap <leader>a= :Tabularize /=<CR>
-        vmap <leader>a= :Tabularize /=<CR>
-        nmap <leader>a: :Tabularize /:<CR>
-        vmap <leader>a: :Tabularize /:<CR>
-        nmap <leader>a:: :Tabularize /:\zs<CR>
-        vmap <leader>a:: :Tabularize /:\zs<CR>
-        nmap <leader>a, :Tabularize /,<CR>
-        vmap <leader>a, :Tabularize /,<CR>
-        nmap <leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <leader>a<Bar> :Tabularize /<Bar><CR>
+        nmap <leader>t= :Tabularize /=<CR>
+        vmap <leader>t= :Tabularize /=<CR>
+        nmap <leader>t: :Tabularize /:<CR>
+        vmap <leader>t: :Tabularize /:<CR>
+        nmap <leader>t:: :Tabularize /:\zs<CR>
+        vmap <leader>t:: :Tabularize /:\zs<CR>
+        nmap <leader>t, :Tabularize /,<CR>
+        vmap <leader>t, :Tabularize /,<CR>
+        nmap <leader>t<Bar> :Tabularize /<Bar><CR>
+        vmap <leader>t<Bar> :Tabularize /<Bar><CR>
     endif
 " }
 
