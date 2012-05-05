@@ -10,15 +10,9 @@
 [submodule "bundle/groovy"]
 	path = bundle/groovy
 	url = https://github.com/mwaisgold/groovy-vim-files.git
-[submodule "bundle/nerdcommenter"]
-	path = bundle/nerdcommenter
-	url = https://github.com/vim-scripts/The-NERD-Commenter.git
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
-[submodule "bundle/indent-guides"]
-	path = bundle/indent-guides
-	url = git://github.com/nathanaelkane/vim-indent-guides.git
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://github.com/tpope/vim-surround.git
@@ -43,9 +37,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = git://github.com/majutsushi/tagbar
-[submodule "bundle/vim-space"]
-	path = bundle/vim-space
-	url = git://github.com/scrooloose/vim-space.git
 [submodule "bundle/closetag"]
 	path = bundle/closetag
 	url = git://github.com/docunext/closetag.vim.git
