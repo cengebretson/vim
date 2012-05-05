@@ -24,13 +24,12 @@
 
 set laststatus=2
 set statusline=
-set statusline+=%1*%-52F\ 
+set statusline+=%1*%-82F\ 
 set statusline+=%2*\ %{&ff=='unix'?'\\n':(&ff=='mac'?'\\r':'\\r\\n')}\ 
 set statusline+=%3*\ %{&fenc!=''?&fenc:&enc}\ 
 set statusline+=%1*\ %Y\ 
 set statusline+=%4*\ %04l/%03c\ 
 set statusline+=%2*\ 0x%04.4B\ 
-set statusline+=%1*\ %-16{SlSpace()}\ 
 set statusline+=%5*\ %-3m\ 
 
 
@@ -40,10 +39,3 @@ hi User3 guifg=#292b00  guibg=#f4f597 gui=italic
 hi User4 guifg=#051d00  guibg=#7dcc7d gui=italic
 hi User5 guifg=#002600  guibg=#67ab6e gui=italic
 
-function! SlSpace()
-	if exists("*GetSpaceMovement")
-		return "[" . GetSpaceMovement() . "]"
-	else
-		return ""
-	endif
-endfunc
