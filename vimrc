@@ -39,10 +39,6 @@ au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, e
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
-" Treat eco and jeco files as HTML file types
-au BufNewFile,BufRead *.eco set ft=html
-au BufNewFile,BufRead *.jeco set ft=html
-
 
 
 
