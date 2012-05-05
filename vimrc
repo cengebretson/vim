@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.2              "
-" Last Changed: 05/01/2012 "
+" Version 1.3              "
+" Last Changed: 05/04/2012 "
 "--------------------------"
 
 
@@ -39,6 +39,9 @@ au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, e
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
+" Treat eco and jeco files as HTML file types
+au BufNewFile,BufRead *.eco set ft=html
+au BufNewFile,BufRead *.jeco set ft=html
 
 
 
@@ -208,6 +211,9 @@ nnoremap k gk
 "---------------------"
 
 " make this into a plugin someday??
+" TODO: add some project type options, like spine would start in the app folder?
+" TODO: incorperate into some toggles such as ACK so that ack starts at the top
+" project and also knows the file type to pass in too
 
 " set default filename for local vimrc
 if !exists("g:ProjectRootFinder")
@@ -260,6 +266,14 @@ imap <silent> <F1> :set relativenumber!<CR>
 " Toggle normal line numbers
 nmap <silent> <F2> :set nu!<CR>
 imap <silent> <F2> :set nu!<CR>
+
+" Toggle Tagbar display
+nmap <silent> <F3> :TagbarToggle<CR>
+imap <silent> <F3> :TagbarToggle<CR>
+
+" Perform CoffeeCompile
+nmap <silent> <F5> :CoffeeCompile<CR>
+imap <silent> <F5> :CoffeeCompile<CR>
 
 
 
