@@ -102,9 +102,6 @@ set noexpandtab               " tabs are tabs, not spaces
 set tabstop=4                 " an indentation every four columns
 set softtabstop=4             " let backspace delete indent
 
-" Remove trailing whitespaces and ^M chars
-autocmd FileType * autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
 autocmd FileType * set noexpandtab
@@ -123,25 +120,13 @@ autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 ex
 let mapleader = ','
 
 " Fast editing of the .vimrc
-map <leader>v :e $MYVIMRC<cr>
+map <leader>vv :e $MYVIMRC<cr>
 
 " remap the esc key
-map! jj <Esc>
+imap ;; <Esc>
 
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
-
-" Toggle paste mode
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
-
-" Toggle relative line numbers
-nmap <silent> <F1> :set relativenumber!<CR>
-imap <silent> <F1> :set relativenumber!<CR>
-
-" Toggle normal line numbers
-nmap <silent> <F2> :set nu!<CR>
-imap <silent> <F2> :set nu!<CR>
 
 " upper/lower word
 nmap <leader>u mQviwU`Q
@@ -152,10 +137,13 @@ nmap <leader>U mQgewvU`Q
 nmap <leader>L mQgewvu`Q
 
 " cd to the directory containing the file in the buffer
-nmap <silent> <leader>cd :lcd %:h<CR>
+nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
+
+"insert one character
+noremap I i<Space><Esc>r
 
 " Underline aline with =
 nnoremap <leader>1 yypVr=
@@ -178,44 +166,100 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " clean up white space quickly
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>w :%s/(\w)\s\+$/\1/<cr>:let @/=''<CR>
+nnoremap <leader>w :%s/\(\w\)\s\+$/\1/<cr>:let @/=''<CR>
 
 " remapping movement keys for split windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <D-h> <C-w>h
+nnoremap <D-j> <C-w>j
+nnoremap <D-k> <C-w>k
+nnoremap <D-l> <C-w>l
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
-if has("gui_macvim")
+" Map command-[ and command-] to indenting or outdenting
+" while keeping the original selection in visual mode
+vmap <D-]> >gv
+vmap <D-[> <gv
 
-    " Map command-[ and command-] to indenting or outdenting
-    " while keeping the original selection in visual mode
-    vmap <D-]> >gv
-    vmap <D-[> <gv
+nmap <D-]> >>
+nmap <D-[> <<
 
-    nmap <D-]> >>
-    nmap <D-[> <<
+omap <D-]> >>
+omap <D-[> <<
 
-    omap <D-]> >>
-    omap <D-[> <<
+imap <D-]> <Esc>>>i
+imap <D-[> <Esc><<i
 
-    imap <D-]> <Esc>>>i
-    imap <D-[> <Esc><<i
-
-    " In MacVim, you can have multiple tabs open. This mapping makes
-    " ctrl-tab switch between them, like browser tabs.
-    noremap <c-tab> :tabnext<cr>
-
-endif
+" tab movement
+map <D-S-]> gt
+map <D-S-[> gT
 
 " movement by screen line instead of file line
 nnoremap j gj
 nnoremap k gk
 
+" easier mapping for black box register
+:map <leader>b "_
 
+
+"---------------------"
+" Project Root Finder "
+"---------------------"
+
+" make this into a plugin someday??
+
+" set default filename for local vimrc
+if !exists("g:ProjectRootFinder")
+    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
+endif
+
+" upwards search project file
+function! FindProjectRoot()
+    let currentdir = expand("%:p:h")
+    let cmd = 'cd '
+
+    for filename in g:ProjectRootFinder
+        let file = findfile(filename, expand("%:p:h") . ';')
+        if filereadable(file)
+            let b:ProjectRootPath = fnamemodify(file, ':p:h')
+            break
+        else
+            let dir = finddir(filename, expand("%:p:h") . ';')
+            if isdirectory(dir)
+                let b:ProjectRootPath = substitute(fnamemodify(dir, ':p:h'),"/".filename . "$","","")
+                break
+            endif
+        endif
+    endfor
+
+    if exists('b:ProjectRootPath') && stridx(currentdir, b:ProjectRootPath, 0) == 0
+        let cmd .= b:ProjectRootPath
+    else
+        let cmd .= currentdir
+    endif
+
+    execute cmd
+endfunction
+
+nmap <silent> <leader>cp :call FindProjectRoot()<CR>:pwd<CR>
+
+
+"---------------"
+" Function Keys "
+"---------------"
+
+" Toggle paste mode
+nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
+imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+
+" Toggle relative line numbers
+nmap <silent> <F1> :set relativenumber!<CR>
+imap <silent> <F1> :set relativenumber!<CR>
+
+" Toggle normal line numbers
+nmap <silent> <F2> :set nu!<CR>
+imap <silent> <F2> :set nu!<CR>
 
 
 
@@ -228,8 +272,8 @@ nnoremap k gk
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
 
-    set guioptions-=T          	" remove the toolbar
-    set lines=40               	" 40 lines of text instead of 24
+    set guioptions-=T           " remove the toolbar
+    set lines=40                " 40 lines of text instead of 24
 
     if has("autocmd")
         " Automatically resize splits when resizing MacVim window
@@ -261,25 +305,16 @@ set shell=/bin/bash
 " }
 
 
-" vim indent {
-    set ts=4 sw=4 et
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_guide_size  = 1
-" }
-
-
 " Tabularize {
-    if exists(":Tabularize")
-        nmap <leader>t= :Tabularize /=<CR>
-        vmap <leader>t= :Tabularize /=<CR>
-        nmap <leader>t: :Tabularize /:<CR>
-        vmap <leader>t: :Tabularize /:<CR>
-        nmap <leader>t:: :Tabularize /:\zs<CR>
-        vmap <leader>t:: :Tabularize /:\zs<CR>
-        nmap <leader>t, :Tabularize /,<CR>
-        vmap <leader>t, :Tabularize /,<CR>
-        nmap <leader>t<Bar> :Tabularize /<Bar><CR>
-        vmap <leader>t<Bar> :Tabularize /<Bar><CR>
-    endif
+    nmap <leader>t= :Tabularize /=<CR>
+    vmap <leader>t= :Tabularize /=<CR>
+    nmap <leader>t: :Tabularize /:<CR>
+    vmap <leader>t: :Tabularize /:<CR>
+    nmap <leader>t:: :Tabularize /:\zs<CR>
+    vmap <leader>t:: :Tabularize /:\zs<CR>
+    nmap <leader>t, :Tabularize /,<CR>
+    vmap <leader>t, :Tabularize /,<CR>
+    nmap <leader>t<Bar> :Tabularize /<Bar><CR>
+    vmap <leader>t<Bar> :Tabularize /<Bar><CR>
 " }
 
