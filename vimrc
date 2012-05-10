@@ -39,6 +39,11 @@ au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, e
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
+" Treat jeco same as eco
+au BufNewFile,BufRead *.jeco set ft=eco
+
+" Change to directory of file that is currently in the buffer
+autocmd BufEnter * silent! lcd %:p:h
 
 
 
@@ -122,7 +127,7 @@ let mapleader = ','
 map <leader>vv :e $MYVIMRC<cr>
 
 " remap the esc key
-imap ;; <Esc>
+imap jj <Esc>
 
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
@@ -167,11 +172,10 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>w :%s/\(\w\)\s\+$/\1/<cr>:let @/=''<CR>
 
-" remapping movement keys for split windows
-nnoremap <D-h> <C-w>h
-nnoremap <D-j> <C-w>j
-nnoremap <D-k> <C-w>k
-nnoremap <D-l> <C-w>l
+nnoremap <D-S-LEFT> <C-w>h
+nnoremap <D-S-DOWN> <C-w>j
+nnoremap <D-S-UP> <C-w>k
+nnoremap <D-S-RIGHT> <C-w>l
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
@@ -191,15 +195,34 @@ imap <D-]> <Esc>>>i
 imap <D-[> <Esc><<i
 
 " tab movement
-map <D-S-]> gt
-map <D-S-[> gT
+nmap <D-S-]> gt
+nmap <D-S-[> gT
+
+vmap <D-S-]> gt
+vmap <D-S-[> gT
+
+imap <D-S-]> <Esc>gt
+imap <D-S-[> <Esc>gT
+
 
 " movement by screen line instead of file line
 nnoremap j gj
 nnoremap k gk
 
 " easier mapping for black box register
-:map <leader>b "_
+nmap <leader>b "_
+
+" mapping to perform coffee compile on file or visual selection
+nmap <silent> <leader>cc :CoffeeCompile<CR>
+vmap <silent> <leader>cc :CoffeeCompile<CR>
+
+" mapping to setup ack with the current file type
+nmap <leader>aa :Ack --<c-r>=&filetype<cr><space>
+
+" mapping to reset the expandtab values for a file
+nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
+
+
 
 
 "---------------------"
@@ -244,7 +267,11 @@ function! FindProjectRoot()
     execute cmd
 endfunction
 
-nmap <silent> <leader>cp :call FindProjectRoot()<CR>:pwd<CR>
+" move to the project root folder
+nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
+nmap <silent> <leader>op :call FindProjectRoot()<CR>:tabnew .<CR>
+
+
 
 
 "---------------"
@@ -257,19 +284,15 @@ imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
 " Toggle relative line numbers
 nmap <silent> <F1> :set relativenumber!<CR>
-imap <silent> <F1> :set relativenumber!<CR>
+imap <silent> <F1> <ESC>:set relativenumber!<CR>
 
 " Toggle normal line numbers
 nmap <silent> <F2> :set nu!<CR>
-imap <silent> <F2> :set nu!<CR>
+imap <silent> <F2> <ESC>:set nu!<CR>
 
 " Toggle Tagbar display
 nmap <silent> <F3> :TagbarToggle<CR>
-imap <silent> <F3> :TagbarToggle<CR>
-
-" Perform CoffeeCompile
-nmap <silent> <F5> :CoffeeCompile<CR>
-imap <silent> <F5> :CoffeeCompile<CR>
+imap <silent> <F3> <ESC>:TagbarToggle<CR>
 
 
 
