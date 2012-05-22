@@ -269,6 +269,7 @@ endfunction
 
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
+nmap <silent> <leader>fpp :call FindProjectRoot()<CR>:tabnew<CR><leader>p
 nmap <silent> <leader>op :call FindProjectRoot()<CR>:tabnew .<CR>
 
 
