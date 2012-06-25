@@ -316,7 +316,7 @@ if has('gui_running')
 endif
 
 " Set font according to system
-set gfn=Inconsolata:h14
+set gfn="Panic Sans:h12"
 set shell=/bin/bash
 
 
