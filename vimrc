@@ -45,6 +45,9 @@ au BufNewFile,BufRead *.jeco set ft=eco
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
 
+" Remove trailing white space when saving
+autocmd BufWritePre * :%s/\s\+$//e
+
 
 
 
@@ -93,7 +96,6 @@ set clipboard=unnamed
 
 
 
-
 "------------"
 " Formatting "
 "------------"
@@ -120,6 +122,19 @@ autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 ex
 " Key (re)Mappings "
 "------------------"
 
+" These are to cancel the default behavior of d, D, c, C
+" to put the text they delete in the default register.
+" Note that this means e.g. "ad won't copy the text into
+" register a anymore.  You have to explicitly yank it.
+nnoremap d "_d
+vnoremap d "_d
+nnoremap D "_D
+vnoremap D "_D
+nnoremap c "_c
+vnoremap c "_c
+nnoremap C "_C
+vnoremap C "_C
+
 " The default leader is '\', but many people prefer ',' as it's in a standard location
 let mapleader = ','
 
@@ -140,8 +155,6 @@ nmap <leader>l mQviwu`Q
 nmap <leader>U mQgewvU`Q
 nmap <leader>L mQgewvu`Q
 
-" cd to the directory containing the file in the buffer
-nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
@@ -204,13 +217,9 @@ vmap <D-S-[> gT
 imap <D-S-]> <Esc>gt
 imap <D-S-[> <Esc>gT
 
-
 " movement by screen line instead of file line
 nnoremap j gj
 nnoremap k gk
-
-" easier mapping for black box register
-nmap <leader>b "_
 
 " mapping to perform coffee compile on file or visual selection
 nmap <silent> <leader>cc :CoffeeCompile<CR>
@@ -270,8 +279,11 @@ endfunction
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
 nmap <silent> <leader>fpp :call FindProjectRoot()<CR>:tabnew<CR><leader>p
-nmap <silent> <leader>op :call FindProjectRoot()<CR>:tabnew .<CR>
+nmap <silent> <leader>fpo :call FindProjectRoot()<CR>:tabnew .<CR>
+nmap <silent> <leader>fpa :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
 
+" cd to the directory containing the file in the buffer
+nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
 
 
 
@@ -284,8 +296,20 @@ nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
 " Toggle relative line numbers
-nmap <silent> <F1> :set relativenumber!<CR>
-imap <silent> <F1> <ESC>:set relativenumber!<CR>
+nmap <silent> <F1> :call NumberToggle()<cr>
+imap <silent> <F1> <ESC>:call NumberToggle()<cr>
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+" Automatically go to relative number when using insert mode
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
 
 " Toggle normal line numbers
 nmap <silent> <F2> :set nu!<CR>
@@ -294,7 +318,6 @@ imap <silent> <F2> <ESC>:set nu!<CR>
 " Toggle Tagbar display
 nmap <silent> <F3> :TagbarToggle<CR>
 imap <silent> <F3> <ESC>:TagbarToggle<CR>
-
 
 
 
