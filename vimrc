@@ -32,15 +32,12 @@ set nobackup
 set nowb
 set noswapfile
 
-" Handle window view state
-au BufWinLeave * silent! mkview   " make vim save view (state) (folds, cursor, etc)
-au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, etc)
-
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
-" Treat eco same as jeco
-au BufNewFile,BufRead *.jeco set ft=eco
+" Treat eco/jeco same as html (for some plugins to work)
+au BufNewFile,BufRead *.jeco set ft=html
+au BufNewFile,BufRead *.eco set ft=html
 
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
