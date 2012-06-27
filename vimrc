@@ -229,6 +229,10 @@ vmap <silent> <leader>cc :CoffeeCompile<CR>
 " mapping to setup ack with the current file type
 nmap <leader>aa :Ack --<c-r>=&filetype<cr><space>
 
+" Additional Ack shortcuts for using project root and current directory
+nmap <leader>afp :lcd %:h<CR>:pwd<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <leader>acd :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
 
@@ -279,12 +283,12 @@ endfunction
 
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
-nmap <silent> <leader>fpp :call FindProjectRoot()<CR>:tabnew<CR><leader>p
-nmap <silent> <leader>fpo :call FindProjectRoot()<CR>:tabnew .<CR>
-nmap <silent> <leader>fpa :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <silent> <leader>fpp :call FindProjectRoot()<CR><leader>p
+nmap <silent> <leader>fpo :call FindProjectRoot()<CR>:vsplit .<CR>
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
+
 
 
 
@@ -338,6 +342,12 @@ if has('gui_running')
         autocmd VimResized * wincmd =
     endif
 endif
+
+" Open files selected with PeepOpen in new tab
+if has("gui_macvim")
+  macmenu &File.New\ Tab key=
+  map PeepOpen
+end
 
 " Set font according to system
 set gfn="Panic Sans:h12"
