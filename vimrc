@@ -39,14 +39,15 @@ au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, e
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
-" Treat jeco same as eco
-au BufNewFile,BufRead *.jeco set ft=eco
+" Treat eco/jeco same as html
+au BufNewFile,BufRead *.jeco set ft=html
+au BufNewFile,BufRead *.eco set ft=html
 
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
 
 " Remove trailing white space when saving
-autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
 
 
 
@@ -183,7 +184,7 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " clean up white space quickly
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>w :%s/\(\w\)\s\+$/\1/<cr>:let @/=''<CR>
+nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 
 nnoremap <D-S-LEFT> <C-w>h
 nnoremap <D-S-DOWN> <C-w>j
