@@ -342,14 +342,9 @@ if has('gui_running')
     endif
 endif
 
-" Open files selected with PeepOpen in new tab
-if has("gui_macvim")
-  macmenu &File.New\ Tab key=
-  map PeepOpen
-end
 
 " Set font according to system
-set gfn="Panic Sans:h12"
+set gfn=Panic\ Sans:h12
 set shell=/bin/bash
 
 
