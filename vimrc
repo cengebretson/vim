@@ -39,9 +39,8 @@ au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, e
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
-" Treat eco/jeco same as html
-au BufNewFile,BufRead *.jeco set ft=html
-au BufNewFile,BufRead *.eco set ft=html
+" Treat eco same as jeco
+au BufNewFile,BufRead *.jeco set ft=eco
 
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
@@ -385,4 +384,27 @@ set shell=/bin/bash
     nmap <leader>t<Bar> :Tabularize /<Bar><CR>
     vmap <leader>t<Bar> :Tabularize /<Bar><CR>
 " }
+
+" Enabling Zencoding
+let g:user_zen_settings = {
+  \  'php' : {
+  \    'extends' : 'html',
+  \    'filters' : 'c',
+  \  },
+  \  'xml' : {
+  \    'extends' : 'html',
+  \  },
+  \  'haml' : {
+  \    'extends' : 'html',
+  \  },
+  \  'erb' : {
+  \    'extends' : 'html',
+  \  },
+  \  'eco' : {
+  \    'extends' : 'html',
+  \  },
+  \  'jeco' : {
+  \    'extends' : 'html',
+  \  },
+ \}
 
