@@ -132,7 +132,8 @@ vnoremap C "_C
 let mapleader = ','
 
 " Fast editing of the .vimrc
-map <leader>vv :e $MYVIMRC<cr>
+map <leader>ve :e $MYVIMRC<cr>
+map <leader>vs :so $MYVIMRC<cr>
 
 " remap the esc key
 imap jj <Esc>
