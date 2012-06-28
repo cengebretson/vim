@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.3              "
-" Last Changed: 05/04/2012 "
+" Version 1.4              "
+" Last Changed: 06/27/2012 "
 "--------------------------"
 
 
@@ -27,17 +27,13 @@ set history=1000           " Store a ton of history (default is 20)
 " better unix / windows compatibility
 set viewoptions=folds,options,cursor,unix,slash
 
-" Turn backup off, since most stuff is in SVN, git anyway...
+" Turn backup off, since most stuff is in svn/git anyway...
 set nobackup
 set nowb
 set noswapfile
 
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
-
-" Treat eco/jeco same as html (for some plugins to work)
-au BufNewFile,BufRead *.jeco set ft=html
-au BufNewFile,BufRead *.eco set ft=html
 
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
