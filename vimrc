@@ -52,7 +52,7 @@ autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
 "  VIM UI  "
 "----------"
 
-color mustang                  " load a colorscheme
+color jellybeans               " load a colorscheme
 
 set showmode                   " display the current mode
 set showcmd                    " show incomplete cmds down the bottom
