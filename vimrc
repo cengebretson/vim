@@ -222,15 +222,11 @@ vmap <silent> <leader>cc :CoffeeCompile<CR>
 " mapping to setup ack with the current file type
 nmap <leader>aa :Ack --<c-r>=&filetype<cr><space>
 
-" Additional Ack shortcuts for using project root and current directory
-nmap <leader>afp :lcd %:h<CR>:pwd<CR>:Ack --<c-r>=&filetype<cr><space>
-nmap <leader>acd :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
 
-
-
+" open up the current/project directory in finder
+nmap <silent> <leader>o :! open .<cr><cr>
 
 "---------------------"
 " Project Root Finder "
