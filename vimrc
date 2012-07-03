@@ -127,6 +127,10 @@ nnoremap c "_c
 vnoremap c "_c
 nnoremap C "_C
 vnoremap C "_C
+nnoremap x "_x
+vnoremap x "_x
+nnoremap X "_X
+vnoremap X "_X
 
 " The default leader is '\', but many people prefer ',' as it's in a standard location
 let mapleader = ','
