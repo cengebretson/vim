@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.4              "
-" Last Changed: 06/27/2012 "
+" Version 1.5              "
+" Last Changed: 07/3/2012 "
 "--------------------------"
 
 
@@ -111,6 +111,8 @@ autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 ex
 
 
 
+
+
 "------------------"
 " Key (re)Mappings "
 "------------------"
@@ -152,7 +154,6 @@ nmap <leader>l mQviwu`Q
 " upper/lower first char of word
 nmap <leader>U mQgewvU`Q
 nmap <leader>L mQgewvu`Q
-
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
@@ -283,6 +284,8 @@ imap <silent> <F3> <ESC>:TagbarToggle<CR>
 
 
 
+
+
 "--------------"
 " GUI Settings "
 "--------------"
@@ -298,7 +301,6 @@ if has('gui_running')
         autocmd VimResized * wincmd =
     endif
 endif
-
 
 " Set font according to system
 set gfn=Panic\ Sans:h12
