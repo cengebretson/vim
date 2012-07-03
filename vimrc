@@ -239,6 +239,7 @@ nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
 " move to the project root folder and open finder
 nmap <silent> <leader>fpo :call FindProjectRoot()<CR><leader>o
 
+" move to the project root folder and call Ack
 nmap <leader>fpa :call FindProjectRoot()<CR><leader>a
 
 " remap peepopen to first try to find the project root
@@ -252,6 +253,10 @@ nmap <D-j> [e
 nmap <D-K> ]e
 vmap <D-j> [egv
 vmap <D-k> ]egv
+
+" shortcut for reformatting
+nmap <silent> <leader>gg :gg=G
+vmap <silent> <leader>gg :gg=G
 
 
 
