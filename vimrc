@@ -224,7 +224,7 @@ nmap <silent> <leader>cc :CoffeeCompile<CR>
 vmap <silent> <leader>cc :CoffeeCompile<CR>
 
 " mapping to setup ack with the current file type
-nmap <leader>aa :Ack --<c-r>=&filetype<cr><space>
+nmap <leader>a :Ack --<c-r>=&filetype<cr><space>
 
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
@@ -232,55 +232,26 @@ nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
 " open up the current/project directory in finder
 nmap <silent> <leader>o :! open .<cr><cr>
 
-"---------------------"
-" Project Root Finder "
-"---------------------"
-
-" make this into a plugin someday??
-" TODO: add some project type options, like spine would start in the app folder?
-" TODO: incorperate into some toggles such as ACK so that ack starts at the top
-" project and also knows the file type to pass in too
-
-" set default filename for local vimrc
-if !exists("g:ProjectRootFinder")
-    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
-endif
-
-" upwards search project file
-function! FindProjectRoot()
-    let currentdir = expand("%:p:h")
-    let cmd = 'cd '
-
-    for filename in g:ProjectRootFinder
-        let file = findfile(filename, expand("%:p:h") . ';')
-        if filereadable(file)
-            let b:ProjectRootPath = fnamemodify(file, ':p:h')
-            break
-        else
-            let dir = finddir(filename, expand("%:p:h") . ';')
-            if isdirectory(dir)
-                let b:ProjectRootPath = substitute(fnamemodify(dir, ':p:h'),"/".filename . "$","","")
-                break
-            endif
-        endif
-    endfor
-
-    if exists('b:ProjectRootPath') && stridx(currentdir, b:ProjectRootPath, 0) == 0
-        let cmd .= b:ProjectRootPath
-    else
-        let cmd .= currentdir
-    endif
-
-    execute cmd
-endfunction
-
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
-nmap <silent> <leader>fpp :call FindProjectRoot()<CR><leader>p
-nmap <silent> <leader>fpo :call FindProjectRoot()<CR>:vsplit .<CR>
+
+" move to the project root folder and open finder
+nmap <silent> <leader>fpo :call FindProjectRoot()<CR><leader>o
+
+nmap <leader>fpa :call FindProjectRoot()<CR><leader>a
+
+" remap peepopen to first try to find the project root
+nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
+
+" Bubble single and multiple lines (uses vim-unimpaired plugin).
+nmap <D-j> [e
+nmap <D-K> ]e
+vmap <D-j> [egv
+vmap <D-k> ]egv
+
 
 
 
@@ -296,14 +267,6 @@ imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 " Toggle relative line numbers
 nmap <silent> <F1> :call NumberToggle()<cr>
 imap <silent> <F1> <ESC>:call NumberToggle()<cr>
-
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
 
 " Automatically go to relative number when using insert mode
 autocmd InsertEnter * :set number
@@ -340,6 +303,68 @@ endif
 " Set font according to system
 set gfn=Panic\ Sans:h12
 set shell=/bin/bash
+
+
+
+
+
+
+"-------------"
+" Functions   "
+"-------------"
+
+" set default filename for local vimrc
+if !exists("g:ProjectRootFinder")
+    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
+endif
+
+" upwards search project file
+function! FindProjectRoot()
+    let currentdir = expand("%:p:h")
+    let cmd = 'cd '
+
+    for filename in g:ProjectRootFinder
+        let file = findfile(filename, expand("%:p:h") . ';')
+        if filereadable(file)
+            let b:ProjectRootPath = fnamemodify(file, ':p:h')
+            break
+        else
+            let dir = finddir(filename, expand("%:p:h") . ';')
+            if isdirectory(dir)
+                let b:ProjectRootPath = substitute(fnamemodify(dir, ':p:h'),"/".filename . "$","","")
+                break
+            endif
+        endif
+    endfor
+
+    if exists('b:ProjectRootPath') && stridx(currentdir, b:ProjectRootPath, 0) == 0
+        let cmd .= b:ProjectRootPath
+    else
+        let cmd .= currentdir
+    endif
+
+    execute cmd
+endfunction
+
+" If the file .vimrc exists in the root of a git project - load it
+function! LoadLocalVimrc()
+	" first jump to project root if it exists
+
+	" check for local lvimrc file
+	let l:configFile = l:root . '/.lvimrc'
+	if filereadable(l:configFile)
+		exec ":source " . l:configFile
+	endif
+endfunction
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
 
 
 
