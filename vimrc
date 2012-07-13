@@ -429,3 +429,40 @@ let g:user_zen_settings = {
             \  },
             \}
 
+
+"Grails testing, from http://www.objectpartners.com/2012/02/28/using-vim-as-your-grails-ide-part-2/
+"TODO: setup osascript to run tests in terminal, reuse the one found in
+"project.sh
+map <S-F9> <Esc>:w<CR>:call RunSingleGrailsTest()<CR>
+map <F9> <Esc>:w<CR>:call RunGrailsTestFile()<CR>
+map <D-F9> :call RunLastCommandInTerminal()<CR>
+command! TestResults :call TestResults()
+
+function! RunSingleGrailsTest()
+    :call FindProjectRoot()
+    let testName = expand("%:t:r.") . "." . expand("<cword>")
+    :call RunGrailsTest(testName)
+endfunction
+
+function! RunGrailsTestFile()
+    :call FindProjectRoot()
+    let testName = expand("%:t:r")
+    :call RunGrailsTest(testName)
+endfunction
+
+function! RunGrailsTest(testName)
+    let path = expand("%:r")
+    if path =~ "integration"
+        let flag = "--integration"
+    elseif path =~ "functional"
+        let flag = "functional:"
+    else
+        let flag = "--unit"
+    endif
+    execute ":!grails --plain-output test-app " . flag . " " . a:testName
+endfunction
+
+function! TestResults()
+    silent execute ":!open target/test-reports/html/index.html"
+endfunction
+
