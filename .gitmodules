@@ -7,9 +7,6 @@
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/edsono/vim-matchit.git
-[submodule "bundle/groovy"]
-	path = bundle/groovy
-	url = https://github.com/mwaisgold/groovy-vim-files.git
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
