@@ -171,8 +171,8 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
 
-" Adjust viewports to the same size
-map <Leader>= <C-w>=
+" Command to call formatting on the entire file
+nmap <Leader>= gg=G
 
 " set text wrapping toggles
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
@@ -254,9 +254,8 @@ nmap <D-K> ]e
 vmap <D-j> [egv
 vmap <D-k> ]egv
 
-" shortcut for reformatting
-nmap <silent> <leader>gg :gg=G
-vmap <silent> <leader>gg :gg=G
+" mapping for loading local .lvimrc file
+nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 
 
 
@@ -355,21 +354,22 @@ endfunction
 
 " If the file .vimrc exists in the root of a git project - load it
 function! LoadLocalVimrc()
-	" first jump to project root if it exists
+    " first jump to project root if it exists
+    call FindProjectRoot()
 
-	" check for local lvimrc file
-	let l:configFile = l:root . '/.lvimrc'
-	if filereadable(l:configFile)
-		exec ":source " . l:configFile
-	endif
+    " check for local lvimrc file
+    let l:configFile = '.lvimrc'
+    if filereadable(l:configFile)
+        exec ":source " . l:configFile
+    endif
 endfunction
 
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
+    if(&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
 endfunc
 
 
@@ -408,24 +408,24 @@ endfunc
 
 " Enabling Zencoding
 let g:user_zen_settings = {
-  \  'php' : {
-  \    'extends' : 'html',
-  \    'filters' : 'c',
-  \  },
-  \  'xml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'haml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'erb' : {
-  \    'extends' : 'html',
-  \  },
-  \  'eco' : {
-  \    'extends' : 'html',
-  \  },
-  \  'jeco' : {
-  \    'extends' : 'html',
-  \  },
- \}
+            \  'php' : {
+            \    'extends' : 'html',
+            \    'filters' : 'c',
+            \  },
+            \  'xml' : {
+            \    'extends' : 'html',
+            \  },
+            \  'haml' : {
+            \    'extends' : 'html',
+            \  },
+            \  'erb' : {
+            \    'extends' : 'html',
+            \  },
+            \  'eco' : {
+            \    'extends' : 'html',
+            \  },
+            \  'jeco' : {
+            \    'extends' : 'html',
+            \  },
+            \}
 
