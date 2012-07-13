@@ -225,7 +225,7 @@ nmap <silent> <leader>cc :CoffeeCompile<CR>
 vmap <silent> <leader>cc :CoffeeCompile<CR>
 
 " mapping to setup ack with the current file type
-nmap <leader>a :Ack --<c-r>=&filetype<cr><space>
+nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
 
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
