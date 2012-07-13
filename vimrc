@@ -257,6 +257,9 @@ vmap <D-k> ]egv
 " mapping for loading local .lvimrc file
 nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 
+" mapping to convert a split to a tab
+nmap <leader>to <C-W><S-T>
+
 
 
 
