@@ -218,6 +218,9 @@ imap <D-S-[> <Esc>gT
 nnoremap j gj
 nnoremap k gk
 
+" Insert just a single character
+nmap <leader>i i<space><esc>hr
+
 " mapping to perform coffee compile on file or visual selection
 nmap <silent> <leader>cc :CoffeeCompile<CR>
 vmap <silent> <leader>cc :CoffeeCompile<CR>
