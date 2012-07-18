@@ -159,7 +159,7 @@ nmap <leader>L mQgewvu`Q
 nnoremap Y y$
 
 "insert one character
-noremap I i<Space><Esc>r
+noremap z i<Space><Esc>r
 
 " Underline aline with =
 nnoremap <leader>1 yypVr=
