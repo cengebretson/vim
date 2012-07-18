@@ -158,9 +158,6 @@ nmap <leader>L mQgewvu`Q
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
-"insert one character
-noremap z i<Space><Esc>r
-
 " Underline aline with =
 nnoremap <leader>1 yypVr=
 
