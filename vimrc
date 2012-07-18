@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.6              "
-" Last Changed: 07/16/2012 "
+" Version 1.7              "
+" Last Changed: 07/18/2012 "
 "--------------------------"
 
 
@@ -262,7 +262,11 @@ nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 nmap <leader>to <C-W><S-T>
 
 " Insert newline
-map <leader><Enter> O<ESC>
+map <leader><Enter> O<ESC>k
+
+" remapping ESC to be a toggle for insert/normal mode
+nnoremap <Esc> i
+inoremap <Esc> <Esc>l
 
 
 
