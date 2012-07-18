@@ -1,6 +1,6 @@
 "--------------------------"
-" Version 1.5              "
-" Last Changed: 07/3/2012 "
+" Version 1.6              "
+" Last Changed: 07/16/2012 "
 "--------------------------"
 
 
@@ -184,6 +184,7 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 
+" move around split windows
 nnoremap <D-S-LEFT> <C-w>h
 nnoremap <D-S-DOWN> <C-w>j
 nnoremap <D-S-UP> <C-w>k
@@ -260,6 +261,8 @@ nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 " mapping to convert a split to a tab
 nmap <leader>to <C-W><S-T>
 
+" Insert newline
+map <leader><Enter> O<ESC>
 
 
 
