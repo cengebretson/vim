@@ -205,14 +205,14 @@ imap <D-]> <Esc>>>i
 imap <D-[> <Esc><<i
 
 " tab movement
-nmap <D-S-]> gt
-nmap <D-S-[> gT
+nmap <D-LEFT> gT
+nmap <D-RIGHT> gt
 
-vmap <D-S-]> gt
-vmap <D-S-[> gT
+imap <D-LEFT> <ESC>gT
+imap <D-RIGHT> <ESC>gt
 
-imap <D-S-]> <Esc>gt
-imap <D-S-[> <Esc>gT
+vmap <D-LEFT> gT
+vmap <D-RIGHT> gt
 
 " movement by screen line instead of file line
 nnoremap j gj
