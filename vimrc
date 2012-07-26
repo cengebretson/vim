@@ -1,8 +1,19 @@
 "--------------------------"
-" Version 1.7              "
-" Last Changed: 07/18/2012 "
+" Version 1.9              "
+" Last Changed: 07/26/2012 "
 "--------------------------"
 
+" TODO:
+" 1) for some reason the command-arrow isn't working on first load for tab
+" movement
+" 2) ability to load local .lvimrc file
+" 3) fix grails/groovy ctags -> also ctags for css and stylus
+" 4) fix calling groovy tests, look for grails instance already running? also
+" open new file in vertical split?? Also don't use default folding level
+" 5) quick database reload, function to dump and reload databases, probably
+" use segway script
+" 6) docuement interesting vim commands like * for quick searches and CTRL-A/X
+" to increment/decrement numbers
 
 "------------------"
 " General Settings "
