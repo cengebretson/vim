@@ -52,3 +52,9 @@
 [submodule "bundle/grails-vim"]
 	path = bundle/grails-vim
 	url = https://github.com/cengebretson/grails-vim.git
+[submodule "bundle/vim_search_objects"]
+	path = bundle/vim_search_objects
+	url = https://github.com/Raimondi/vim_search_objects.git
+[submodule "bundle/vim_indent_object"]
+	path = bundle/vim_indent_object
+	url = https://github.com/michaeljsmith/vim-indent-object.git
