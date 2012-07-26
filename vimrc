@@ -251,10 +251,10 @@ nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
 
 " Bubble single and multiple lines (uses vim-unimpaired plugin).
-nmap <D-j> [e
-nmap <D-k> ]e
-vmap <D-j> [egv
-vmap <D-k> ]egv
+nmap <D-M-Up> [e
+nmap <D-M-Down> ]e
+vmap <D-M-Up> [egv
+vmap <D-M-Down> ]egv
 
 " mapping for loading local .lvimrc file
 nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
