@@ -4,16 +4,15 @@
 "--------------------------"
 
 " TODO:
-" 1) for some reason the command-arrow isn't working on first load for tab
-" movement
-" 2) ability to load local .lvimrc file
-" 3) fix grails/groovy ctags -> also ctags for css and stylus
-" 4) fix calling groovy tests, look for grails instance already running? also
+" 1) ability to load local .lvimrc file
+" 2) fix grails/groovy ctags -> also ctags for css and stylus
+" 3) fix calling groovy tests, look for grails instance already running? also
 " open new file in vertical split?? Also don't use default folding level
-" 5) quick database reload, function to dump and reload databases, probably
-" use segway script
-" 6) docuement interesting vim commands like * for quick searches and CTRL-A/X
+" 4) docuement interesting vim commands like * for quick searches and CTRL-A/X
 " to increment/decrement numbers
+" 5) auto compile coffee? autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
+" 6) eventually have command to run jasmine tests from command line, borrow
+" from https://github.com/claco/jasmine.vim
 
 "------------------"
 " General Settings "
