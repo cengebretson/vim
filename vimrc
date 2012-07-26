@@ -232,8 +232,8 @@ nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
 
-" open up the current/project directory in finder
-nmap <silent> <leader>o :! open .<cr><cr>
+" open up the current file's directory in finder
+nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
 
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
