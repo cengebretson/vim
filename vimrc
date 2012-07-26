@@ -192,11 +192,18 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 
-" move around split windows
-nnoremap <D-S-LEFT> <C-w>h
-nnoremap <D-S-DOWN> <C-w>j
-nnoremap <D-S-UP> <C-w>k
-nnoremap <D-S-RIGHT> <C-w>l
+" replace selected text
+vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
+
+" Command-Option-ArrowKey to switch viewports
+map <D-S-Up>    <C-w>k
+map <D-S-Down>  <C-w>j
+map <D-S-Right> <C-w>l
+map <D-S-Left>  <C-w>h
+imap <D-S-Up>    <Esc> <C-w>k
+imap <D-S-Down>  <Esc> <C-w>j
+imap <D-S-Right> <Esc> <C-w>l
+imap <D-S-Left>  <Esc> <C-w>h
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
