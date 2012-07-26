@@ -58,3 +58,6 @@
 [submodule "bundle/vim_indent_object"]
 	path = bundle/vim_indent_object
 	url = https://github.com/michaeljsmith/vim-indent-object.git
+[submodule "bundle/camel_case_motion"]
+	path = bundle/camel_case_motion
+	url = https://github.com/bkad/CamelCaseMotion.git
