@@ -194,16 +194,6 @@ nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 " replace selected text
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
 
-" Command-Option-ArrowKey to switch viewports
-map <D-S-Up>    <C-w>k
-map <D-S-Down>  <C-w>j
-map <D-S-Right> <C-w>l
-map <D-S-Left>  <C-w>h
-imap <D-S-Up>    <Esc> <C-w>k
-imap <D-S-Down>  <Esc> <C-w>j
-imap <D-S-Right> <Esc> <C-w>l
-imap <D-S-Left>  <Esc> <C-w>h
-
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
@@ -255,12 +245,6 @@ nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
-
-" Bubble single and multiple lines (uses vim-unimpaired plugin).
-nmap <D-M-Up> [e
-nmap <D-M-Down> ]e
-vmap <D-M-Up> [egv
-vmap <D-M-Down> ]egv
 
 " mapping for loading local .lvimrc file
 nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
@@ -321,6 +305,25 @@ if has('gui_running')
         " Automatically resize splits when resizing MacVim window
         autocmd VimResized * wincmd =
     endif
+
+    " Command-Option-ArrowKey to switch viewports
+    map <D-S-Up>    <C-w>k
+    map <D-S-Down>  <C-w>j
+    map <D-S-Right> <C-w>l
+    map <D-S-Left>  <C-w>h
+    imap <D-S-Up>    <Esc> <C-w>k
+    imap <D-S-Down>  <Esc> <C-w>j
+    imap <D-S-Right> <Esc> <C-w>l
+    imap <D-S-Left>  <Esc> <C-w>h
+
+    " Bubble single and multiple lines (uses vim-unimpaired plugin).
+    nmap <D-M-Down> ]e
+    nmap <D-M-Up> [e
+    vmap <D-M-Down> ]egv
+    vmap <D-M-Up> [egv
+    imap <D-M-Down> <ESC>]e
+    imap <D-M-Up> <ESC>[e
+
 endif
 
 " Set font according to system
