@@ -1,18 +1,7 @@
+" Version 1.9.1            "
 "--------------------------"
-" Version 1.9              "
-" Last Changed: 07/26/2012 "
+" Last Changed: 08/06/2012 "
 "--------------------------"
-
-" TODO:
-" 1) ability to load local .lvimrc file
-" 2) fix grails/groovy ctags -> also ctags for css and stylus
-" 3) fix calling groovy tests, look for grails instance already running? also
-" open new file in vertical split?? Also don't use default folding level
-" 4) docuement interesting vim commands like * for quick searches and CTRL-A/X
-" to increment/decrement numbers
-" 5) auto compile coffee? autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
-" 6) eventually have command to run jasmine tests from command line, borrow
-" from https://github.com/claco/jasmine.vim
 
 "------------------"
 " General Settings "
@@ -113,7 +102,6 @@ set softtabstop=4             " let backspace delete indent
 
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
-autocmd FileType * set noexpandtab
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 expandtab
@@ -227,6 +215,10 @@ nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
 
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
+
+" mapping to use a different tab setting more suitable for other languages
+nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2 expandtab<CR>:retab!<cr>
+nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab<CR>:retab!<cr>
 
 " open up the current file's directory in finder
 nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
@@ -406,7 +398,6 @@ endfunc
     let g:solarized_contrast   = "high"
     let g:solarized_visibility = "high"
 " }
-
 
 " Supertab {
     let g:SuperTabDefaultCompletionType = "context"
