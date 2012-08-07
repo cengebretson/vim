@@ -78,9 +78,6 @@ set scrolloff=3                " minimum lines to keep above and below cursor
 set list                       " Highlight problematic whitespace
 set listchars=tab:» ,trail:.,extends:#,nbsp:.
 
-" Autocommand to reload the status vim plugin for color changes
-autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
-
 " use system clipboard for copy/paste
 set clipboard=unnamed
 
@@ -100,13 +97,27 @@ set noexpandtab               " tabs are tabs, not spaces
 set tabstop=4                 " an indentation every four columns
 set softtabstop=4             " let backspace delete indent
 
+
+
+
+
+"------------------"
+" Auto Commands    "
+"------------------"
+
+
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 expandtab
 
+" Automatically go to relative number when using insert mode
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
 
+" Autocommand to reload the status vim plugin for color changes
+autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
 
 
 
@@ -266,10 +277,6 @@ imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 nmap <silent> <F1> :call NumberToggle()<cr>
 imap <silent> <F1> <ESC>:call NumberToggle()<cr>
 
-" Automatically go to relative number when using insert mode
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
-
 " Toggle normal line numbers
 nmap <silent> <F2> :set nu!<CR>
 imap <silent> <F2> <ESC>:set nu!<CR>
@@ -414,7 +421,6 @@ endfunc
     let g:SuperTabDefaultCompletionType = "context"
 " }
 
-
 " Tabularize {
     nmap <leader>t= :Tabularize /=<CR>
     vmap <leader>t= :Tabularize /=<CR>
@@ -426,17 +432,6 @@ endfunc
     vmap <leader>t, :Tabularize /,<CR>
     nmap <leader>t<Bar> :Tabularize /<Bar><CR>
     vmap <leader>t<Bar> :Tabularize /<Bar><CR>
-" }
-
-" Browser Reloading {
-    nmap <silent> <D-r> :w<CR>:RRB<CR>
-    imap <silent> <D-r> <ESC>:w<CR>:RRB<CR>i
-    vmap <silent> <D-r> :w<CR>:RRB<CR>
-
-    " TODO: create version based on shift command r that will give focus to
-    " the browser, probably create our own plugin in and throw in a little
-    " livereload magic as well
-
 " }
 
 " Enabling Zencoding
