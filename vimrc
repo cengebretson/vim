@@ -278,6 +278,17 @@ imap <silent> <F2> <ESC>:set nu!<CR>
 nmap <silent> <F3> :TagbarToggle<CR>
 imap <silent> <F3> <ESC>:TagbarToggle<CR>
 
+" Write file and Refresh browser and return focus to vim
+nmap <silent> <F5> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 1<CR>:RRB<CR>
+imap <silent> <F5> <ESC>:w<CR>:let g:RefreshRunningBrowserReturnFocus = 1<CR>:RRB<CR>i
+vmap <silent> <F5> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 1<CR>:RRB<CR>
+
+" Write file Refresh browser and retain focus on browser
+nmap <silent> <F6> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 0<CR>:RRB<CR>
+imap <silent> <F6> <ESC>:w<CR>:let g:RefreshRunningBrowserReturnFocus = 0<CR>:RRB<CR>i
+vmap <silent> <F6> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 0<CR>:RRB<CR>
+
+
 
 
 
