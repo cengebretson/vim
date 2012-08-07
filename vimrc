@@ -417,6 +417,17 @@ endfunc
     vmap <leader>t<Bar> :Tabularize /<Bar><CR>
 " }
 
+" Browser Reloading {
+    nmap <silent> <D-r> :w<CR>:RRB<CR>
+    imap <silent> <D-r> <ESC>:w<CR>:RRB<CR>i
+    vmap <silent> <D-r> :w<CR>:RRB<CR>
+
+    " TODO: create version based on shift command r that will give focus to
+    " the browser, probably create our own plugin in and throw in a little
+    " livereload magic as well
+
+" }
+
 " Enabling Zencoding
 let g:user_zen_settings = {
             \  'php' : {
