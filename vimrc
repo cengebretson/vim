@@ -269,10 +269,6 @@ inoremap <Esc> <Esc>l
 " Function Keys "
 "---------------"
 
-" Toggle paste mode
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
-
 " Toggle relative line numbers
 nmap <silent> <F1> :call NumberToggle()<cr>
 imap <silent> <F1> <ESC>:call NumberToggle()<cr>
@@ -285,17 +281,14 @@ imap <silent> <F2> <ESC>:set nu!<CR>
 nmap <silent> <F3> :TagbarToggle<CR>
 imap <silent> <F3> <ESC>:TagbarToggle<CR>
 
+" Toggle paste mode
+nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
+imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+
 " Write file and Refresh browser and return focus to vim
-nmap <silent> <F5> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 1<CR>:RRB<CR>
-imap <silent> <F5> <ESC>:w<CR>:let g:RefreshRunningBrowserReturnFocus = 1<CR>:RRB<CR>i
-vmap <silent> <F5> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 1<CR>:RRB<CR>
-
-" Write file Refresh browser and retain focus on browser
-nmap <silent> <F6> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 0<CR>:RRB<CR>
-imap <silent> <F6> <ESC>:w<CR>:let g:RefreshRunningBrowserReturnFocus = 0<CR>:RRB<CR>i
-vmap <silent> <F6> :w<CR>:let g:RefreshRunningBrowserReturnFocus = 0<CR>:RRB<CR>
-
-
+nmap <silent> <F5> :call RefreshToggle()<cr>
+imap <silent> <F5> <ESC>:w<CR>:call RefreshToggle()<CR>i
+vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 
 
 
@@ -333,6 +326,11 @@ if has('gui_running')
     vmap <D-M-Up> [egv
     imap <D-M-Down> <ESC>]e
     imap <D-M-Up> <ESC>[e
+
+    " Write file Refresh browser and retain focus on browser
+    nmap <silent> <D-r> :w<CR>:RRB<CR>
+    imap <silent> <D-r> <ESC>:w<CR>:RRB<CR>i
+    vmap <silent> <D-r> :w<CR>:RRB<CR>
 
 endif
 
@@ -399,6 +397,16 @@ function! NumberToggle()
         set number
     else
         set relativenumber
+    endif
+endfunc
+
+function! RefreshToggle()
+    if (g:RefreshRunningBrowserReturnFocus == 0)
+        echo "Refresh Browser returns focus to VIM"
+        let g:RefreshRunningBrowserReturnFocus = 1
+    else
+        echo "Refresh Browser keeps focus on browser"
+        let g:RefreshRunningBrowserReturnFocus = 0
     endif
 endfunc
 
