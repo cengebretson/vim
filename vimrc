@@ -343,6 +343,10 @@ if has('gui_running')
     imap <silent> <d-r> <esc>:w<cr>:rrb<cr>i
     vmap <silent> <d-r> :w<cr>:rrb<cr>
 
+    " map enter key to CTRL-B since S-CR already acts like CTRL-F
+    nmap <CR> <C-b>
+    vmap <CR> <C-b>
+
 endif
 
 " Set font according to system
