@@ -252,8 +252,9 @@ nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 " mapping to convert a split to a tab
 nmap <leader>to <C-W><S-T>
 
-" Insert newline
-map <leader><Enter> O<ESC>k
+" Insert newlines
+nnoremap <C-CR>   m`o<Esc>``
+nnoremap <C-S-CR> m`O<Esc>``
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
