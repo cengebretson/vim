@@ -339,9 +339,9 @@ if has('gui_running')
     imap <D-R> <esc><<i
 
     " write file and refresh browser and retain focus on browser
-    nmap <silent> <d-r> :w<cr>:rrb<cr>
-    imap <silent> <d-r> <esc>:w<cr>:rrb<cr>i
-    vmap <silent> <d-r> :w<cr>:rrb<cr>
+    nmap <silent> <d-r> :w<cr>:RRB<cr>
+    imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
+    vmap <silent> <d-r> :w<cr>:RRB<cr>
 
     " map enter key to CTRL-B since S-CR already acts like CTRL-F
     nmap <CR> <C-b>
