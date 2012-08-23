@@ -147,11 +147,8 @@ vnoremap X "_X
 let mapleader = ','
 
 " Fast editing of the .vimrc
-map <leader>ve :e $MYVIMRC<cr>
+map <leader>ve :tabe $MYVIMRC<cr>
 map <leader>vs :so $MYVIMRC<cr>
-
-" remap the esc key
-imap jj <Esc>
 
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
