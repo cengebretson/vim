@@ -191,9 +191,6 @@ nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 " replace selected text
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
 
-" Visually select the text that was last edited/pasted
-nmap gV `[v`]
-
 " Map command-[ and command-] to indenting or outdenting
 " while keeping the original selection in visual mode
 vmap <D-]> >gv
@@ -259,7 +256,7 @@ nnoremap <C-S-CR> m`O<Esc>``
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
-inoremap <Esc> <Esc>l
+inoremap <Esc> <Esc>
 
 
 
@@ -320,26 +317,26 @@ if has('gui_running')
 
     " keys to switch tabs, hmmm not working
     map <d-s-l> gt
-    map <d-s-h> gt
+    map <d-s-h> gT
 
     " bubble single and multiple lines (uses vim-unimpaired plugin).
-    nmap <d-m-down> ]e
-    nmap <d-m-up>   [e
-    vmap <d-m-down> ]egv
-    vmap <d-m-up>   [egv
-    imap <d-m-down> <esc>]e
-    imap <d-m-up>   <esc>[e
+    nmap <D-J> ]e
+    nmap <D-K> [e
+    vmap <D-J> ]egv
+    vmap <D-K> [egv
+    imap <D-J> <esc>]e
+    imap <D-K> <esc>[e
 
     " map command-[ and command-] to indenting or outdenting
     " while keeping the original selection in visual mode
-    vmap <d-m-right> >gv
-    vmap <d-m-left>  <gv
-    nmap <d-m-right> >>
-    nmap <d-m-left>  <<
-    omap <d-m-right> >>
-    omap <d-m-left>  <<
-    imap <d-m-right> <esc>>>i
-    imap <d-m-left>  <esc><<i
+    vmap <D-L> >gv
+    vmap <D-H> <gv
+    nmap <D-L> >>
+    nmap <D-H> <<
+    omap <D-L> >>
+    omap <D-H> <<
+    imap <D-L> <esc>>>i
+    imap <D-R> <esc><<i
 
     " write file and refresh browser and retain focus on browser
     nmap <silent> <d-r> :w<cr>:rrb<cr>
