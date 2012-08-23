@@ -465,3 +465,6 @@ let g:user_zen_settings = {
             \  },
             \}
 
+" new mapping for zencoding complete
+imap <s-cr> <c-y>,
+
