@@ -305,32 +305,47 @@ if has('gui_running')
     set lines=40                " 40 lines of text instead of 24
 
     if has("autocmd")
-        " Automatically resize splits when resizing MacVim window
-        autocmd VimResized * wincmd =
+        " automatically resize splits when resizing macvim window
+        autocmd vimresized * wincmd =
     endif
 
-    " Command-Option-ArrowKey to switch viewports
-    map <D-S-Up>    <C-w>k
-    map <D-S-Down>  <C-w>j
-    map <D-S-Right> <C-w>l
-    map <D-S-Left>  <C-w>h
-    imap <D-S-Up>    <Esc> <C-w>k
-    imap <D-S-Down>  <Esc> <C-w>j
-    imap <D-S-Right> <Esc> <C-w>l
-    imap <D-S-Left>  <Esc> <C-w>h
+    " control keys to switch viewports
+    map <c-k> <c-w>k
+    map <c-j> <c-w>j
+    map <c-l> <c-w>l
+    map <c-h> <c-w>h
+    imap <c-k> <esc><c-w>k
+    imap <c-j> <esc><c-w>j
+    imap <c-l> <esc><c-w>l
+    imap <c-h> <esc><c-w>h
 
-    " Bubble single and multiple lines (uses vim-unimpaired plugin).
-    nmap <D-M-Down> ]e
-    nmap <D-M-Up> [e
-    vmap <D-M-Down> ]egv
-    vmap <D-M-Up> [egv
-    imap <D-M-Down> <ESC>]e
-    imap <D-M-Up> <ESC>[e
+    " control keys to switch tabs
+    map <d-s-l> gt
+    map <d-s-h> gt
 
-    " Write file Refresh browser and retain focus on browser
-    nmap <silent> <D-r> :w<CR>:RRB<CR>
-    imap <silent> <D-r> <ESC>:w<CR>:RRB<CR>i
-    vmap <silent> <D-r> :w<CR>:RRB<CR>
+    " bubble single and multiple lines (uses vim-unimpaired plugin).
+    nmap <d-m-down> ]e
+    nmap <d-m-up>   [e
+    vmap <d-m-down> ]egv
+    vmap <d-m-up>   [egv
+    imap <d-m-down> <esc>]e
+    imap <d-m-up>   <esc>[e
+
+    " map command-[ and command-] to indenting or outdenting
+    " while keeping the original selection in visual mode
+    vmap <d-m-right> >gv
+    vmap <d-m-left>  <gv
+    nmap <d-m-right> >>
+    nmap <d-m-left>  <<
+    omap <d-m-right> >>
+    omap <d-m-left>  <<
+    imap <d-m-right> <esc>>>i
+    imap <d-m-left>  <esc><<i
+
+    " write file and refresh browser and retain focus on browser
+    nmap <silent> <d-r> :w<cr>:rrb<cr>
+    imap <silent> <d-r> <esc>:w<cr>:rrb<cr>i
+    vmap <silent> <d-r> :w<cr>:rrb<cr>
 
 endif
 
