@@ -1,6 +1,6 @@
-" Version 1.9.1            "
+" version 1.9.2            "
 "--------------------------"
-" Last Changed: 08/06/2012 "
+" last changed: 08/23/2012 "
 "--------------------------"
 
 "------------------"
@@ -75,7 +75,7 @@ set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 set scrolljump=5               " lines to scroll when cursor leaves screen
 set scrolloff=3                " minimum lines to keep above and below cursor
 
-set list                       " Highlight problematic whitespace
+set list                       " highlight problematic whitespace
 set listchars=tab:» ,trail:.,extends:#,nbsp:.
 
 " use system clipboard for copy/paste
@@ -165,7 +165,8 @@ nmap <leader>L mQgewvu`Q
 nnoremap Y y$
 
 " Underline aline with =
-nnoremap <leader>1 yypVr=
+nnoremap <leader>1= yypVr=
+nnoremap <leader>1- yypVr-
 
 "clearing highlighted search
 nmap <silent> <leader>/ :nohlsearch<CR>
@@ -317,7 +318,7 @@ if has('gui_running')
     imap <c-l> <esc><c-w>l
     imap <c-h> <esc><c-w>h
 
-    " control keys to switch tabs
+    " keys to switch tabs, hmmm not working
     map <d-s-l> gt
     map <d-s-h> gt
 
