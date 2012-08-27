@@ -336,7 +336,7 @@ if has('gui_running')
     omap <D-L> >>
     omap <D-H> <<
     imap <D-L> <esc>>>i
-    imap <D-R> <esc><<i
+    imap <D-H> <esc><<i
 
     " write file and refresh browser and retain focus on browser
     nmap <silent> <d-r> :w<cr>:RRB<cr>
