@@ -53,9 +53,10 @@ set showmode                   " display the current mode
 set showcmd                    " show incomplete cmds down the bottom
 
 set cursorline                 " highlight current line
-hi cursorline guibg=#333333
 set cursorcolumn
+hi cursorline guibg=#333333
 hi cursorcolumn guibg=#262626
+hi colorcolumn guibg=#592929
 
 set backspace=indent,eol,start " backspace settings
 set linespace=0                " No extra spaces between rows
@@ -268,14 +269,17 @@ inoremap <Esc> <Esc>
 " Toggle relative line numbers
 nmap <silent> <F1> :call NumberToggle()<cr>
 imap <silent> <F1> <ESC>:call NumberToggle()<cr>
+vmap <silent> <F1> <ESC>:call NumberToggle()<cr>
 
 " Toggle normal line numbers
 nmap <silent> <F2> :set nu!<CR>
 imap <silent> <F2> <ESC>:set nu!<CR>
+vmap <silent> <F2> <ESC>:set nu!<CR>
 
 " Toggle Tagbar display
 nmap <silent> <F3> :TagbarToggle<CR>
 imap <silent> <F3> <ESC>:TagbarToggle<CR>
+vmap <silent> <F3> <ESC>:TagbarToggle<CR>
 
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
@@ -286,6 +290,9 @@ nmap <silent> <F5> :call RefreshToggle()<cr>
 imap <silent> <F5> <ESC>:w<CR>:call RefreshToggle()<CR>i
 vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 
+" Toggle Color Column display
+nmap <silent> <F6> :call ColorColumnToggle()<CR>
+imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
 
 
@@ -424,6 +431,15 @@ function! RefreshToggle()
         let g:RefreshRunningBrowserReturnFocus = 0
     endif
 endfunc
+
+function! ColorColumnToggle()
+    if(&colorcolumn > 0)
+        set colorcolumn=0
+    else
+        set colorcolumn=80
+    endif
+endfunc
+
 
 
 
