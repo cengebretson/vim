@@ -515,3 +515,7 @@ endfunc
     imap <s-cr> <c-y>,
 " }
 
+" browser refresh {
+    let g:RefreshRunningBrowserReturnFocus = 0
+" }
+
