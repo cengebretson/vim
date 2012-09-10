@@ -455,6 +455,10 @@ endfunc
 " Plugins "
 "---------"
 
+" coffeescript plugin {
+    let g:coffee_compile_vert = 1
+" }
+
 " solarized options {
     let g:solarized_termtrans  = 1
     let g:solarized_termcolors = 256
@@ -479,8 +483,13 @@ endfunc
     vmap <leader>t<Bar> :Tabularize /<Bar><CR>
 " }
 
-" Enabling Zencoding
-let g:user_zen_settings = {
+" Tagbar {
+    let g:tagbar_sort = 0
+" }
+
+" ZenCoding {
+    " Enabling Zencoding
+    let g:user_zen_settings = {
             \  'php' : {
             \    'extends' : 'html',
             \    'filters' : 'c',
@@ -502,6 +511,7 @@ let g:user_zen_settings = {
             \  },
             \}
 
-" new mapping for zencoding complete
-imap <s-cr> <c-y>,
+    " new mapping for zencoding complete
+    imap <s-cr> <c-y>,
+" }
 
