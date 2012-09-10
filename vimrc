@@ -216,6 +216,10 @@ nmap <leader>i i<space><esc>hr
 " mapping to perform coffee compile on file or visual selection
 nmap <silent> <leader>cc :CoffeeCompile<CR>
 vmap <silent> <leader>cc :CoffeeCompile<CR>
+nmap <silent> <leader>cr :CoffeeRun<CR>
+vmap <silent> <leader>cr :CoffeeRun<CR>
+nmap <silent> <leader>cl :CoffeeLint<CR>
+vmap <silent> <leader>cl :CoffeeLint<CR>
 
 " mapping to setup ack with the current file type
 nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
