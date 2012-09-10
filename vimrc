@@ -244,7 +244,9 @@ nmap <silent> <leader>fpo :call FindProjectRoot()<CR><leader>o
 nmap <leader>fpa :call FindProjectRoot()<CR><leader>a
 
 " remap peepopen to first try to find the project root
-nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
+nmap <silent> <C-p> :call FindProjectRoot()<CR><Plug>PeepOpen
+vmap <silent> <C-p> :call FindProjectRoot()<CR><Plug>PeepOpen
+imap <silent> <C-p> <Esc>:call FindProjectRoot()<CR><Plug>PeepOpen
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
