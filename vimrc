@@ -446,13 +446,6 @@ endfunction
     let g:coffee_compile_vert = 1
 " }
 
-" solarized options {
-    let g:solarized_termtrans  = 1
-    let g:solarized_termcolors = 256
-    let g:solarized_contrast   = "high"
-    let g:solarized_visibility = "high"
-" }
-
 " Supertab {
     let g:SuperTabDefaultCompletionType = "context"
 " }
