@@ -1,6 +1,6 @@
-" version 1.9.2            "
+" version 2.0              "
 "--------------------------"
-" last changed: 08/23/2012 "
+" last changed: 09/23/2012 "
 "--------------------------"
 
 "------------------"
@@ -54,9 +54,9 @@ set showcmd                    " show incomplete cmds down the bottom
 
 set cursorline                 " highlight current line
 set cursorcolumn
-hi cursorline guibg=#333333
-hi cursorcolumn guibg=#262626
-hi colorcolumn guibg=#592929
+hi cursorline guibg   = #333333
+hi cursorcolumn guibg = #262626
+hi colorcolumn guibg  = #592929
 
 set backspace=indent,eol,start " backspace settings
 set linespace=0                " No extra spaces between rows
@@ -176,14 +176,8 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
 
-" Command to call formatting on the entire file
-nmap <Leader>= gg=G
-
 " set text wrapping toggles
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
-
-" find merge conflict markers
-nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " clean up white space quickly
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -191,20 +185,6 @@ nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 
 " replace selected text
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-
-" Map command-[ and command-] to indenting or outdenting
-" while keeping the original selection in visual mode
-vmap <D-]> >gv
-vmap <D-[> <gv
-
-nmap <D-]> >>
-nmap <D-[> <<
-
-omap <D-]> >>
-omap <D-[> <<
-
-imap <D-]> <Esc>>>i
-imap <D-[> <Esc><<i
 
 " movement by screen line instead of file line
 nnoremap j gj
@@ -222,10 +202,17 @@ nmap <silent> <leader>cl :CoffeeLint<CR>
 vmap <silent> <leader>cl :CoffeeLint<CR>
 
 " mapping to setup ack with the current file type
-nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <C-a> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <C-A> :call FindProjectRoot()<CR>:Ack<space>
+imap <C-a> <esc>:call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+imap <C-A> <esc>:call FindProjectRoot()<CR>:Ack<space>
+
+" remap peepopen to first try to find the project root
+nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
+imap <silent> <c-p> <esc>:call FindProjectRoot()<CR><Plug>PeepOpen
 
 " mapping to reset the expandtab values for a file
-nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
+nmap <silent> <leader>et :set expandtab!<cr>:retab!<cr>
 
 " mapping to use a different tab setting more suitable for other languages
 nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2 expandtab<CR>:retab!<cr>
@@ -233,19 +220,15 @@ nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab<CR>
 
 " open up the current file's directory in finder
 nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
+nmap <silent> <leader>t :lcd %:h<CR>:call OpenTerminal(expand("%:p:h"))<CR>
 
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
-
-" move to the project root folder and open finder
 nmap <silent> <leader>fpo :call FindProjectRoot()<CR><leader>o
+nmap <silent> <leader>fpt :call FindProjectRoot()<CR>:call OpenTerminal(expand("%:p:h"))<CR>
 
 " move to the project root folder and call Ack
 nmap <leader>fpa :call FindProjectRoot()<CR><leader>a
-
-" remap peepopen to first try to find the project root
-nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
-vmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
@@ -445,6 +428,11 @@ function! ColorColumnToggle()
     endif
 endfunc
 
+function! OpenTerminal(dir)
+    " TODO: give option to simply bring focus to current terminal, perhaps ,tt
+    " mapping??
+    silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
+endfunction
 
 
 
