@@ -31,16 +31,6 @@ set nobackup
 set nowb
 set noswapfile
 
-" Treat JSON files like JavaScript
-au BufNewFile,BufRead *.json set ft=javascript
-
-" Change to directory of file that is currently in the buffer
-autocmd BufEnter * silent! lcd %:p:h
-
-" Remove trailing white space when saving
-autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
-
-
 
 
 "----------"
@@ -106,7 +96,6 @@ set softtabstop=4             " let backspace delete indent
 " Auto Commands    "
 "------------------"
 
-
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
 
@@ -119,6 +108,25 @@ autocmd InsertLeave * :set relativenumber
 
 " Autocommand to reload the status vim plugin for color changes
 autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
+
+" Treat JSON files like JavaScript
+au BufNewFile,BufRead *.json set ft=javascript
+
+" Change to directory of file that is currently in the buffer
+autocmd BufEnter * silent! lcd %:p:h
+
+" Remove trailing white space when saving
+autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+
+" Only use highlight line/column for the active buffer window
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter * set cursorcolumn
+    autocmd WinLeave * set nocursorcolumn
+augroup END
+
 
 
 
@@ -211,9 +219,6 @@ imap <C-A> <esc>:call FindProjectRoot()<CR>:Ack<space>
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
 imap <silent> <c-p> <esc>:call FindProjectRoot()<CR><Plug>PeepOpen
 
-" mapping to reset the expandtab values for a file
-nmap <silent> <leader>et :set expandtab!<cr>:retab!<cr>
-
 " mapping to use a different tab setting more suitable for other languages
 nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2 expandtab<CR>:retab!<cr>
 nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab<CR>:retab!<cr>
@@ -282,6 +287,9 @@ vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
+" mapping to reset the expandtab values for a file
+nmap <silent> <F7> :set expandtab!<cr>:retab!<cr>
+imap <silent> <F7> <ESC>:set expandtab!<cr>:retab!<cr>
 
 
 
@@ -301,18 +309,11 @@ if has('gui_running')
     endif
 
     " control keys to switch viewports
-    map <c-k> <c-w>k
-    map <c-j> <c-w>j
-    map <c-l> <c-w>l
-    map <c-h> <c-w>h
-    imap <c-k> <esc><c-w>k
-    imap <c-j> <esc><c-w>j
-    imap <c-l> <esc><c-w>l
-    imap <c-h> <esc><c-w>h
+    " - Staying with the defaults of CTRL-J,K,L,H to move
+    " - Also have CTRL-W + W to jump buffers
 
     " keys to switch tabs, hmmm not working
-    map <d-s-l> gt
-    map <d-s-h> gT
+    " - Again stick with the default of option-shift-[,]
 
     " bubble single and multiple lines (uses vim-unimpaired plugin).
     nmap <D-J> ]e
@@ -322,7 +323,7 @@ if has('gui_running')
     imap <D-J> <esc>]e
     imap <D-K> <esc>[e
 
-    " map command-[ and command-] to indenting or outdenting
+    " map command-L and command-H to indenting or outdenting
     " while keeping the original selection in visual mode
     vmap <D-L> >gv
     vmap <D-H> <gv
