@@ -219,9 +219,6 @@ imap <C-A> <esc>:call FindProjectRoot()<CR>:Ack<space>
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
 imap <silent> <c-p> <esc>:call FindProjectRoot()<CR><Plug>PeepOpen
 
-" mapping to reset the expandtab values for a file
-nmap <silent> <leader>et :set expandtab!<cr>:retab!<cr>
-
 " mapping to use a different tab setting more suitable for other languages
 nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2 expandtab<CR>:retab!<cr>
 nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab<CR>:retab!<cr>
@@ -290,6 +287,9 @@ vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
+" mapping to reset the expandtab values for a file
+nmap <silent> <F7> :set expandtab!<cr>:retab!<cr>
+imap <silent> <F7> <ESC>:set expandtab!<cr>:retab!<cr>
 
 
 
