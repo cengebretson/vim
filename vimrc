@@ -309,18 +309,11 @@ if has('gui_running')
     endif
 
     " control keys to switch viewports
-    map <c-k> <c-w>k
-    map <c-j> <c-w>j
-    map <c-l> <c-w>l
-    map <c-h> <c-w>h
-    imap <c-k> <esc><c-w>k
-    imap <c-j> <esc><c-w>j
-    imap <c-l> <esc><c-w>l
-    imap <c-h> <esc><c-w>h
+    " - Staying with the defaults of CTRL-J,K,L,H to move
+    " - Also have CTRL-W + W to jump buffers
 
     " keys to switch tabs, hmmm not working
-    map <d-s-l> gt
-    map <d-s-h> gT
+    " - Again stick with the default of option-shift-[,]
 
     " bubble single and multiple lines (uses vim-unimpaired plugin).
     nmap <D-J> ]e
@@ -330,7 +323,7 @@ if has('gui_running')
     imap <D-J> <esc>]e
     imap <D-K> <esc>[e
 
-    " map command-[ and command-] to indenting or outdenting
+    " map command-L and command-H to indenting or outdenting
     " while keeping the original selection in visual mode
     vmap <D-L> >gv
     vmap <D-H> <gv
