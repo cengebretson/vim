@@ -31,16 +31,6 @@ set nobackup
 set nowb
 set noswapfile
 
-" Treat JSON files like JavaScript
-au BufNewFile,BufRead *.json set ft=javascript
-
-" Change to directory of file that is currently in the buffer
-autocmd BufEnter * silent! lcd %:p:h
-
-" Remove trailing white space when saving
-autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
-
-
 
 
 "----------"
@@ -106,7 +96,6 @@ set softtabstop=4             " let backspace delete indent
 " Auto Commands    "
 "------------------"
 
-
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
 
@@ -119,6 +108,25 @@ autocmd InsertLeave * :set relativenumber
 
 " Autocommand to reload the status vim plugin for color changes
 autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
+
+" Treat JSON files like JavaScript
+au BufNewFile,BufRead *.json set ft=javascript
+
+" Change to directory of file that is currently in the buffer
+autocmd BufEnter * silent! lcd %:p:h
+
+" Remove trailing white space when saving
+autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+
+" Only use highlight line/column for the active buffer window
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter * set cursorcolumn
+    autocmd WinLeave * set nocursorcolumn
+augroup END
+
 
 
 
