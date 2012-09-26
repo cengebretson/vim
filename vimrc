@@ -185,6 +185,7 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 " set text wrapping toggles
+" TODO: create function for toggling wrapping
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " clean up white space quickly
@@ -288,6 +289,7 @@ nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
 " mapping to reset the expandtab values for a file
+" TODO: create toggle function to give current state? anyway to add to status bar??
 nmap <silent> <F7> :set expandtab!<cr>:retab!<cr>
 imap <silent> <F7> <ESC>:set expandtab!<cr>:retab!<cr>
 
