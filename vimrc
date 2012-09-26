@@ -116,7 +116,7 @@ au BufNewFile,BufRead *.json set ft=javascript
 autocmd BufEnter * silent! lcd %:p:h
 
 " Remove trailing white space when saving
-autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+" autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
 
 " Only use highlight line/column for the active buffer window
 augroup BgHighlight
