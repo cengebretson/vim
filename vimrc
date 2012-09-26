@@ -348,7 +348,7 @@ if has('gui_running')
 endif
 
 " Set font according to system
-set gfn=Panic\ Sans:h12
+set gfn=Panic\ Sans\ for\ Powerline:h12
 set shell=/bin/bash
 
 
@@ -496,6 +496,10 @@ endfunction
 
     " new mapping for zencoding complete
     imap <s-cr> <c-y>,
+" }
+
+" Powerline settings {
+    let g:Powerline_symbols = 'fancy'
 " }
 
 " browser refresh {
