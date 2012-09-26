@@ -106,9 +106,6 @@ autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 ex
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
-" Autocommand to reload the status vim plugin for color changes
-autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
-
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
@@ -432,8 +429,7 @@ function! ColorColumnToggle()
 endfunc
 
 function! OpenTerminal(dir)
-    " TODO: give option to simply bring focus to current terminal, perhaps ,tt
-    " mapping??
+    " TODO: give option to simply bring focus to current terminal, perhaps ,tt mapping??
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
 
@@ -499,6 +495,7 @@ endfunction
 " }
 
 " Powerline settings {
+    set laststatus=2
     let g:Powerline_symbols = 'fancy'
 " }
 
