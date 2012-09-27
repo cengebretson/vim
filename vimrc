@@ -210,6 +210,8 @@ nmap <silent> <leader>cl :CoffeeLint<CR>
 vmap <silent> <leader>cl :CoffeeLint<CR>
 
 " mapping to setup ack with the current file type
+" TODO: we loose the increment number function doing this, is there another
+" key that is better?? CTRL-F?
 nmap <C-a> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
 nmap <C-A> :call FindProjectRoot()<CR>:Ack<space>
 imap <C-a> <esc>:call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
@@ -217,6 +219,7 @@ imap <C-A> <esc>:call FindProjectRoot()<CR>:Ack<space>
 
 " remap peepopen to first try to find the project root
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
+vmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
 imap <silent> <c-p> <esc>:call FindProjectRoot()<CR><Plug>PeepOpen
 
 " mapping to use a different tab setting more suitable for other languages
