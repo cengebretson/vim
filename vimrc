@@ -106,9 +106,6 @@ autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 ex
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
-" Autocommand to reload the status vim plugin for color changes
-autocmd! ColorScheme *  source ~/.vim/bundle/statusline/plugin/statusline.vim
-
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
@@ -116,7 +113,7 @@ au BufNewFile,BufRead *.json set ft=javascript
 autocmd BufEnter * silent! lcd %:p:h
 
 " Remove trailing white space when saving
-autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+" autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
 
 " Only use highlight line/column for the active buffer window
 augroup BgHighlight
@@ -185,6 +182,7 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 " set text wrapping toggles
+" TODO: create function for toggling wrapping
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " clean up white space quickly
@@ -291,6 +289,7 @@ nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
 " mapping to reset the expandtab values for a file
+" TODO: create toggle function to give current state? anyway to add to status bar??
 nmap <silent> <F7> :set expandtab!<cr>:retab!<cr>
 imap <silent> <F7> <ESC>:set expandtab!<cr>:retab!<cr>
 
@@ -349,7 +348,7 @@ if has('gui_running')
 endif
 
 " Set font according to system
-set gfn=Panic\ Sans:h12
+set gfn=Panic\ Sans\ for\ Powerline:h12
 set shell=/bin/bash
 
 
@@ -433,8 +432,7 @@ function! ColorColumnToggle()
 endfunc
 
 function! OpenTerminal(dir)
-    " TODO: give option to simply bring focus to current terminal, perhaps ,tt
-    " mapping??
+    " TODO: give option to simply bring focus to current terminal, perhaps ,tt mapping??
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
 
@@ -497,6 +495,11 @@ endfunction
 
     " new mapping for zencoding complete
     imap <s-cr> <c-y>,
+" }
+
+" Powerline settings {
+    set laststatus=2
+    let g:Powerline_symbols = 'fancy'
 " }
 
 " browser refresh {
