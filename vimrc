@@ -81,6 +81,7 @@ set clipboard=unnamed
 "------------"
 
 set nowrap                    " wrap long lines
+set textwidth=0               " disable text width
 set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
 set autoindent                " indent at the same level of the previous line
 set shiftwidth=4              " use indents of 4 spaces
@@ -181,13 +182,9 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
 
-" set text wrapping toggles
-" TODO: create function for toggling wrapping
-nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
-
-" clean up white space quickly
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>w :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
+" clean up white space quickly, TODO: impacts the camelcase word movement
+nnoremap <leader>z :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
+nnoremap <leader>Z :%s/\s\+$//<cr>:let @/=''<CR>
 
 " replace selected text
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
@@ -205,20 +202,19 @@ vmap <silent> <leader>cc :CoffeeCompile<CR>
 nmap <silent> <leader>cr :CoffeeRun<CR>
 vmap <silent> <leader>cr :CoffeeRun<CR>
 nmap <silent> <leader>cl :CoffeeLint<CR>
+" TODO: this isn't working yet...
 vmap <silent> <leader>cl :CoffeeLint<CR>
 
 " mapping to setup ack with the current file type
-" TODO: we loose the increment number function doing this, is there another
-" key that is better?? CTRL-F?
-nmap <C-a> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-nmap <C-A> :call FindProjectRoot()<CR>:Ack<space>
-imap <C-a> <esc>:call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-imap <C-A> <esc>:call FindProjectRoot()<CR>:Ack<space>
+nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <leader>A :call FindProjectRoot()<CR>:Ack<space>
 
 " remap peepopen to first try to find the project root
-nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
-vmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
-imap <silent> <c-p> <esc>:call FindProjectRoot()<CR><Plug>PeepOpen
+nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
+
+" mapping to reset the expandtab values for a file
+" TODO: create toggle function to give current state? anyway to add to status bar??
+nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
 
 " mapping to use a different tab setting more suitable for other languages
 nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2 expandtab<CR>:retab!<cr>
@@ -226,24 +222,21 @@ nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab<CR>
 
 " open up the current file's directory in finder
 nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
-nmap <silent> <leader>t :lcd %:h<CR>:call OpenTerminal(expand("%:p:h"))<CR>
+nmap <silent> <leader>O :call FindProjectRoot()<CR>:! open .<cr><cr>
+
+" open terminals
+nmap <silent> <leader>x :call OpenTerminal(expand("%:p:h"))<CR>
+nmap <silent> <leader>X :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
+nmap <silent> <leader>xx :call OpenTerminal()<cr>
 
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
-nmap <silent> <leader>fpo :call FindProjectRoot()<CR><leader>o
-nmap <silent> <leader>fpt :call FindProjectRoot()<CR>:call OpenTerminal(expand("%:p:h"))<CR>
-
-" move to the project root folder and call Ack
-nmap <leader>fpa :call FindProjectRoot()<CR><leader>a
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
 
 " mapping for loading local .lvimrc file
 nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
-
-" mapping to convert a split to a tab
-nmap <leader>to <C-W><S-T>
 
 " Insert newlines
 nnoremap <C-CR>   m`o<Esc>``
@@ -252,6 +245,12 @@ nnoremap <C-S-CR> m`O<Esc>``
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
 inoremap <Esc> <Esc>
+
+" map enter key to CTRL-B since S-CR already acts like CTRL-F
+nmap <CR> <C-f>
+vmap <CR> <C-f>
+nmap <S-CR> <C-b>
+vmap <S-CR> <C-b>
 
 
 
@@ -273,7 +272,7 @@ vmap <silent> <F2> <ESC>:set nu!<CR>
 " Toggle Tagbar display
 nmap <silent> <F3> :TagbarToggle<CR>
 imap <silent> <F3> <ESC>:TagbarToggle<CR>
-vmap <silent> <F3> <ESC>:TagbarToggle<CR>
+vmap <silent> <F3> :TagbarToggle<CR>
 
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
@@ -288,10 +287,6 @@ vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
-" mapping to reset the expandtab values for a file
-" TODO: create toggle function to give current state? anyway to add to status bar??
-nmap <silent> <F7> :set expandtab!<cr>:retab!<cr>
-imap <silent> <F7> <ESC>:set expandtab!<cr>:retab!<cr>
 
 
 
@@ -311,7 +306,7 @@ if has('gui_running')
     endif
 
     " control keys to switch viewports
-    " - Staying with the defaults of CTRL-J,K,L,H to move
+    " - Staying with the defaults of CTRL-W + J,K,L,H to move
     " - Also have CTRL-W + W to jump buffers
 
     " keys to switch tabs, hmmm not working
@@ -341,14 +336,11 @@ if has('gui_running')
     imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
     vmap <silent> <d-r> :w<cr>:RRB<cr>
 
-    " map enter key to CTRL-B since S-CR already acts like CTRL-F
-    nmap <CR> <C-b>
-    vmap <CR> <C-b>
-
 endif
 
 " Set font according to system
-set gfn=Panic\ Sans\ for\ Powerline:h12
+" set gfn=Panic\ Sans\ for\ Powerline:h12
+set gfn=Source\ Code\ Pro:h13
 set shell=/bin/bash
 
 
@@ -427,12 +419,14 @@ function! ColorColumnToggle()
     if(&colorcolumn > 0)
         set colorcolumn=0
     else
+        " assuming the standard 80 columns for wrapping
         set colorcolumn=80
     endif
 endfunc
 
 function! OpenTerminal(dir)
     " TODO: give option to simply bring focus to current terminal, perhaps ,tt mapping??
+    " TODO: also split this up so its easier to read!
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
 
@@ -450,6 +444,7 @@ endfunction
 
 " Supertab {
     let g:SuperTabDefaultCompletionType = "context"
+	" TODO: look at super tab chaining for omin comlete javascript!
 " }
 
 " Tabularize {
