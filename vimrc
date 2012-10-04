@@ -1,4 +1,4 @@
-" version 2.0              "
+" version 2.1              "
 "--------------------------"
 " last changed: 09/23/2012 "
 "--------------------------"
@@ -30,6 +30,11 @@ set viewoptions=folds,options,cursor,unix,slash
 set nobackup
 set nowb
 set noswapfile
+
+" how new buffers are handled
+set switchbuf+=usetab,newtab
+
+
 
 
 
@@ -110,6 +115,10 @@ autocmd InsertLeave * :set relativenumber
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
 
+" javascript file type settings
+au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+au FileType javascript setlocal sw=2 sts=2 ts=2 et
+
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -171,11 +180,15 @@ nmap <leader>L mQgewvu`Q
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
-" Underline aline with =
-nnoremap <leader>1= yypVr=
-nnoremap <leader>1- yypVr-
+" draw some headlines
+nnoremap <leader>h1 yypVr=o
+nnoremap <leader>h2 yypVr-o
 
-"clearing highlighted search
+" Jump to beginning/end of the line
+inoremap <c-a> <c-o>I
+inoremap <c-e> <c-o>A
+
+" clearing highlighted search
 nmap <silent> <leader>/ :nohlsearch<CR>
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
@@ -246,11 +259,6 @@ nnoremap <C-S-CR> m`O<Esc>``
 nnoremap <Esc> i
 inoremap <Esc> <Esc>
 
-" map enter key to CTRL-B since S-CR already acts like CTRL-F
-nmap <CR> <C-f>
-vmap <CR> <C-f>
-nmap <S-CR> <C-b>
-vmap <S-CR> <C-b>
 
 
 
@@ -335,6 +343,10 @@ if has('gui_running')
     nmap <silent> <d-r> :w<cr>:RRB<cr>
     imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
     vmap <silent> <d-r> :w<cr>:RRB<cr>
+
+    " use SHIFT-ENTER to cycle through window buffers
+    nmap <S-CR> <C-W>w
+    imap <S-CR> <ESC><C-W>w
 
 endif
 
@@ -444,7 +456,7 @@ endfunction
 
 " Supertab {
     let g:SuperTabDefaultCompletionType = "context"
-	" TODO: look at super tab chaining for omin comlete javascript!
+    " TODO: look at super tab chaining for omin comlete javascript!
 " }
 
 " Tabularize {
@@ -462,6 +474,8 @@ endfunction
 
 " Tagbar {
     let g:tagbar_sort = 0
+    let g:tagbar_compact = 1
+    let g:tagbar_autofocus = 1
 " }
 
 " ZenCoding {
