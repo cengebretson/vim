@@ -1,6 +1,6 @@
-" version 2.1              "
+" version 2.2              "
 "--------------------------"
-" last changed: 09/23/2012 "
+" last changed: 10/10/2012 "
 "--------------------------"
 
 "------------------"
@@ -12,16 +12,16 @@ call pathogen#infect()
 
 " set file types
 filetype plugin indent on  " Automatically detect file types.
-syntax on                  " syntax highlighting
+syntax on                    " syntax highlighting
 
 " set initial values
-set nocompatible           " must be first line
-set background=dark        " Assume a dark background
-set mouse=a                " automatically enable mouse usage
-set autoread               " Set to auto read when a file is changed from the outside
-set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
-set virtualedit=onemore    " allow for cursor beyond last character
-set history=1000           " Store a ton of history (default is 20)
+set nocompatible             " must be first line
+set background=dark          " Assume a dark background
+set mouse=a                  " automatically enable mouse usage
+set autoread                 " Set to auto read when a file is changed from the outside
+set shortmess+=filmnrxoOtT   " abbrev. of messages (avoids 'hit enter')
+set virtualedit=onemore      " allow for cursor beyond last character
+set history=1000             " Store a ton of history (default is 20)
 
 " better unix / windows compatibility
 set viewoptions=folds,options,cursor,unix,slash
@@ -32,7 +32,7 @@ set nowb
 set noswapfile
 
 " how new buffers are handled
-set switchbuf+=usetab,newtab
+" set switchbuf+=usetab,newtab
 
 
 
@@ -42,36 +42,36 @@ set switchbuf+=usetab,newtab
 "  VIM UI  "
 "----------"
 
-color jellybeans               " load a colorscheme
+color jellybeans                 " load a colorscheme
 
-set showmode                   " display the current mode
-set showcmd                    " show incomplete cmds down the bottom
+set showmode                     " display the current mode
+set showcmd                      " show incomplete cmds down the bottom
 
-set cursorline                 " highlight current line
+set cursorline                   " highlight current line
 set cursorcolumn
 hi cursorline guibg   = #333333
 hi cursorcolumn guibg = #262626
 hi colorcolumn guibg  = #592929
 
-set backspace=indent,eol,start " backspace settings
-set linespace=0                " No extra spaces between rows
-set nu                         " Line numbers on
-set showmatch                  " show matching brackets/parenthesis
-set incsearch                  " find as you type search
-set hlsearch                   " highlight search terms
-set gdefault                   " the /g flag on :s substitutions by default
-set winminheight=0             " windows can be 0 line high
-set ignorecase                 " case insensitive search
-set smartcase                  " case sensitive when uc present
+set backspace=indent,eol,start   " backspace settings
+set linespace=0                  " No extra spaces between rows
+set nu                           " Line numbers on
+set showmatch                    " show matching brackets/parenthesis
+set incsearch                    " find as you type search
+set hlsearch                     " highlight search terms
+set gdefault                     " the /g flag on :s substitutions by default
+set winminheight=0               " windows can be 0 line high
+set ignorecase                   " case insensitive search
+set smartcase                    " case sensitive when uc present
 
-set wildmenu                   " show list instead of just completing
+set wildmenu                     " show list instead of just completing
 set wildmode=list:longest,full " command <Tab> completion, list matches, then longest common part, then all.
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
-set scrolljump=5               " lines to scroll when cursor leaves screen
-set scrolloff=3                " minimum lines to keep above and below cursor
+set scrolljump=5                 " lines to scroll when cursor leaves screen
+set scrolloff=3                  " minimum lines to keep above and below cursor
 
-set list                       " highlight problematic whitespace
+set list                         " highlight problematic whitespace
 set listchars=tab:» ,trail:.,extends:#,nbsp:.
 
 " use system clipboard for copy/paste
@@ -85,21 +85,21 @@ set clipboard=unnamed
 " Formatting "
 "------------"
 
-set nowrap                    " wrap long lines
-set textwidth=0               " disable text width
-set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
-set autoindent                " indent at the same level of the previous line
-set shiftwidth=4              " use indents of 4 spaces
-set noexpandtab               " tabs are tabs, not spaces
-set tabstop=4                 " an indentation every four columns
-set softtabstop=4             " let backspace delete indent
+set nowrap                      " wrap long lines
+set textwidth=0                 " disable text width
+set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
+set autoindent                  " indent at the same level of the previous line
+set shiftwidth=4                " use indents of 4 spaces
+set noexpandtab                 " tabs are tabs, not spaces
+set tabstop=4                   " an indentation every four columns
+set softtabstop=4               " let backspace delete indent
 
 
 
 
 
 "------------------"
-" Auto Commands    "
+" Auto Commands      "
 "------------------"
 
 " remove option that automatically inserts comment leader after hitting enter
@@ -114,6 +114,9 @@ autocmd InsertLeave * :set relativenumber
 
 " Treat JSON files like JavaScript
 au BufNewFile,BufRead *.json set ft=javascript
+
+" Treat gradle as a groovy
+au BufNewFile,BufRead *.gradle set ft=groovy
 
 " javascript file type settings
 au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -199,24 +202,16 @@ cmap w!! %!sudo tee > /dev/null %
 nnoremap <leader>z :%s/\(\S\)\s\+$/\1/<cr>:let @/=''<CR>
 nnoremap <leader>Z :%s/\s\+$//<cr>:let @/=''<CR>
 
-" replace selected text
-vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-
 " movement by screen line instead of file line
 nnoremap j gj
 nnoremap k gk
 
+" Ctrl-j/k mapped to move and up down screens
+nnoremap <C-j> <C-f>
+nnoremap <C-k> <C-b>
+
 " Insert just a single character
 nmap <leader>i i<space><esc>hr
-
-" mapping to perform coffee compile on file or visual selection
-nmap <silent> <leader>cc :CoffeeCompile<CR>
-vmap <silent> <leader>cc :CoffeeCompile<CR>
-nmap <silent> <leader>cr :CoffeeRun<CR>
-vmap <silent> <leader>cr :CoffeeRun<CR>
-nmap <silent> <leader>cl :CoffeeLint<CR>
-" TODO: this isn't working yet...
-vmap <silent> <leader>cl :CoffeeLint<CR>
 
 " mapping to setup ack with the current file type
 nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
@@ -226,21 +221,20 @@ nmap <leader>A :call FindProjectRoot()<CR>:Ack<space>
 nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " mapping to reset the expandtab values for a file
-" TODO: create toggle function to give current state? anyway to add to status bar??
-nmap <silent> <leader>tt :set expandtab!<cr>:retab!<cr>
+nmap <silent> <leader>tt :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab!<cr>:retab!<cr>
 
 " mapping to use a different tab setting more suitable for other languages
-nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2 expandtab<CR>:retab!<cr>
-nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab<CR>:retab!<cr>
+nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2<CR>:retab!<cr>
+nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4<CR>:retab!<cr>
 
 " open up the current file's directory in finder
 nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
 nmap <silent> <leader>O :call FindProjectRoot()<CR>:! open .<cr><cr>
 
 " open terminals
-nmap <silent> <leader>x :call OpenTerminal(expand("%:p:h"))<CR>
-nmap <silent> <leader>X :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
-nmap <silent> <leader>xx :call OpenTerminal()<cr>
+nmap <silent> <leader>xx :call OpenTerminal(expand("%:p:h"))<CR>
+nmap <silent> <leader>xc :call OpenTerminal()<cr>
+nmap <silent> <leader>X  :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
 
 " move to the project root folder
 nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
@@ -259,6 +253,28 @@ nnoremap <C-S-CR> m`O<Esc>``
 nnoremap <Esc> i
 inoremap <Esc> <Esc>
 
+" bubble single and multiple lines (uses vim-unimpaired plugin).
+nmap <D-J> ]e
+nmap <D-K> [e
+vmap <D-J> ]egv
+vmap <D-K> [egv
+imap <D-J> <esc>]e
+imap <D-K> <esc>[e
+
+" map command-L and command-H to indenting or outdenting
+" while keeping the original selection in visual mode
+vmap <D-L> >gv
+vmap <D-H> <gv
+nmap <D-L> >>
+nmap <D-H> <<
+omap <D-L> >>
+omap <D-H> <<
+imap <D-L> <esc>>>i
+imap <D-H> <esc><<i
+
+" use SHIFT-ENTER to cycle through window buffers
+nmap <S-CR> <C-W>w
+imap <S-CR> <ESC><C-W>w
 
 
 
@@ -320,39 +336,11 @@ if has('gui_running')
     " keys to switch tabs, hmmm not working
     " - Again stick with the default of option-shift-[,]
 
-    " bubble single and multiple lines (uses vim-unimpaired plugin).
-    nmap <D-J> ]e
-    nmap <D-K> [e
-    vmap <D-J> ]egv
-    vmap <D-K> [egv
-    imap <D-J> <esc>]e
-    imap <D-K> <esc>[e
-
-    " map command-L and command-H to indenting or outdenting
-    " while keeping the original selection in visual mode
-    vmap <D-L> >gv
-    vmap <D-H> <gv
-    nmap <D-L> >>
-    nmap <D-H> <<
-    omap <D-L> >>
-    omap <D-H> <<
-    imap <D-L> <esc>>>i
-    imap <D-H> <esc><<i
-
-    " write file and refresh browser and retain focus on browser
-    nmap <silent> <d-r> :w<cr>:RRB<cr>
-    imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
-    vmap <silent> <d-r> :w<cr>:RRB<cr>
-
-    " use SHIFT-ENTER to cycle through window buffers
-    nmap <S-CR> <C-W>w
-    imap <S-CR> <ESC><C-W>w
-
 endif
 
 " Set font according to system
 " set gfn=Panic\ Sans\ for\ Powerline:h12
-set gfn=Source\ Code\ Pro:h13
+set gfn=Source\ Code\ Pro:h12
 set shell=/bin/bash
 
 
@@ -452,6 +440,14 @@ endfunction
 
 " coffeescript plugin {
     let g:coffee_compile_vert = 1
+
+    " mapping to perform coffee compile on file or visual selection
+    nmap <silent> <leader>cc :CoffeeCompile<CR>
+    vmap <silent> <leader>cc :CoffeeCompile<CR>
+    nmap <silent> <leader>cr :CoffeeRun<CR>
+    vmap <silent> <leader>cr :CoffeeRun<CR>
+    nmap <silent> <leader>cl :CoffeeLint<CR>
+    vmap <silent> <leader>cl :CoffeeLint<CR>
 " }
 
 " Supertab {
@@ -473,8 +469,8 @@ endfunction
 " }
 
 " Tagbar {
-    let g:tagbar_sort = 0
-    let g:tagbar_compact = 1
+    let g:tagbar_sort      = 0
+    let g:tagbar_compact   = 1
     let g:tagbar_autofocus = 1
 " }
 
@@ -513,5 +509,27 @@ endfunction
 
 " browser refresh {
     let g:RefreshRunningBrowserReturnFocus = 0
+
+    " write file and refresh browser with cmd-r
+    nmap <silent> <d-r> :w<cr>:RRB<cr>
+    imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
+    vmap <silent> <d-r> :w<cr>:RRB<cr>
 " }
 
+let g:tagbar_type_css = {
+    \ 'ctagstype': 'css',
+    \ 'kinds' : [
+        \'c:classes',
+        \'i:ids',
+        \'t:tags'
+    \]
+\}
+
+let g:tagbar_type_stylus = {
+    \ 'ctagstype': 'stylus',
+    \ 'kinds' : [
+        \'c:classes',
+        \'i:ids',
+        \'t:tags'
+    \]
+\}
