@@ -1,6 +1,3 @@
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = https://github.com/ervandew/supertab.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/edsono/vim-matchit.git
@@ -70,3 +67,6 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/neocomplcache"]
+	path = bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache.git
