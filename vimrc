@@ -106,6 +106,8 @@ autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=
 
 " javascript file type settings
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+" TODO: be able to toggle autocomplete type? omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
 
 " Automatically go to relative number when using insert mode
 autocmd InsertEnter * :set number
@@ -306,9 +308,9 @@ vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
-" Toggle JSHint Error Highlight
-nmap <silent> <F7> :call JSHint_Toggle()<CR>
-imap <silent> <F7> <ESC>:call JSHint_Toggle()<CR>
+" Toggle Syntastic Error Highlight
+nmap <silent> <F7> :call Syntastic_Check()<CR>
+imap <silent> <F7> <ESC>:call Syntastic_Check()<CR>
 
 
 
@@ -413,15 +415,10 @@ function! RefreshToggle()
     endif
 endfunc
 
-function! JSHint_Toggle()
-    if (g:JSHintHighlightErrorLine == 0)
-        echo "Tunr JSHint highlight error ON"
-        let g:JSHintHighlightErrorLine = 1
-    else
-        echo "Turn JSHint highlight error OFF"
-        let g:JSHintHighlightErrorLine = 0
-    endif
-    :JSHintUpdate
+function! Syntastic_Check()
+    let g:syntastic_mode_map['mode'] = 'passive'
+    :SyntasticCheck
+    :Errors
 endfunc
 
 function! ColorColumnToggle()
@@ -459,8 +456,21 @@ endfunction
     vmap <silent> <leader>cl :CoffeeLint<CR>
 " }
 
+" Syntastic plugin {
+    let g:syntastic_javascript_checker='jshint'
+    let g:syntastic_mode_map = { 'mode': 'passive',
+                               \ 'active_filetypes': [],
+                               \ 'passive_filetypes': [] }
+" }
+
 " Supertab {
     let g:SuperTabDefaultCompletionType = "context"
+
+    autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \   call SuperTabSetDefaultCompletionType("context") |
+    \ endif
 " }
 
 " Tabularize {
