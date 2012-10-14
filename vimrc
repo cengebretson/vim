@@ -11,7 +11,7 @@
 call pathogen#infect()
 
 " set file types
-filetype plugin indent on  " Automatically detect file types.
+filetype plugin indent on    " Automatically detect file types.
 syntax on                    " syntax highlighting
 
 " set initial values
@@ -30,10 +30,6 @@ set viewoptions=folds,options,cursor,unix,slash
 set nobackup
 set nowb
 set noswapfile
-
-" how new buffers are handled
-" set switchbuf+=usetab,newtab
-
 
 
 
@@ -65,7 +61,7 @@ set ignorecase                   " case insensitive search
 set smartcase                    " case sensitive when uc present
 
 set wildmenu                     " show list instead of just completing
-set wildmode=list:longest,full " command <Tab> completion, list matches, then longest common part, then all.
+set wildmode=list:longest,full   " command <Tab> completion, list matches, then longest common part, then all.
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
 set scrolljump=5                 " lines to scroll when cursor leaves screen
@@ -99,28 +95,27 @@ set softtabstop=4               " let backspace delete indent
 
 
 "------------------"
-" Auto Commands      "
+" Auto Commands    "
 "------------------"
 
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 expandtab
+autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 expandtab
+
+" javascript file type settings
+autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 
 " Automatically go to relative number when using insert mode
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 " Treat JSON files like JavaScript
-au BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.json set ft=javascript
 
 " Treat gradle as a groovy
-au BufNewFile,BufRead *.gradle set ft=groovy
-
-" javascript file type settings
-au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-au FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd BufNewFile,BufRead *.gradle set ft=groovy
 
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
@@ -311,6 +306,9 @@ vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
 nmap <silent> <F6> :call ColorColumnToggle()<CR>
 imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
 
+" Toggle JSHint Error Highlight
+nmap <silent> <F7> :call JSHint_Toggle()<CR>
+imap <silent> <F7> <ESC>:call JSHint_Toggle()<CR>
 
 
 
@@ -415,6 +413,17 @@ function! RefreshToggle()
     endif
 endfunc
 
+function! JSHint_Toggle()
+    if (g:JSHintHighlightErrorLine == 0)
+        echo "Tunr JSHint highlight error ON"
+        let g:JSHintHighlightErrorLine = 1
+    else
+        echo "Turn JSHint highlight error OFF"
+        let g:JSHintHighlightErrorLine = 0
+    endif
+    :JSHintUpdate
+endfunc
+
 function! ColorColumnToggle()
     if(&colorcolumn > 0)
         set colorcolumn=0
@@ -452,7 +461,6 @@ endfunction
 
 " Supertab {
     let g:SuperTabDefaultCompletionType = "context"
-    " TODO: look at super tab chaining for omin comlete javascript!
 " }
 
 " Tabularize {
@@ -470,8 +478,26 @@ endfunction
 
 " Tagbar {
     let g:tagbar_sort      = 0
-    let g:tagbar_compact   = 1
+    let g:tagbar_compact   = 0
     let g:tagbar_autofocus = 1
+
+    let g:tagbar_type_css = {
+    \ 'ctagstype': 'css',
+    \ 'kinds' : [
+        \'c:classes',
+        \'i:ids',
+        \'t:tags'
+    \]
+    \}
+
+    let g:tagbar_type_stylus = {
+    \ 'ctagstype': 'stylus',
+    \ 'kinds' : [
+        \'c:classes',
+        \'i:ids',
+        \'t:tags'
+    \]
+    \}
 " }
 
 " ZenCoding {
@@ -516,20 +542,4 @@ endfunction
     vmap <silent> <d-r> :w<cr>:RRB<cr>
 " }
 
-let g:tagbar_type_css = {
-    \ 'ctagstype': 'css',
-    \ 'kinds' : [
-        \'c:classes',
-        \'i:ids',
-        \'t:tags'
-    \]
-\}
 
-let g:tagbar_type_stylus = {
-    \ 'ctagstype': 'stylus',
-    \ 'kinds' : [
-        \'c:classes',
-        \'i:ids',
-        \'t:tags'
-    \]
-\}
