@@ -478,27 +478,26 @@ endfunction
 
     " Plugin key-mappings.
     " Ctrl-k expands snippet & moves to next position
-    " <CR> chooses highlighted value
     imap <C-k>     <Plug>(neocomplcache_snippets_expand)
     smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    inoremap <expr><C-g>   neocomplcache#undo_completion()
-    inoremap <expr><C-l>   neocomplcache#complete_common_string()
+    " <CR> chooses highlighted value
     inoremap <expr><CR>    neocomplcache#complete_common_string()
 
     " <CR>: close popup
     inoremap <expr><CR>    pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-
     " <TAB>: completion.
     inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
     inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
     " <BS>: close popup and delete backword char.
     inoremap <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><ESC>   pumvisible() ? neocomplcache#cancel_popup() : "\<ESC>"
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
        let g:neocomplcache_keyword_patterns = {}
     endif
+    " TODO: should we setup different patters for javascript so it triggers 
+    " keyword on [.\w] and also omni on any words?
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
     " Enable heavy omni completion.
@@ -520,7 +519,7 @@ endfunction
     if has("autocmd") && exists("+omnifunc")
         autocmd Filetype *
             \if &omnifunc == "" |
-            \setlocal omnifunc=syntaxcomplete#Compl:ete |
+            \setlocal omnifunc=syntaxcomplete#Complete |
             \endif
     endif
 
