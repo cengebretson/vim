@@ -242,11 +242,10 @@ nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 
 " Insert newlines
 nnoremap <C-CR>   m`o<Esc>``
-nnoremap <C-S-CR> m`O<Esc>``
+nnoremap <C-D-CR> m`O<Esc>``
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
-inoremap <Esc> <Esc>
 
 " bubble single and multiple lines (uses vim-unimpaired plugin).
 nmap <D-J> ]e
@@ -476,21 +475,16 @@ endfunction
     imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
     smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
 
-    " Plugin key-mappings.
     " Ctrl-k expands snippet & moves to next position
     imap <C-k>     <Plug>(neocomplcache_snippets_expand)
     smap <C-k>     <Plug>(neocomplcache_snippets_expand)
     " <CR> chooses highlighted value
-    inoremap <expr><CR>    neocomplcache#complete_common_string()
-
+    inoremap <expr> <CR>    neocomplcache#complete_common_string()
     " <CR>: close popup
-    inoremap <expr><CR>    pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    " <TAB>: completion.
-    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+    inoremap <expr> <CR>    pumvisible() ? neocomplcache#close_popup() : "\<CR>"
     " <BS>: close popup and delete backword char.
-    inoremap <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><ESC>   pumvisible() ? neocomplcache#cancel_popup() : "\<ESC>"
+    inoremap <expr> <BS>    pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<BS>"
+    inoremap <expr> <Esc>   pumvisible() ? neocomplcache#smart_close_popup() : "\<Esc>"
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
@@ -513,6 +507,12 @@ endfunction
 
     " extra javascript completion
     " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
+
+    " make sure the movement keys don't trigger complete
+    inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+    inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+    inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+    inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
 " }
 
 " OmniComplete {
@@ -528,10 +528,9 @@ endfunction
     " hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
     " some convenient mappings
-    inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
     inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-    inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+    inoremap <expr> <TAB>      pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr> <s-TAB>    pumvisible() ? "\<C-p>" : "\<TAB>"
 
     " automatically open and close the popup menu / preview window
     au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
