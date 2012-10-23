@@ -216,11 +216,11 @@ nmap <leader>A :call FindProjectRoot()<CR>:Ack<space>
 nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " mapping to reset the expandtab values for a file
-nmap <silent> <leader>tt :set softtabstop=4 tabstop=4 shiftwidth=4 expandtab!<cr>:retab!<cr>
+nmap <silent> <leader>tt :setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab!<cr>:retab!<cr>
 
 " mapping to use a different tab setting more suitable for other languages
-nmap <silent> <leader>t2 :set softtabstop=2 tabstop=2 shiftwidth=2<CR>:retab!<cr>
-nmap <silent> <leader>t4 :set softtabstop=4 tabstop=4 shiftwidth=4<CR>:retab!<cr>
+nmap <silent> <leader>t2 :setlocal softtabstop=2 tabstop=2 shiftwidth=2<CR>:retab!<cr>
+nmap <silent> <leader>t4 :setlocal softtabstop=4 tabstop=4 shiftwidth=4<CR>:retab!<cr>
 
 " open up the current file's directory in finder
 nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
@@ -508,11 +508,9 @@ endfunction
     " extra javascript completion
     " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
-    " make sure the movement keys don't trigger complete
-    inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-    inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-    inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-    inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+    " make sure scrolling doesn't trigger complete
+    inoremap <expr><ScrollWheelUp>   neocomplcache#close_popup() . "\<ScrollWheelUp>"
+    inoremap <expr><ScrollWheelDown> neocomplcache#close_popup() . "\<ScrollWheelDown>"
 " }
 
 " OmniComplete {
