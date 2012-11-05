@@ -509,8 +509,11 @@ endfunction
     " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
     " make sure scrolling doesn't trigger complete
-    inoremap <expr><ScrollWheelUp>   neocomplcache#close_popup() . "\<ScrollWheelUp>"
-    inoremap <expr><ScrollWheelDown> neocomplcache#close_popup() . "\<ScrollWheelDown>"
+    " inoremap <expr><ScrollWheelUp>   neocomplcache#close_popup() . "\<ScrollWheelUp>"
+    " inoremap <expr><ScrollWheelDown> neocomplcache#close_popup() . "\<ScrollWheelDown>"
+    
+    " make sure the popup complete box shows up after typing something (not scrolling)
+    let g:neocomplcache_enable_insert_char_pre = 1
 " }
 
 " OmniComplete {
