@@ -270,7 +270,8 @@ imap <D-H> <esc><<i
 nmap <S-CR> <C-W>w
 imap <S-CR> <ESC><C-W>w
 
-
+" use python to format JSON
+map <Leader>j :%!python -m json.tool<CR>
 
 
 "---------------"
