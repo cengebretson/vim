@@ -112,7 +112,7 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 " Treat JSON files like JavaScript
-autocmd BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.json set ft=json
 
 " Treat gradle as a groovy
 autocmd BufNewFile,BufRead *.gradle set ft=groovy
@@ -270,7 +270,10 @@ imap <D-H> <esc><<i
 nmap <S-CR> <C-W>w
 imap <S-CR> <ESC><C-W>w
 
-
+" use python to format JSON
+map <Leader>jf :%!python -m json.tool<CR>
+map <Leader>jc :set conceallevel=2<CR>
+map <Leader>js :set conceallevel=0<CR>
 
 
 "---------------"
