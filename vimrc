@@ -1,6 +1,6 @@
-" version 2.3              "
+" version 2.4                            "
 "--------------------------"
-" last changed: 10/14/2012 "
+" last changed: 12/21/2012 "
 "--------------------------"
 
 "------------------"
@@ -10,23 +10,23 @@
 " call pathogen
 call pathogen#infect()
 
-" set file types
-filetype plugin indent on    " Automatically detect file types.
-syntax on                    " syntax highlighting
+                                                " set file types
+filetype plugin indent on                       " Automatically detect file types.
+syntax on                                       " syntax highlighting
 
-" set initial values
-set nocompatible             " must be first line
-set background=dark          " Assume a dark background
-set mouse=a                  " automatically enable mouse usage
-set autoread                 " Set to auto read when a file is changed from the outside
-set shortmess+=filmnrxoOtT   " abbrev. of messages (avoids 'hit enter')
-set virtualedit=onemore      " allow for cursor beyond last character
-set history=1000             " Store a ton of history (default is 20)
+                                                " set initial values
+set nocompatible                                " must be first line
+set background=dark                             " Assume a dark background
+set mouse=a                                     " automatically enable mouse usage
+set autoread                                    " Set to auto read when a file is changed from the outside
+set shortmess+=filmnrxoOtT                      " abbrev. of messages (avoids 'hit enter')
+set virtualedit=onemore                         " allow for cursor beyond last character
+set history=1000                                " Store a ton of history (default is 20)
 
-" better unix / windows compatibility
+                                                " better unix / windows compatibility
 set viewoptions=folds,options,cursor,unix,slash
 
-" Turn backup off, since most stuff is in svn/git anyway...
+                                                " Turn backup off, since most stuff is in svn/git anyway...
 set nobackup
 set nowb
 set noswapfile
@@ -35,42 +35,42 @@ set noswapfile
 
 
 "----------"
-"  VIM UI  "
+" VIM UI   "
 "----------"
 
-color jellybeans                 " load a colorscheme
+color jellybeans                                " load a colorscheme
 
-set showmode                     " display the current mode
-set showcmd                      " show incomplete cmds down the bottom
+set showmode                                    " display the current mode
+set showcmd                                     " show incomplete cmds down the bottom
 
-set cursorline                   " highlight current line
+set cursorline                                  " highlight current line
 set cursorcolumn
 hi cursorline guibg   = #333333
 hi cursorcolumn guibg = #262626
 hi colorcolumn guibg  = #592929
 
-set backspace=indent,eol,start   " backspace settings
-set linespace=0                  " No extra spaces between rows
-set nu                           " Line numbers on
-set showmatch                    " show matching brackets/parenthesis
-set incsearch                    " find as you type search
-set hlsearch                     " highlight search terms
-set gdefault                     " the /g flag on :s substitutions by default
-set winminheight=0               " windows can be 0 line high
-set ignorecase                   " case insensitive search
-set smartcase                    " case sensitive when uc present
+set backspace=indent,eol,start                  " backspace settings
+set linespace=0                                 " No extra spaces between rows
+set nu                                          " Line numbers on
+set showmatch                                   " show matching brackets/parenthesis
+set incsearch                                   " find as you type search
+set hlsearch                                    " highlight search terms
+set gdefault                                    " the /g flag on :s substitutions by default
+set winminheight=0                              " windows can be 0 line high
+set ignorecase                                  " case insensitive search
+set smartcase                                   " case sensitive when uc present
 
-set wildmenu                     " show list instead of just completing
-set wildmode=list:longest,full   " command <Tab> completion, list matches, then longest common part, then all.
+set wildmenu                                    " show list instead of just completing
+set wildmode=list:longest,full                  " command <Tab> completion, list matches, then longest common part, then all.
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
-set scrolljump=5                 " lines to scroll when cursor leaves screen
-set scrolloff=3                  " minimum lines to keep above and below cursor
+set scrolljump=5                                " lines to scroll when cursor leaves screen
+set scrolloff=3                                 " minimum lines to keep above and below cursor
 
-set list                         " highlight problematic whitespace
+set list                                        " highlight problematic whitespace
 set listchars=tab:» ,trail:.,extends:#,nbsp:.
 
-" use system clipboard for copy/paste
+                                                " use system clipboard for copy/paste
 set clipboard=unnamed
 
 
@@ -81,14 +81,14 @@ set clipboard=unnamed
 " Formatting "
 "------------"
 
-set nowrap                      " wrap long lines
-set textwidth=0                 " disable text width
-set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
-set autoindent                  " indent at the same level of the previous line
-set shiftwidth=4                " use indents of 4 spaces
-set noexpandtab                 " tabs are tabs, not spaces
-set tabstop=4                   " an indentation every four columns
-set softtabstop=4               " let backspace delete indent
+set nowrap                                      " wrap long lines
+set textwidth=0                                 " disable text width
+set whichwrap=b,s,h,l,<,>,[,]                   " backspace and cursor keys wrap to
+set autoindent                                  " indent at the same level of the previous line
+set shiftwidth=4                                " use indents of 4 spaces
+set noexpandtab                                 " tabs are tabs, not spaces
+set tabstop=4                                   " an indentation every four columns
+set softtabstop=4                               " let backspace delete indent
 
 
 
@@ -125,11 +125,11 @@ autocmd BufEnter * silent! lcd %:p:h
 
 " Only use highlight line/column for the active buffer window
 augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-    autocmd WinEnter * set cursorcolumn
-    autocmd WinLeave * set nocursorcolumn
+        autocmd!
+        autocmd WinEnter * set cursorline
+        autocmd WinLeave * set nocursorline
+        autocmd WinEnter * set cursorcolumn
+        autocmd WinLeave * set nocursorcolumn
 augroup END
 
 
@@ -209,11 +209,15 @@ nnoremap <C-k> <C-b>
 nmap <leader>i i<space><esc>hr
 
 " mapping to setup ack with the current file type
-nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-nmap <leader>A :call FindProjectRoot()<CR>:Ack<space>
+nmap <c-F> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <c-f> :lcd %:h<CR>:Ack --<c-r>=&filetype<cr><space>
+imap <c-F> <esc> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+imap <c-f> <esc> :lcd %:h<CR>:Ack --<c-r>=&filetype<cr><space>
 
 " remap peepopen to first try to find the project root
-nmap <silent> <leader>p :call FindProjectRoot()<CR><Plug>PeepOpen
+nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
+vmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
+imap <silent> <c-p> <esc> :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab!<cr>:retab!<cr>
@@ -227,15 +231,8 @@ nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
 nmap <silent> <leader>O :call FindProjectRoot()<CR>:! open .<cr><cr>
 
 " open terminals
-nmap <silent> <leader>xx :call OpenTerminal(expand("%:p:h"))<CR>
-nmap <silent> <leader>xc :call OpenTerminal()<cr>
-nmap <silent> <leader>X  :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
-
-" move to the project root folder
-nmap <silent> <leader>fp :call FindProjectRoot()<CR>:pwd<CR>
-
-" cd to the directory containing the file in the buffer
-nmap <silent> <leader>cd :lcd %:h<CR>:pwd<CR>
+nmap <silent> <leader>x :call OpenTerminal(expand("%:p:h"))<CR>
+nmap <silent> <leader>X :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
 
 " mapping for loading local .lvimrc file
 nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
@@ -272,6 +269,7 @@ imap <S-CR> <ESC><C-W>w
 
 " use python to format JSON
 map <Leader>jf :%!python -m json.tool<CR>
+" TODO: turn this into a toggle
 map <Leader>jc :set conceallevel=2<CR>
 map <Leader>js :set conceallevel=0<CR>
 
@@ -321,8 +319,8 @@ imap <silent> <F7> <ESC>:call Syntastic_Check()<CR>
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
 
-    set guioptions-=T           " remove the toolbar
-    set lines=40                " 40 lines of text instead of 24
+    set guioptions-=T  " remove the toolbar
+    set lines=40       " 40 lines of text instead of 24
 
     if has("autocmd")
         " automatically resize splits when resizing macvim window
@@ -354,7 +352,7 @@ set shell=/bin/bash
 
 " set default filename for local vimrc
 if !exists("g:ProjectRootFinder")
-    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
+        let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
 endif
 
 " upwards search project file
@@ -458,9 +456,7 @@ endfunction
 
 " Syntastic plugin {
     let g:syntastic_javascript_checker='jshint'
-    let g:syntastic_mode_map = { 'mode': 'passive',
-                               \ 'active_filetypes': [],
-                               \ 'passive_filetypes': [] }
+    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
 " }
 
 " neocomplcache plugin {
@@ -475,23 +471,23 @@ endfunction
 
     " SuperTab like snippets behavior.
     let g:neocomplcache_snippets_dir='~/.vim/bundle/snipmate-snippets/snippets'
-    imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-    smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
+    imap    <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+    smap    <tab>  <right><plug>(neocomplcache_snippets_jump) 
 
     " Ctrl-k expands snippet & moves to next position
-    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    imap <C-k>       <Plug>(neocomplcache_snippets_expand)
+    smap <C-k>       <Plug>(neocomplcache_snippets_expand)
     " <CR> chooses highlighted value
-    inoremap <expr> <CR>    neocomplcache#complete_common_string()
+    inoremap <expr> <CR>        neocomplcache#complete_common_string()
     " <CR>: close popup
-    inoremap <expr> <CR>    pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    inoremap <expr> <CR>        pumvisible() ? neocomplcache#close_popup() : "\<CR>"
     " <BS>: close popup and delete backword char.
-    inoremap <expr> <BS>    pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<BS>"
-    inoremap <expr> <Esc>   pumvisible() ? neocomplcache#smart_close_popup() : "\<Esc>"
+    inoremap <expr> <BS>        pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<BS>"
+    inoremap <expr> <Esc>       pumvisible() ? neocomplcache#smart_close_popup() : "\<Esc>"
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
-       let g:neocomplcache_keyword_patterns = {}
+     let g:neocomplcache_keyword_patterns = {}
     endif
     " TODO: should we setup different patters for javascript so it triggers 
     " keyword on [.\w] and also omni on any words?
@@ -505,14 +501,14 @@ endfunction
 
     " For snippet_complete marker.
     if has('conceal')
-        set conceallevel=2 concealcursor=i
+            set conceallevel=2 concealcursor=i
     endif
 
     " extra javascript completion
     " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
     " make sure scrolling doesn't trigger complete
-    " inoremap <expr><ScrollWheelUp>   neocomplcache#close_popup() . "\<ScrollWheelUp>"
+    " inoremap <expr><ScrollWheelUp>     neocomplcache#close_popup() . "\<ScrollWheelUp>"
     " inoremap <expr><ScrollWheelDown> neocomplcache#close_popup() . "\<ScrollWheelDown>"
     
     " make sure the popup complete box shows up after typing something (not scrolling)
@@ -522,19 +518,19 @@ endfunction
 " OmniComplete {
     if has("autocmd") && exists("+omnifunc")
         autocmd Filetype *
-            \if &omnifunc == "" |
-            \setlocal omnifunc=syntaxcomplete#Complete |
-            \endif
+                \if &omnifunc == "" |
+                \setlocal omnifunc=syntaxcomplete#Complete |
+                \endif
     endif
 
-    " hi Pmenu      guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+    " hi Pmenu          guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
     " hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
     " hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
     " some convenient mappings
-    inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <TAB>      pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr> <s-TAB>    pumvisible() ? "\<C-p>" : "\<TAB>"
+    inoremap <expr> <CR>             pumvisible() ? "\<C-y>" : "\<CR>"
+    inoremap <expr> <TAB>            pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr> <s-TAB>      pumvisible() ? "\<C-p>" : "\<TAB>"
 
     " automatically open and close the popup menu / preview window
     au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -553,6 +549,8 @@ endfunction
     vmap <leader>t::     :Tabularize /:\zs<CR>
     nmap <leader>t,      :Tabularize /,<CR>
     vmap <leader>t,      :Tabularize /,<CR>
+    nmap <leader>t"      :Tabularize /"<CR>
+    vmap <leader>t"      :Tabularize /"<CR>
     nmap <leader>t<Bar>  :Tabularize /<Bar><CR>
     vmap <leader>t<Bar>  :Tabularize /<Bar><CR>
 " }
@@ -563,50 +561,47 @@ endfunction
     let g:tagbar_autofocus = 1
 
     let g:tagbar_type_css = {
-        \ 'ctagstype': 'css',
-        \ 'kinds' : [
-            \'c:classes',
-            \'i:ids',
-            \'t:tags'
-        \]
+            \ 'ctagstype': 'css',
+            \ 'kinds' : [
+                    \'c:classes',
+                    \'i:ids',
+                    \'t:tags'
+            \]
     \}
 
     let g:tagbar_type_stylus = {
-        \ 'ctagstype': 'stylus',
-        \ 'kinds' : [
-            \'c:classes',
-            \'i:ids',
-            \'t:tags'
-        \]
+            \ 'ctagstype': 'stylus',
+            \ 'kinds' : [
+                    \'c:classes',
+                    \'i:ids',
+                    \'t:tags'
+            \]
     \}
 " }
 
 " ZenCoding {
     " Enabling Zencoding
     let g:user_zen_settings = {
-            \  'php' : {
-            \    'extends' : 'html',
-            \    'filters' : 'c',
-            \  },
-            \  'xml' : {
-            \    'extends' : 'html',
-            \  },
-            \  'haml' : {
-            \    'extends' : 'html',
-            \  },
-            \  'erb' : {
-            \    'extends' : 'html',
-            \  },
-            \  'eco' : {
-            \    'extends' : 'html',
-            \  },
-            \  'jeco' : {
-            \    'extends' : 'html',
-            \  },
-            \}
-
-    " new mapping for zencoding complete
-    imap <s-cr> <c-y>,
+                    \  'php' : {
+                    \        'extends' : 'html',
+                    \        'filters' : 'c',
+                    \  },
+                    \  'xml' : {
+                    \        'extends' : 'html',
+                    \  },
+                    \  'haml' : {
+                    \        'extends' : 'html',
+                    \  },
+                    \  'erb' : {
+                    \        'extends' : 'html',
+                    \  },
+                    \  'eco' : {
+                    \        'extends' : 'html',
+                    \  },
+                    \  'jeco' : {
+                    \        'extends' : 'html',
+                    \  },
+                    \}
 " }
 
 " Powerline settings {
