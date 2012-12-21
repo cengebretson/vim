@@ -602,6 +602,8 @@ endfunction
                     \        'extends' : 'html',
                     \  },
                     \}
+
+    " keep default mapping of <c-y>,
 " }
 
 " Powerline settings {
