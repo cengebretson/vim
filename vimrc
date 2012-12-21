@@ -23,10 +23,10 @@ set shortmess+=filmnrxoOtT                      " abbrev. of messages (avoids 'h
 set virtualedit=onemore                         " allow for cursor beyond last character
 set history=1000                                " Store a ton of history (default is 20)
 
-                                                " better unix / windows compatibility
+" better unix / windows compatibility
 set viewoptions=folds,options,cursor,unix,slash
 
-                                                " Turn backup off, since most stuff is in svn/git anyway...
+" Turn backup off, since most stuff is in svn/git anyway...
 set nobackup
 set nowb
 set noswapfile
@@ -70,7 +70,7 @@ set scrolloff=3                                 " minimum lines to keep above an
 set list                                        " highlight problematic whitespace
 set listchars=tab:» ,trail:.,extends:#,nbsp:.
 
-                                                " use system clipboard for copy/paste
+" use system clipboard for copy/paste
 set clipboard=unnamed
 
 
@@ -125,11 +125,11 @@ autocmd BufEnter * silent! lcd %:p:h
 
 " Only use highlight line/column for the active buffer window
 augroup BgHighlight
-        autocmd!
-        autocmd WinEnter * set cursorline
-        autocmd WinLeave * set nocursorline
-        autocmd WinEnter * set cursorcolumn
-        autocmd WinLeave * set nocursorcolumn
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter * set cursorcolumn
+    autocmd WinLeave * set nocursorcolumn
 augroup END
 
 
@@ -209,10 +209,8 @@ nnoremap <C-k> <C-b>
 nmap <leader>i i<space><esc>hr
 
 " mapping to setup ack with the current file type
-nmap <c-F> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-nmap <c-f> :lcd %:h<CR>:Ack --<c-r>=&filetype<cr><space>
-imap <c-F> <esc> :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-imap <c-f> <esc> :lcd %:h<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <leader>A :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <leader>a :lcd %:h<CR>:Ack --<c-r>=&filetype<cr><space>
 
 " remap peepopen to first try to find the project root
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
@@ -240,6 +238,7 @@ nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
 " Insert newlines
 nnoremap <C-CR>   m`o<Esc>``
 nnoremap <C-D-CR> m`O<Esc>``
+
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
