@@ -361,7 +361,7 @@ set shell=/bin/bash
 
 " set default filename for local vimrc
 if !exists("g:ProjectRootFinder")
-        let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
+    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
 endif
 
 " upwards search project file
