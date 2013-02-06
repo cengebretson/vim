@@ -212,8 +212,8 @@ nnoremap j gj
 nnoremap k gk
 
 " Ctrl-j/k mapped to move and up down screens
-nnoremap <C-j> <C-f>
-nnoremap <C-k> <C-b>
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
 
 " Insert just a single character
 nmap <leader>i i<space><esc>hr
