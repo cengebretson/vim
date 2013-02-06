@@ -140,6 +140,16 @@ augroup END
 " Key (re)Mappings "
 "------------------"
 
+" Disable arrow Keys
+noremap  <Up> ""
+noremap! <Up> <Esc>
+noremap  <Down> ""
+noremap! <Down> <Esc>
+noremap  <Left> ""
+noremap! <Left> <Esc>
+noremap  <Right> ""
+noremap! <Right> <Esc>
+
 " These are to cancel the default behavior of d, D, c, C
 " to put the text they delete in the default register.
 " Note that this means e.g. "ad won't copy the text into
