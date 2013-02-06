@@ -469,49 +469,52 @@ endfunction
 " }
 
 " neocomplcache plugin {
+    " Launches neocomplcache automatically on vim startup.
     let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache_enable_camel_case_completion = 1
+    " Use smartcase.
     let g:neocomplcache_enable_smart_case = 1
+    " Use camel case completion.
+    let g:neocomplcache_enable_camel_case_completion = 1
+    " Use underscore completion.
     let g:neocomplcache_enable_underbar_completion = 1
-    let g:neocomplcache_max_list = 15
-    let g:neocomplcache_auto_completion_start_length = 2
-    let g:neocomplcache_force_overwrite_completefunc = 1
-    let g:neocomplcache_enable_auto_select = 1
+    " Sets minimum char length of syntax keyword.
+    let g:neocomplcache_min_syntax_length = 3
+    " buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder 
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-    " SuperTab like snippets behavior.
-    let g:neocomplcache_snippets_dir='~/.vim/bundle/snipmate-snippets/snippets'
-    imap    <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-    smap    <tab>  <right><plug>(neocomplcache_snippets_jump) 
+    " Define file-type dependent dictionaries.
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-    " Ctrl-k expands snippet & moves to next position
-    imap <C-k>       <Plug>(neocomplcache_snippets_expand)
-    smap <C-k>       <Plug>(neocomplcache_snippets_expand)
-    " <CR> chooses highlighted value
-    inoremap <expr> <CR>        neocomplcache#complete_common_string()
-    " <CR>: close popup
-    inoremap <expr> <CR>        pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    " <BS>: close popup and delete backword char.
-    inoremap <expr> <BS>        pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<BS>"
-    inoremap <expr> <Esc>       pumvisible() ? neocomplcache#smart_close_popup() : "\<Esc>"
-
-    " Define keyword.
+    " Define keyword, for minor languages
     if !exists('g:neocomplcache_keyword_patterns')
-     let g:neocomplcache_keyword_patterns = {}
+      let g:neocomplcache_keyword_patterns = {}
     endif
-    " TODO: should we setup different patters for javascript so it triggers 
-    " keyword on [.\w] and also omni on any words?
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-        let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-    " For snippet_complete marker.
-    if has('conceal')
-            set conceallevel=2 concealcursor=i
-    endif
+    " SuperTab like snippets behavior.
+    "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <expr><CR>    neocomplcache#smart_close_popup() . "\<CR>"
+    " <TAB>: completion.
+    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<s-TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>   neocomplcache#close_popup()
+    inoremap <expr><C-e>   neocomplcache#cancel_popup()
 
     " extra javascript completion
     autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
@@ -527,22 +530,10 @@ endfunction
                 \setlocal omnifunc=syntaxcomplete#Complete |
                 \endif
     endif
-
-    " hi Pmenu          guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+    
+    " hi Pmenu      guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
     " hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
     " hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-    " some convenient mappings
-    inoremap <expr> <CR>             pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <TAB>            pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr> <s-TAB>      pumvisible() ? "\<C-p>" : "\<TAB>"
-
-    " automatically open and close the popup menu / preview window
-    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-    set completeopt=menu,preview,longest
-
-    " TODO: command to unload node complete cache
-    " :unlet b:npm_module_names
 " }
 
 " Tabularize {
