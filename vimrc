@@ -141,14 +141,17 @@ augroup END
 "------------------"
 
 " Disable arrow Keys
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
+inoremap  <Up>     <ESC>
+inoremap  <Down>   <ESC>
+inoremap  <Left>   <ESC>
+inoremap  <Right>  <ESC>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
+" insert space and stay in command mode
+nmap <c-space> i<space><esc>
 
 " These are to cancel the default behavior of d, D, c, C
 " to put the text they delete in the default register.
@@ -521,19 +524,6 @@ endfunction
 
     " make sure the popup complete box shows up after typing something (not scrolling)
     let g:neocomplcache_enable_insert_char_pre = 1
-" }
-
-" OmniComplete {
-    if has("autocmd") && exists("+omnifunc")
-        autocmd Filetype *
-                \if &omnifunc == "" |
-                \setlocal omnifunc=syntaxcomplete#Complete |
-                \endif
-    endif
-    
-    " hi Pmenu      guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-    " hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-    " hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 " }
 
 " Tabularize {
