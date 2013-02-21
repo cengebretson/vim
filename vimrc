@@ -343,9 +343,11 @@ if has('gui_running')
     " - Staying with the defaults of CTRL-W + J,K,L,H to move
     " - Also have CTRL-W + W to jump buffers
 
-    " keys to switch tabs, hmmm not working
-    " - Again stick with the default of option-shift-[,]
-
+    " keys to switch tabs
+	nmap <D-Left> gT
+	imap <D-Left> <esc>gT
+	nmap <D-Right> gt
+	imap <D-Right> <esc>gt
 endif
 
 " Set font according to system
