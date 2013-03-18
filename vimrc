@@ -1,6 +1,7 @@
-" version 2.4                            "
 "--------------------------"
-" last changed: 12/21/2012 "
+" version 2.4              "
+"--------------------------"
+" last changed: 03/05/2013 "
 "--------------------------"
 
 "------------------"
@@ -122,6 +123,9 @@ autocmd BufEnter * silent! lcd %:p:h
 
 " Remove trailing white space when saving
 " autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+
+" remap arrow keys for iterm like tab switching
+autocmd BufEnter * call RemapArrowKeysForSwitchingTabs()
 
 " Only use highlight line/column for the active buffer window
 augroup BgHighlight
@@ -343,11 +347,6 @@ if has('gui_running')
     " - Staying with the defaults of CTRL-W + J,K,L,H to move
     " - Also have CTRL-W + W to jump buffers
 
-    " keys to switch tabs
-	nmap <D-Left> gT
-	imap <D-Left> <esc>gT
-	nmap <D-Right> gt
-	imap <D-Right> <esc>gt
 endif
 
 " Set font according to system
@@ -363,6 +362,14 @@ set shell=/bin/bash
 "-------------"
 " Functions   "
 "-------------"
+
+" keys to switch tabs
+function! RemapArrowKeysForSwitchingTabs() 
+    noremap  <D-Left>  gT
+    noremap  <D-Right> gt
+    inoremap <D-Right> <esc>gt
+    inoremap <D-Left>  <esc>gT
+endfunction
 
 " set default filename for local vimrc
 if !exists("g:ProjectRootFinder")
