@@ -11,11 +11,11 @@
 " call pathogen
 call pathogen#infect()
 
-                                                " set file types
+" set file types
 filetype plugin indent on                       " Automatically detect file types.
 syntax on                                       " syntax highlighting
 
-                                                " set initial values
+" set initial values
 set nocompatible                                " must be first line
 set background=dark                             " Assume a dark background
 set mouse=a                                     " automatically enable mouse usage
@@ -31,7 +31,6 @@ set viewoptions=folds,options,cursor,unix,slash
 set nobackup
 set nowb
 set noswapfile
-
 
 
 
