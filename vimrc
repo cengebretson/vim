@@ -284,10 +284,10 @@ nmap <S-CR> <C-W>w
 imap <S-CR> <ESC><C-W>w
 
 " use python to format JSON
-map <Leader>jf :%!python -m json.tool<CR>
-" TODO: turn this into a toggle
-map <Leader>jc :set conceallevel=2<CR>
-map <Leader>js :set conceallevel=0<CR>
+nmap <Leader>jf :call JsonFormat(0)<CR>
+vmap <Leader>jf :call JsonFormat(1)<CR>
+nmap <Leader>jc :call JsonConcealToggle()<CR>
+
 
 
 "---------------"
@@ -424,6 +424,29 @@ function! NumberToggle()
     endif
 endfunc
 
+function! JsonConcealToggle()
+    if(&conceallevel == 2)
+        set conceallevel=0
+    else
+        set conceallevel=2
+    endif
+endfunc
+
+function! JsonFormat(visual) range
+    if a:visual == 1
+        normal gvy
+    else
+        %y+
+    endif
+    
+    vnew
+    setlocal buftype=nofile
+    silent put=@+
+    silent %!python -m json.tool
+    setlocal ft=json
+    setlocal nomodifiable
+endfunc
+
 function! RefreshToggle()
     if (g:RefreshRunningBrowserReturnFocus == 0)
         echo "Refresh Browser returns focus to VIM"
@@ -462,6 +485,10 @@ endfunction
 "---------"
 " Plugins "
 "---------"
+
+" markdown plugin {
+    let g:vim_markdown_folding_disabled=1
+" }
 
 " coffeescript plugin {
     let g:coffee_compile_vert = 1
