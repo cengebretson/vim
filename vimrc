@@ -86,6 +86,11 @@ set nowrap                                      " wrap long lines
 set textwidth=0                                 " disable text width
 set whichwrap=b,s,h,l,<,>,[,]                   " backspace and cursor keys wrap to
 set autoindent                                  " indent at the same level of the previous line
+
+"------------"
+" Tabs       "
+"------------"
+
 set shiftwidth=4                                " use indents of 4 spaces
 set noexpandtab                                 " tabs are tabs, not spaces
 set tabstop=4                                   " an indentation every four columns
@@ -109,8 +114,8 @@ autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 
 " Automatically go to relative number when using insert mode
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
+autocmd InsertEnter * set number
+autocmd InsertLeave * set relativenumber
 
 " Treat JSON files like JavaScript
 autocmd BufNewFile,BufRead *.json set ft=json
@@ -235,7 +240,7 @@ vmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
 imap <silent> <c-p> <esc> :call FindProjectRoot()<CR><Plug>PeepOpen
 
 " mapping to reset the expandtab values for a file
-nmap <silent> <leader>tt :setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab!<cr>:retab!<cr>
+nmap <silent> <leader>tt :call TabToggle()<cr>
 
 " mapping to use a different tab setting more suitable for other languages
 nmap <silent> <leader>t2 :setlocal softtabstop=2 tabstop=2 shiftwidth=2<CR>:retab!<cr>
@@ -478,6 +483,20 @@ function! OpenTerminal(dir)
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
 
+function! TabToggle()
+    let l:winview = winsaveview()
+    if(&expandtab > 0)
+        Space2Tab
+    else
+        Tab2Space
+    endif
+    set expandtab!
+    call winrestview(l:winview)
+endfunc
+
+command! -range=% -nargs=0 Tab2Space exec "silent! <line1>,<line2>s/^\\t\\+/\\=substitute(submatch(0), '\\t',repeat(' ', ".&ts."), 'g')"
+command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}','\\t', 'g')"
+
 
 
 
@@ -604,26 +623,26 @@ endfunction
 " ZenCoding {
     " Enabling Zencoding
     let g:user_zen_settings = {
-                    \  'php' : {
-                    \        'extends' : 'html',
-                    \        'filters' : 'c',
-                    \  },
-                    \  'xml' : {
-                    \        'extends' : 'html',
-                    \  },
-                    \  'haml' : {
-                    \        'extends' : 'html',
-                    \  },
-                    \  'erb' : {
-                    \        'extends' : 'html',
-                    \  },
-                    \  'eco' : {
-                    \        'extends' : 'html',
-                    \  },
-                    \  'jeco' : {
-                    \        'extends' : 'html',
-                    \  },
-                    \}
+    \  'php' : {
+    \        'extends' : 'html',
+    \        'filters' : 'c',
+    \  },
+    \  'xml' : {
+    \        'extends' : 'html',
+    \  },
+    \  'haml' : {
+    \        'extends' : 'html',
+    \  },
+    \  'erb' : {
+    \        'extends' : 'html',
+    \  },
+    \  'eco' : {
+    \        'extends' : 'html',
+    \  },
+    \  'jeco' : {
+    \        'extends' : 'html',
+    \  },
+    \}
 
     " keep default mapping of <c-y>,
 " }
