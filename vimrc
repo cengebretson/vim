@@ -91,10 +91,10 @@ set autoindent                                  " indent at the same level of th
 " Tabs       "
 "------------"
 
-set shiftwidth=4                                " use indents of 4 spaces
-set noexpandtab                                 " tabs are tabs, not spaces
-set tabstop=4                                   " an indentation every four columns
-set softtabstop=4                               " let backspace delete indent
+set shiftwidth=2                                " use indents of 4 spaces
+set expandtab                                   " tabs are spaces
+set tabstop=2                                   " an indentation every four columns
+set softtabstop=2                               " let backspace delete indent
 
 
 
@@ -126,6 +126,9 @@ autocmd BufNewFile,BufRead *.gradle set ft=groovy
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
 
+" load any local .vimrc files
+autocmd BufNewFile,BufRead * call LoadLocalVimrc()
+
 " Remove trailing white space when saving
 " autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
 
@@ -134,11 +137,11 @@ autocmd BufEnter * call RemapArrowKeysForSwitchingTabs()
 
 " Only use highlight line/column for the active buffer window
 augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-    autocmd WinEnter * set cursorcolumn
-    autocmd WinLeave * set nocursorcolumn
+  autocmd!
+  autocmd WinEnter * set cursorline
+  autocmd WinLeave * set nocursorline
+  autocmd WinEnter * set cursorcolumn
+  autocmd WinLeave * set nocursorcolumn
 augroup END
 
 
@@ -376,9 +379,9 @@ function! RemapArrowKeysForSwitchingTabs()
     inoremap <D-Left>  <esc>gT
 endfunction
 
-" set default filename for local vimrc
+" set array of files that are found at root of project
 if !exists("g:ProjectRootFinder")
-    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project', '.lvimrc']
+    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project']
 endif
 
 " upwards search project file
@@ -410,16 +413,18 @@ function! FindProjectRoot()
 endfunction
 
 " If the file .vimrc exists in the root of a git project - load it
-function! LoadLocalVimrc()
-    " first jump to project root if it exists
-    call FindProjectRoot()
+if !exists("*LoadLocalVimrc")
+    function! LoadLocalVimrc()
+        " first jump to project root if it exists
+        call FindProjectRoot()
 
-    " check for local lvimrc file
-    let l:configFile = '.lvimrc'
-    if filereadable(l:configFile)
-        exec ":source " . l:configFile
-    endif
-endfunction
+        " check for local .lvimrc file
+        let l:configFile = '.lvimrc'
+        if filereadable(l:configFile)
+            exec ":source " . l:configFile
+        endif
+    endfunction
+endif
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -602,21 +607,21 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     let g:tagbar_autofocus = 1
 
     let g:tagbar_type_css = {
-            \ 'ctagstype': 'css',
-            \ 'kinds' : [
-                    \'c:classes',
-                    \'i:ids',
-                    \'t:tags'
-            \]
+        \ 'ctagstype': 'css',
+        \ 'kinds' : [
+                \'c:classes',
+                \'i:ids',
+                \'t:tags'
+        \]
     \}
 
     let g:tagbar_type_stylus = {
-            \ 'ctagstype': 'stylus',
-            \ 'kinds' : [
-                    \'c:classes',
-                    \'i:ids',
-                    \'t:tags'
-            \]
+        \ 'ctagstype': 'stylus',
+        \ 'kinds' : [
+                \'c:classes',
+                \'i:ids',
+                \'t:tags'
+        \]
     \}
 " }
 
