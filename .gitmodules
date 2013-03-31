@@ -10,9 +10,6 @@
 [submodule "bundle/browser-refresh"]
 	path = bundle/browser-refresh
 	url = https://github.com/mkitt/browser-refresh.vim.git
-[submodule "bundle/zencoding"]
-	path = bundle/zencoding
-	url = https://github.com/mattn/zencoding-vim.git
 [submodule "bundle/ack"]
 	path = bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
@@ -37,15 +34,9 @@
 [submodule "bundle/grails-vim"]
 	path = bundle/grails-vim
 	url = https://github.com/cengebretson/grails-vim.git
-[submodule "bundle/vim_search_objects"]
-	path = bundle/vim_search_objects
-	url = https://github.com/Raimondi/vim_search_objects.git
 [submodule "bundle/vim_indent_object"]
 	path = bundle/vim_indent_object
 	url = https://github.com/michaeljsmith/vim-indent-object.git
-[submodule "bundle/camel_case_motion"]
-	path = bundle/camel_case_motion
-	url = https://github.com/bkad/CamelCaseMotion.git
 [submodule "bundle/closetag"]
 	path = bundle/closetag
 	url = git://github.com/docunext/closetag.vim.git
@@ -70,3 +61,6 @@
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
+[submodule "bundle/gitgutter"]
+	path = bundle/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
