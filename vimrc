@@ -295,43 +295,36 @@ nmap <Leader>jf :call JsonFormat(0)<CR>
 vmap <Leader>jf :call JsonFormat(1)<CR>
 nmap <Leader>jc :call JsonConcealToggle()<CR>
 
+" git history for file
+nmap <Leader>gh :call GitHistory()<cr>
 
+nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
+nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
 
 "---------------"
 " Function Keys "
 "---------------"
 
-" Toggle relative line numbers
-nmap <silent> <F1> :call NumberToggle()<cr>
-imap <silent> <F1> <ESC>:call NumberToggle()<cr>
-vmap <silent> <F1> <ESC>:call NumberToggle()<cr>
-
-" Toggle normal line numbers
-nmap <silent> <F2> :set nu!<CR>
-imap <silent> <F2> <ESC>:set nu!<CR>
-vmap <silent> <F2> <ESC>:set nu!<CR>
-
 " Toggle Tagbar display
-nmap <silent> <F3> :TagbarToggle<CR>
-imap <silent> <F3> <ESC>:TagbarToggle<CR>
-vmap <silent> <F3> :TagbarToggle<CR>
+nmap <silent> <F1> :TagbarToggle<CR>
+imap <silent> <F1> <ESC>:TagbarToggle<CR>
 
-" Toggle paste mode
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
-
-" Write file and Refresh browser and return focus to vim
-nmap <silent> <F5> :call RefreshToggle()<cr>
-imap <silent> <F5> <ESC>:w<CR>:call RefreshToggle()<CR>i
-vmap <silent> <F5> :w<CR>:call RefreshToggle()<CR>
+" Toggle Git Gutter
+nmap <silent> <F2> :GitGutterToggle<CR>
+imap <silent> <F2> <ESC>:GitGutterToggle<CR>
 
 " Toggle Color Column display
-nmap <silent> <F6> :call ColorColumnToggle()<CR>
-imap <silent> <F6> <ESC>:call ColorColumnToggle()<CR>
+nmap <silent> <F3> :call ColorColumnToggle()<CR>
+imap <silent> <F3> <ESC>:call ColorColumnToggle()<CR>
 
 " Toggle Syntastic Error Highlight
-nmap <silent> <F7> :call Syntastic_Check()<CR>
-imap <silent> <F7> <ESC>:call Syntastic_Check()<CR>
+nmap <silent> <F4> :call Syntastic_Check()<CR>
+imap <silent> <F4> <ESC>:call Syntastic_Check()<CR>
+
+" Toggle paste mode
+nmap <silent> <F5> :set invpaste<CR>:set paste?<CR>
+imap <silent> <F5> <ESC>:set invpaste<CR>:set paste?<CR>
+
 
 
 
@@ -454,6 +447,15 @@ function! JsonFormat(visual) range
     silent %!python -m json.tool
     setlocal ft=json
     setlocal nomodifiable
+endfunc
+
+function! GitHistory()
+    new
+    setlocal buftype=nofile
+    exec "read !git whatchanged -10 -p #"
+    setlocal ft=git
+    setlocal nomodifiable
+    normal gg
 endfunc
 
 function! RefreshToggle()
@@ -624,33 +626,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     \}
 " }
 
-" ZenCoding {
-    " Enabling Zencoding
-    let g:user_zen_settings = {
-    \  'php' : {
-    \        'extends' : 'html',
-    \        'filters' : 'c',
-    \  },
-    \  'xml' : {
-    \        'extends' : 'html',
-    \  },
-    \  'haml' : {
-    \        'extends' : 'html',
-    \  },
-    \  'erb' : {
-    \        'extends' : 'html',
-    \  },
-    \  'eco' : {
-    \        'extends' : 'html',
-    \  },
-    \  'jeco' : {
-    \        'extends' : 'html',
-    \  },
-    \}
-
-    " keep default mapping of <c-y>,
-" }
-
 " Powerline settings {
     set laststatus=2
     let g:Powerline_symbols = 'fancy'
@@ -665,4 +640,8 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     vmap <silent> <d-r> :w<cr>:RRB<cr>
 " }
 
+" Git gutter {
+  let g:gitgutter_enabled = 0
+  let g:gitgutter_highlight_lines = 1
+" }
 
