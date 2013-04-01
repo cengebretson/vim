@@ -257,13 +257,11 @@ nmap <silent> <leader>O :call FindProjectRoot()<CR>:! open .<cr><cr>
 nmap <silent> <leader>x :call OpenTerminal(expand("%:p:h"))<CR>
 nmap <silent> <leader>X :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
 
-" mapping for loading local .lvimrc file
-nmap <silent> <leader>ll :call LoadLocalVimrc()<CR>
-
 " Insert newlines
-nnoremap <C-CR>   m`o<Esc>``
-nnoremap <C-D-CR> m`O<Esc>``
-
+nmap <C-CR>   m`O<Esc>``
+nmap <C-D-CR> m`o<Esc>``
+imap <C-CR>   <Esc>m`O<Esc>``l<Esc>
+imap <C-D-CR> <Esc>m`o<Esc>``l<Esc>
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
@@ -299,6 +297,7 @@ nmap <Leader>jc :call JsonConcealToggle()<CR>
 " git history for file
 nmap <Leader>gh :call GitHistory()<cr>
 
+" cycle over git changes
 nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
 nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
 
