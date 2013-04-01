@@ -48,6 +48,7 @@ set cursorcolumn
 hi cursorline guibg   = #333333
 hi cursorcolumn guibg = #262626
 hi colorcolumn guibg  = #592929
+hi overlength guibg   = #795959
 
 set backspace=indent,eol,start                  " backspace settings
 set linespace=0                                 " No extra spaces between rows
@@ -477,9 +478,11 @@ endfunc
 function! ColorColumnToggle()
     if(&colorcolumn > 0)
         set colorcolumn=0
+        match none overlength
     else
         " assuming the standard 80 columns for wrapping
         set colorcolumn=80
+        match overlength /\%81v.*/ 
     endif
 endfunc
 
