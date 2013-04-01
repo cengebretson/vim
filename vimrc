@@ -1,4 +1,4 @@
-"--------------------------"
+e--------------------------"
 " version 2.4              "
 "--------------------------"
 " last changed: 03/05/2013 "
@@ -408,13 +408,17 @@ endfunction
 " If the file .vimrc exists in the root of a git project - load it
 if !exists("*LoadLocalVimrc")
     function! LoadLocalVimrc()
-        " first jump to project root if it exists
-        call FindProjectRoot()
+        " return if this is a nonmodifiable window
+        if (&modifiable == 1) 
 
-        " check for local .lvimrc file
-        let l:configFile = '.lvimrc'
-        if filereadable(l:configFile)
-            exec ":source " . l:configFile
+            " first jump to project root if it exists
+            call FindProjectRoot()
+
+            " check for local .lvimrc file
+            let l:configFile = '.lvimrc'
+            if filereadable(l:configFile)
+                exec ":source " . l:configFile
+            endif
         endif
     endfunction
 endif
