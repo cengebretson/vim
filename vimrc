@@ -91,10 +91,10 @@ set autoindent                                  " indent at the same level of th
 " Tabs       "
 "------------"
 
-set shiftwidth=2                                " use indents of 4 spaces
-set expandtab                                   " tabs are spaces
-set tabstop=2                                   " an indentation every four columns
+set shiftwidth=4                                " use indents of 4 spaces
+set tabstop=4                                   " an indentation every four columns
 set softtabstop=2                               " let backspace delete indent
+set expandtab                                   " tabs are spaces
 
 
 
@@ -108,10 +108,11 @@ set softtabstop=2                               " let backspace delete indent
 autocmd! FileType * setlocal formatoptions-=r
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 expandtab
+autocmd FileType python     setlocal sts=4 ts=4 sw=4 tw=79 et
 
 " javascript file type settings
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
 
 " Automatically go to relative number when using insert mode
 autocmd InsertEnter * set number
@@ -246,8 +247,8 @@ imap <silent> <c-p> <esc> :call FindProjectRoot()<CR><Plug>PeepOpen
 nmap <silent> <leader>tt :call TabToggle()<cr>
 
 " mapping to use a different tab setting more suitable for other languages
-nmap <silent> <leader>t2 :setlocal softtabstop=2 tabstop=2 shiftwidth=2<CR>:retab!<cr>
-nmap <silent> <leader>t4 :setlocal softtabstop=4 tabstop=4 shiftwidth=4<CR>:retab!<cr>
+nmap <silent> <leader>t2 :setlocal softtabstop=2 tabstop=2 shiftwidth=2<CR>:call NiceRetab()<cr>
+nmap <silent> <leader>t4 :setlocal softtabstop=4 tabstop=4 shiftwidth=4<CR>:call NiceRetab()<cr>
 
 " open up the current file's directory in finder
 nmap <silent> <leader>o :lcd %:h<CR>:! open .<cr><cr>
@@ -493,12 +494,22 @@ endfunction
 
 function! TabToggle()
     let l:winview = winsaveview()
-    if(&expandtab > 0)
+    if (&expandtab > 0)
         Space2Tab
     else
         Tab2Space
     endif
     set expandtab!
+    call winrestview(l:winview)
+endfunc
+
+function! NiceRetab() 
+    let l:winview = winsaveview()
+    if (&expandtab == 0) 
+      Space2Tab
+    else 
+      Tab2Space
+    endif
     call winrestview(l:winview)
 endfunc
 
