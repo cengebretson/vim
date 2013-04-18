@@ -69,7 +69,7 @@ set scrolljump=5                                " lines to scroll when cursor le
 set scrolloff=3                                 " minimum lines to keep above and below cursor
 
 set list                                        " highlight problematic whitespace
-set listchars=tab:» ,trail:.,extends:#,nbsp:.
+set listchars=nbsp:¬,tab:» ,trail:·,extends:#
 
 " use system clipboard for copy/paste
 set clipboard=unnamed
