@@ -510,16 +510,34 @@ endfunc
 function! NiceRetab() 
     let l:winview = winsaveview()
     if (&expandtab == 0) 
-      Space2Tab
+        Space2Tab
     else 
-      Tab2Space
+        Tab2Space
     endif
     call winrestview(l:winview)
 endfunc
 
+" This is a quick hack to make it possible to use tabs at the beginning of a 
+" line but then use spaces after any non whitespace character for alignment. 
+" Borrowed some code from Michael Geddes's Intelligent Indent plugin.
+function! TryingToBeSmarterTab()
+    if pumvisible() 
+        return "\<C-n>"
+    elseif (&expandtab == 1)
+        return "\<TAB>"
+    elseif strpart(getline('.'),0,col('.')-1) =~'^\s*$'
+        return "\<TAB>"
+    else
+        let sts=(&sts==0) ? &sw : &sts
+        let sp=(virtcol('.') % sts)
+        if sp==0 | let sp=sts | endif
+        return strpart("                  ",0,1+sts-sp)
+    endif
+endfunc
+
+" Retabbing setup to work only at the beginning of the line, leaving spaces used for alignment alone.
 command! -range=% -nargs=0 Tab2Space exec "silent! <line1>,<line2>s/^\\t\\+/\\=substitute(submatch(0), '\\t',repeat(' ', ".&ts."), 'g')"
 command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}','\\t', 'g')"
-
 
 
 
@@ -589,7 +607,7 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     " <CR>: close popup and save indent.
     inoremap <expr><CR>    neocomplcache#smart_close_popup() . "\<CR>"
     " <TAB>: completion.
-    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><TAB>   TryingToBeSmarterTab()
     inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<s-TAB>"
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
@@ -650,7 +668,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 
 " browser refresh {
     let g:RefreshRunningBrowserReturnFocus = 0
-
     " write file and refresh browser with cmd-r
     nmap <silent> <d-r> :w<cr>:RRB<cr>
     imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
