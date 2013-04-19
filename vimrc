@@ -616,7 +616,7 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     inoremap <expr><C-e>   neocomplcache#cancel_popup()
 
     " extra javascript completion
-    autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
+    " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
     " make sure the popup complete box shows up after typing something (not scrolling)
     let g:neocomplcache_enable_insert_char_pre = 1
@@ -679,3 +679,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   let g:gitgutter_highlight_lines = 1
 " }
 
+" Load Tern javascript autocomplete {
+  so ~/.vim/tern/vim/tern.vim
+" }
