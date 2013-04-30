@@ -64,9 +64,6 @@
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/edsono/vim-matchit
-[submodule "tern"]
-	path = tern
-	url = https://github.com/marijnh/tern.git
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
