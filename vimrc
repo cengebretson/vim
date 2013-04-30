@@ -678,7 +678,3 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   let g:gitgutter_enabled = 0
   let g:gitgutter_highlight_lines = 1
 " }
-
-" Load Tern javascript autocomplete {
-  so ~/.vim/tern/vim/tern.vim
-" }
