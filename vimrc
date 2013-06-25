@@ -235,8 +235,7 @@ nnoremap <C-k> <C-u>
 nmap <leader>i i<space><esc>hr
 
 " mapping to setup ack with the current file type
-nmap <leader>A :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
-nmap <leader>a :lcd %:h<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
 
 " remap peepopen to first try to find the project root
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
