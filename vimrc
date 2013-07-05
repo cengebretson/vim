@@ -677,3 +677,8 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   let g:gitgutter_enabled = 0
   let g:gitgutter_highlight_lines = 1
 " }
+
+" Tern Plugin {
+  let g:tern_map_keys=1
+  let g:tern_show_argument_hints='on_hold'
+" }
