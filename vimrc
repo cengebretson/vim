@@ -1,7 +1,7 @@
 "--------------------------"
-" version 2.4              "
+" version 2.5              "
 "--------------------------"
-" last changed: 03/05/2013 "
+" last changed: 07/09/2013 "
 "--------------------------"
 
 "------------------"
@@ -17,7 +17,6 @@ syntax on                                       " syntax highlighting
 
 " set initial values
 set nocompatible                                " must be first line
-set background=dark                             " Assume a dark background
 set mouse=a                                     " automatically enable mouse usage
 set autoread                                    " Set to auto read when a file is changed from the outside
 set shortmess+=filmnrxoOtT                      " abbrev. of messages (avoids 'hit enter')
@@ -38,7 +37,8 @@ set noswapfile
 " VIM UI   "
 "----------"
 
-color jellybeans                                " load a colorscheme
+set background=dark                             " Assume a dark background
+colorscheme jellybeans                          " load a colorscheme
 
 set showmode                                    " display the current mode
 set showcmd                                     " show incomplete cmds down the bottom
@@ -105,7 +105,8 @@ set expandtab                                   " tabs are spaces
 "------------------"
 
 " remove option that automatically inserts comment leader after hitting enter
-autocmd! FileType * setlocal formatoptions-=r
+autocmd! FileType * setlocal formatoptions-=r 
+autocmd! BufEnter * setlocal relativenumber
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 autocmd FileType python     setlocal sts=4 ts=4 sw=4 tw=79 et
@@ -326,7 +327,13 @@ imap <silent> <F4> <ESC>:call Syntastic_Check()<CR>
 nmap <silent> <F5> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F5> <ESC>:set invpaste<CR>:set paste?<CR>
 
+" Toggle number mode
+nmap <silent> <F6> :call NumberToggle()<CR>
+imap <silent> <F6> <ESC>:call NumberToggle()<CR>
 
+" Toggle paste mode
+nmap <silent> <F7> :call SolarizedToggle()<CR>
+imap <silent> <F7> <ESC>:call SolarizedToggle()<CR>
 
 
 "--------------"
@@ -415,7 +422,7 @@ if !exists("*LoadLocalVimrc")
             call FindProjectRoot()
 
             " check for local .lvimrc file
-            let l:configFile = '.lvimrc'
+            let l:configFile = '.vimrc.local'
             if filereadable(l:configFile)
                 exec ":source " . l:configFile
             endif
@@ -428,6 +435,27 @@ function! NumberToggle()
         set number
     else
         set relativenumber
+    endif
+endfunc
+
+if !exists("g:solarized_is_active")
+    let g:solarized_is_active = 0
+    let g:solarized_previous_bg = &background
+    redir => output
+    colorscheme
+    redir END
+    let g:solarized_previous_color = substitute(output, "\n", "", "")
+endif 
+
+function! SolarizedToggle()
+    if (g:solarized_is_active == 1)
+        exec 'set bg=' . g:solarized_previous_bg
+        exec 'colorscheme ' . g:solarized_previous_color
+        let g:solarized_is_active = 0
+    else
+        set bg=light
+        colorscheme solarized
+        let g:solarized_is_active = 1
     endif
 endfunc
 
