@@ -259,10 +259,10 @@ nmap <silent> <leader>x :call OpenTerminal(expand("%:p:h"))<CR>
 nmap <silent> <leader>X :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
 
 " Insert newlines
-nmap <C-CR>   m`O<Esc>``
-nmap <C-D-CR> m`o<Esc>``
-imap <C-CR>   <Esc>m`O<Esc>``l<Esc>
-imap <C-D-CR> <Esc>m`o<Esc>``l<Esc>
+nmap <D-j> m`O<Esc>``
+nmap <D-k> m`o<Esc>``
+imap <D-j> <Esc>m`O<Esc>``l<Esc>
+imap <D-k> <Esc>m`o<Esc>``l<Esc>
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
@@ -297,11 +297,16 @@ nmap <Leader>jc :call JsonConcealToggle()<CR>
 
 " git history for file
 nmap <Leader>gh :call GitHistory()<cr>
+" TODO: move this to function someday similar to GitHistory()
 vmap <Leader>gb :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
 " cycle over git changes
 nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
 nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
+
+
+
+
 
 "---------------"
 " Function Keys "
