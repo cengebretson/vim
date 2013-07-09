@@ -296,6 +296,7 @@ nmap <Leader>jc :call JsonConcealToggle()<CR>
 
 " git history for file
 nmap <Leader>gh :call GitHistory()<cr>
+vmap <Leader>gb :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
 " cycle over git changes
 nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
@@ -681,4 +682,8 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 " Tern Plugin {
   let g:tern_map_keys=1
   let g:tern_show_argument_hints='on_hold'
+" }
+
+" Zen Coding {
+  imap <S-TAB> <C-y>,
 " }
