@@ -259,10 +259,10 @@ nmap <silent> <leader>x :call OpenTerminal(expand("%:p:h"))<CR>
 nmap <silent> <leader>X :call FindProjectRoot()<CR>:call OpenTerminal(getcwd())<CR>
 
 " Insert newlines
-nmap <D-j> m`O<Esc>``
-nmap <D-k> m`o<Esc>``
-imap <D-j> <Esc>m`O<Esc>``l<Esc>
-imap <D-k> <Esc>m`o<Esc>``l<Esc>
+nmap <D-k> m`O<Esc>``
+nmap <D-j> m`o<Esc>``
+imap <D-k> <Esc>m`O<Esc>``l<Esc>
+imap <D-j> <Esc>m`o<Esc>``l<Esc>
 
 " remapping ESC to be a toggle for insert/normal mode
 nnoremap <Esc> i
