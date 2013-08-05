@@ -447,7 +447,7 @@ if !exists("g:solarized_is_active")
     let g:solarized_is_active = 0
     let g:solarized_previous_bg = &background
     redir => output
-    colorscheme
+    silent colorscheme
     redir END
     let g:solarized_previous_color = substitute(output, "\n", "", "")
 endif 
