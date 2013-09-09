@@ -363,10 +363,8 @@ if has('gui_running')
 endif
 
 " Set font according to system
-" set gfn=Panic\ Sans\ for\ Powerline:h12
-set gfn=Source\ Code\ Pro:h12
+set gfn=Inconsolata\ for\ Powerline:h13
 set shell=/bin/bash
-
 
 
 
@@ -694,9 +692,10 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     \}
 " }
 
-" Powerline settings {
+" airline settings {
     set laststatus=2
-    let g:Powerline_symbols = 'fancy'
+    let g:airline_powerline_fonts = 1
+    let g:airline_inactive_collapse = 1
 " }
 
 " browser refresh {

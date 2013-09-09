@@ -40,9 +40,6 @@
 [submodule "bundle/vim-jade"]
 	path = bundle/vim-jade
 	url = https://github.com/digitaltoad/vim-jade.git
-[submodule "bundle/vim-powerline"]
-	path = bundle/vim-powerline
-	url = https://github.com/Lokaltog/vim-powerline.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
@@ -70,3 +67,6 @@
 [submodule "bundle/vim-coffee"]
 	path = bundle/vim-coffee
 	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/bling/vim-airline
