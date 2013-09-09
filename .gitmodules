@@ -25,9 +25,6 @@
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
-[submodule "bundle/vim-coffee-script"]
-	path = bundle/vim-coffee-script
-	url = https://github.com/cengebretson/vim-coffee-script.git
 [submodule "bundle/grails-vim"]
 	path = bundle/grails-vim
 	url = https://github.com/cengebretson/grails-vim.git
@@ -70,3 +67,6 @@
 [submodule "bundle/emmet-vim"]
 	path = bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "bundle/vim-coffee"]
+	path = bundle/vim-coffee
+	url = https://github.com/kchmck/vim-coffee-script.git
