@@ -598,61 +598,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
 " }
 
-" neocomplcache plugin {
-    " Launches neocomplcache automatically on vim startup.
-    let g:neocomplcache_enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplcache_enable_smart_case = 1
-    " Use camel case completion.
-    let g:neocomplcache_enable_camel_case_completion = 1
-    " Use underscore completion.
-    let g:neocomplcache_enable_underbar_completion = 1
-    " Sets minimum char length of syntax keyword.
-    let g:neocomplcache_min_syntax_length = 3
-    " buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder 
-    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-    " Define file-type dependent dictionaries.
-    let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-    " Define keyword, for minor languages
-    if !exists('g:neocomplcache_keyword_patterns')
-      let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-    " SuperTab like snippets behavior.
-    "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <expr><CR>    neocomplcache#smart_close_popup() . "\<CR>"
-    " <TAB>: completion.
-    inoremap <expr><TAB>   TryingToBeSmarterTab()
-    inoremap <expr><s-TAB> pumvisible() ? "\<C-p>" : "\<s-TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>   neocomplcache#close_popup()
-    inoremap <expr><C-e>   neocomplcache#cancel_popup()
-
-    " extra javascript completion
-    " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
-
-    " make sure the popup complete box shows up after typing something (not scrolling)
-    let g:neocomplcache_enable_insert_char_pre = 1
-" }
-
 " Tabularize {
     nmap <leader>t=      :Tabularize /=<CR>
     vmap <leader>t=      :Tabularize /=<CR>
