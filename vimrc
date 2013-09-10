@@ -661,6 +661,18 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   let g:tern_show_argument_hints='on_hold'
 " }
 
+" Ultisnip {
+  let g:UltiSnipsExpandTrigger="<c-j>"
+  let g:UltiSnipsJumpForwardTrigger="<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" }
+
+" YouCompleteMe {
+  " since youcompleteme steals the tabs we need to remap them
+  au BufEnter * exec "inoremap <expr><TAB> TryingToBeSmarterTab()"
+  au BufEnter * exec "inoremap <expr><s-TAB> pumvisible() ? \"\<C-p>\" : \"\<s-TAB>\""
+" }
+
 " Zen Coding {
-  imap <S-TAB> <C-y>,
+  " keep default mapping of <c-y>,
 " }
