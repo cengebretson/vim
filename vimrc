@@ -105,7 +105,7 @@ set expandtab                                   " tabs are spaces
 "------------------"
 
 " remove option that automatically inserts comment leader after hitting enter
-autocmd! FileType * setlocal formatoptions-=r 
+autocmd! FileType * setlocal formatoptions-=r
 autocmd! BufEnter * setlocal relativenumber
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
@@ -163,9 +163,6 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
-
-" insert space and stay in command mode
-nmap <c-space> i<space><esc>
 
 " These are to cancel the default behavior of d, D, c, C
 " to put the text they delete in the default register.
@@ -232,11 +229,8 @@ nnoremap k gk
 nnoremap <C-j> <C-d>
 nnoremap <C-k> <C-u>
 
-" Insert just a single character
-nmap <leader>i i<space><esc>hr
-
 " mapping to setup ack with the current file type
-nmap <leader>a :call FindProjectRoot()<CR>:Ack --<c-r>=&filetype<cr><space>
+nmap <leader>a :call FindProjectRoot()<CR>:Ack<space>
 
 " remap peepopen to first try to find the project root
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
@@ -375,7 +369,7 @@ set shell=/bin/bash
 "-------------"
 
 " keys to switch tabs
-function! RemapArrowKeysForSwitchingTabs() 
+function! RemapArrowKeysForSwitchingTabs()
     noremap  <D-Left>  gT
     noremap  <D-Right> gt
     inoremap <D-Right> <esc>gt
@@ -419,7 +413,7 @@ endfunction
 if !exists("*LoadLocalVimrc")
     function! LoadLocalVimrc()
         " return if this is a nonmodifiable window
-        if (&modifiable == 1) 
+        if (&modifiable == 1)
 
             " first jump to project root if it exists
             call FindProjectRoot()
@@ -448,7 +442,7 @@ if !exists("g:solarized_is_active")
     silent colorscheme
     redir END
     let g:solarized_previous_color = substitute(output, "\n", "", "")
-endif 
+endif
 
 function! SolarizedToggle()
     if (g:solarized_is_active == 1)
@@ -476,7 +470,7 @@ function! JsonFormat(visual) range
     else
         %y+
     endif
-    
+
     vnew
     setlocal buftype=nofile
     silent put=@+
@@ -517,7 +511,7 @@ function! ColorColumnToggle()
     else
         " assuming the standard 80 columns for wrapping
         set colorcolumn=80
-        match overlength /\%81v.*/ 
+        match overlength /\%81v.*/
     endif
 endfunc
 
@@ -526,6 +520,14 @@ function! OpenTerminal(dir)
     " TODO: also split this up so its easier to read!
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
+
+
+
+
+
+"---------------"
+" Fun with Tabs "
+"---------------"
 
 function! TabToggle()
     let l:winview = winsaveview()
@@ -538,21 +540,21 @@ function! TabToggle()
     call winrestview(l:winview)
 endfunc
 
-function! NiceRetab() 
+function! NiceRetab()
     let l:winview = winsaveview()
-    if (&expandtab == 0) 
+    if (&expandtab == 0)
         Space2Tab
-    else 
+    else
         Tab2Space
     endif
     call winrestview(l:winview)
 endfunc
 
-" This is a quick hack to make it possible to use tabs at the beginning of a 
-" line but then use spaces after any non whitespace character for alignment. 
+" This is a quick hack to make it possible to use tabs at the beginning of a
+" line but then use spaces after any non whitespace character for alignment.
 " Borrowed some code from Michael Geddes's Intelligent Indent plugin.
 function! TryingToBeSmarterTab()
-    if pumvisible() 
+    if pumvisible()
         return "\<C-n>"
     elseif (&expandtab == 1)
         return "\<TAB>"
