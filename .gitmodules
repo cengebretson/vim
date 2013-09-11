@@ -7,9 +7,6 @@
 [submodule "bundle/easymotion"]
 	path = bundle/easymotion
 	url = https://github.com/Lokaltog/vim-easymotion
-[submodule "bundle/browser-refresh"]
-	path = bundle/browser-refresh
-	url = https://github.com/mkitt/browser-refresh.vim.git
 [submodule "bundle/ack"]
 	path = bundle/ack
 	url = https://github.com/mileszs/ack.vim.git

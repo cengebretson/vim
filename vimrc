@@ -488,16 +488,6 @@ function! GitHistory()
     normal gg
 endfunc
 
-function! RefreshToggle()
-    if (g:RefreshRunningBrowserReturnFocus == 0)
-        echo "Refresh Browser returns focus to VIM"
-        let g:RefreshRunningBrowserReturnFocus = 1
-    else
-        echo "Refresh Browser keeps focus on browser"
-        let g:RefreshRunningBrowserReturnFocus = 0
-    endif
-endfunc
-
 function! Syntastic_Check()
     let g:syntastic_mode_map['mode'] = 'passive'
     :SyntasticCheck
@@ -520,6 +510,25 @@ function! OpenTerminal(dir)
     " TODO: also split this up so its easier to read!
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
+
+
+
+"-----------------"
+" Refresh Browser "
+"-----------------"
+
+function! RefreshRunningBrowser()
+
+  silent :!ps -xc|grep -sq Chrome && osascript -e 'tell app "Google Chrome"' -e 'activate' -e 'tell app "System Events" to keystroke "r" using {command down}' -e 'end tell'
+  redraw!
+
+  if ((g:RefreshRunningBrowserReturnFocus == 1) && has('gui_macvim'))
+    silent :!ps -xc|grep -sq MacVim && osascript -e 'tell app "MacVim"' -e 'activate' -e 'end tell'
+  endif
+
+endfunction
+
+command! RRB :call RefreshRunningBrowser()
 
 
 
@@ -673,6 +682,19 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   " since youcompleteme steals the tabs we need to remap them
   au BufEnter * exec "inoremap <expr><TAB> TryingToBeSmarterTab()"
   au BufEnter * exec "inoremap <expr><s-TAB> pumvisible() ? \"\<C-p>\" : \"\<s-TAB>\""
+" }
+
+" Ack Helpers {
+  " in quickfix window...
+  " o    to open (same as enter)
+  " go   to preview file (open but maintain focus on ack.vim results)
+  " t    to open in new tab
+  " T    to open in new tab silently
+  " h    to open in horizontal split
+  " H    to open in horizontal split silently
+  " v    to open in vertical split
+  " gv   to open in vertical split silently
+  " q    to close the quickfix window
 " }
 
 " Zen Coding {
