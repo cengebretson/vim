@@ -517,7 +517,11 @@ endfunction
 " Refresh Browser "
 "-----------------"
 
+" taken from https://github.com/mkitt/browser-refresh.vim
+
 function! RefreshRunningBrowser()
+
+  " TODO: at somepoint have something to open current file in browser??
 
   silent :!ps -xc|grep -sq Chrome && osascript -e 'tell app "Google Chrome"' -e 'activate' -e 'tell app "System Events" to keystroke "r" using {command down}' -e 'end tell'
   redraw!
