@@ -38,7 +38,7 @@ set noswapfile
 "----------"
 
 set background=dark                             " Assume a dark background
-colorscheme jellybeans                          " load a colorscheme
+colorscheme solarized                           " load a colorscheme
 
 set showmode                                    " display the current mode
 set showcmd                                     " show incomplete cmds down the bottom
@@ -357,7 +357,7 @@ if has('gui_running')
 endif
 
 " Set font according to system
-set gfn=Inconsolata\ for\ Powerline:h13
+set gfn=Sauce\ Code\ Powerline:h12
 set shell=/bin/bash
 
 
