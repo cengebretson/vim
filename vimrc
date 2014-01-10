@@ -608,11 +608,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     vmap <silent> <leader>cl :CoffeeLint<CR>
 " }
 
-" Syntastic plugin {
-    let g:syntastic_javascript_checker='jshint'
-    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
-" }
-
 " Tabularize {
     nmap <leader>t=      :Tabularize /=<CR>
     vmap <leader>t=      :Tabularize /=<CR>
