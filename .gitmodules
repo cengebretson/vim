@@ -4,9 +4,6 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "bundle/easymotion"]
-	path = bundle/easymotion
-	url = https://github.com/Lokaltog/vim-easymotion
 [submodule "bundle/ack"]
 	path = bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
@@ -67,3 +64,6 @@
 [submodule "bundle/vim-vinegar"]
 	path = bundle/vim-vinegar
 	url = git://github.com/tpope/vim-vinegar.git
+[submodule "bundle/vim-sneak"]
+	path = bundle/vim-sneak
+	url = git@github.com:justinmk/vim-sneak.git

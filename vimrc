@@ -592,10 +592,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 " Plugins "
 "---------"
 
-" markdown plugin {
-    let g:vim_markdown_folding_disabled=1
-" }
-
 " coffeescript plugin {
     let g:coffee_compile_vert = 1
 
@@ -681,6 +677,14 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   " since youcompleteme steals the tabs we need to remap them
   au BufEnter * exec "inoremap <expr><TAB> TryingToBeSmarterTab()"
   au BufEnter * exec "inoremap <expr><s-TAB> pumvisible() ? \"\<C-p>\" : \"\<s-TAB>\""
+" }
+
+" Sneak {
+  let g:sneak#streak = 1
+  nmap <enter> <Plug>SneakNext
+  xmap <enter> <Plug>VSneakNext
+  nmap <bs>    <Plug>SneakPrevious
+  xmap <bs>    <Plug>VSneakPrevious
 " }
 
 " Ack Helpers {
