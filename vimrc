@@ -230,7 +230,7 @@ nnoremap <C-j> <C-d>
 nnoremap <C-k> <C-u>
 
 " mapping to setup ack with the current file type
-nmap <leader>a :call FindProjectRoot()<CR>:Ack<space>
+nmap <leader>a :call FindProjectRoot()<CR>:Ag!<space>
 
 " remap peepopen to first try to find the project root
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
@@ -687,17 +687,18 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   xmap <bs>    <Plug>VSneakPrevious
 " }
 
-" Ack Helpers {
+" Ag Helpers {
   " in quickfix window...
+  " e    to open file and close the quickfix window
   " o    to open (same as enter)
-  " go   to preview file (open but maintain focus on ack.vim results)
+  " go   to preview file (open but maintain focus on ag.vim results)
   " t    to open in new tab
   " T    to open in new tab silently
   " h    to open in horizontal split
   " H    to open in horizontal split silently
   " v    to open in vertical split
   " gv   to open in vertical split silently
-  " q    to close the quickfix window
+  " q    to close the quickfix window"
 " }
 
 " Zen Coding {
