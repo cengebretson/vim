@@ -78,6 +78,17 @@ Vim feels like one of those tools that you could work with for years but still l
 
 ----
 
+## Setup macvim as default editor
+
+From (http://superuser.com/questions/231854/default-editor-for-files-without-file-name-extension-in-mac-os-x))
+    
+    open ~/Library/Preferences/com.apple.LaunchServices.plist
+
+Add an entry (dictionary) under LSHandlers containing the following keys/values:
+
+    LSHandlerContentType = public.plain-text
+    LSHandlerRoleAll = org.vim.macvim
+
 **Thanks!**
 
 Chris Engebretson - [snarkydog.com](http://www.snarkydog.com)
