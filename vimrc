@@ -706,6 +706,13 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
   xmap <bs>    <Plug>VSneakPrevious
 " }
 
+" Wildfire {
+    let g:wildfire_objects = {
+        \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
+        \ "html,xml" : ["at"]
+    \ }
+" }
+
 " Ag Helpers {
   " in quickfix window...
   " e    to open file and close the quickfix window
