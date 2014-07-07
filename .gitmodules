@@ -58,3 +58,9 @@
 [submodule "bundle/vim-polyglot"]
 	path = bundle/vim-polyglot
 	url = git@github.com:sheerun/vim-polyglot.git
+[submodule "bundle/goyo"]
+	path = bundle/goyo
+	url = git@github.com:junegunn/goyo.vim.git
+[submodule "bundle/limelight"]
+	path = bundle/limelight
+	url = git@github.com:junegunn/limelight.vim.git
