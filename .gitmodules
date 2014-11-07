@@ -61,3 +61,6 @@
 [submodule "bundle/limelight"]
 	path = bundle/limelight
 	url = git@github.com:junegunn/limelight.vim.git
+[submodule "bundle/youcomplete2"]
+	path = bundle/youcomplete2
+	url = https://github.com/Valloric/YouCompleteMe
