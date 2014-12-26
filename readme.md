@@ -74,20 +74,21 @@ Vim feels like one of those tools that you could work with for years but still l
 * Tips from [www.zinkwazi.com](http://www.zinkwazi.com/unix/notes/vimtips.html)
 * Favorite vim tricks from [Stackoverflow](http://stackoverflow.com/questions/726894/what-are-the-dark-corners-of-vim-your-mom-never-told-you-about)
 * Great intro to vim at [Walking without Crutches](http://walking-without-crutches.heroku.com/)
-* Another good writeup on getting [started with Vim](http://stevelosh.com/blog/2010/09/coming-home-to-vim/)
+* Another good writeup on getting [started with Vim](http://stevelosh.com/blog/2010/09/coming-home-to-vim./)
 
 ----
 
 ## Setup macvim as default editor
 
-From (http://superuser.com/questions/231854/default-editor-for-files-without-file-name-extension-in-mac-os-x))
-    
-    open ~/Library/Preferences/com.apple.LaunchServices.plist
+Use `duti` to make macvim the default editor for specific file types. [Link to Duti website](http://duti.org/). For example to make macvim default for text files...
 
-Add an entry (dictionary) under LSHandlers containing the following keys/values:
+```
+duti -s org.vim.macvim public.plain-text all
+```
 
-    LSHandlerContentType = public.plain-text
-    LSHandlerRoleAll = org.vim.macvim
+## Make use of Caps Lock key
+
+Use Seil to override the default action of the capslock key, for example to make caps lock act as esc key. [Link to Seil](https://pqrs.org/osx/karabiner/seil.html.en)
 
 **Thanks!**
 
