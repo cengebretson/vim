@@ -1,7 +1,7 @@
 "--------------------------"
-" version 2.5              "
+" version 2.6              "
 "--------------------------"
-" last changed: 07/09/2013 "
+" last changed: 12/31/2014 "
 "--------------------------"
 
 "------------------"
@@ -38,7 +38,7 @@ set noswapfile
 "----------"
 
 set background=dark                             " Assume a dark background
-colorscheme solarized                           " load a colorscheme
+colorscheme iceberg                             " load a colorscheme
 
 set showmode                                    " display the current mode
 set showcmd                                     " show incomplete cmds down the bottom
@@ -319,8 +319,8 @@ nmap <silent> <F3> :call ColorColumnToggle()<CR>
 imap <silent> <F3> <ESC>:call ColorColumnToggle()<CR>
 
 " Toggle Syntastic Error Highlight
-nmap <silent> <F4> :call Syntastic_Check()<CR>
-imap <silent> <F4> <ESC>:call Syntastic_Check()<CR>
+" nmap <silent> <F4> :call Syntastic_Check()<CR>
+" imap <silent> <F4> <ESC>:call Syntastic_Check()<CR>
 
 " Toggle paste mode
 nmap <silent> <F5> :set invpaste<CR>:set paste?<CR>
@@ -357,7 +357,7 @@ if has('gui_running')
 endif
 
 " Set font according to system
-set gfn=Sauce\ Code\ Powerline:h12
+set gfn=Input:h12
 set shell=/bin/bash
 
 
@@ -449,10 +449,12 @@ function! SolarizedToggle()
         exec 'set bg=' . g:solarized_previous_bg
         exec 'colorscheme ' . g:solarized_previous_color
         let g:solarized_is_active = 0
+        set gfn=Input:h12
     else
         set bg=light
         colorscheme solarized
         let g:solarized_is_active = 1
+        set gfn=Input\ Bold:h12
     endif
 endfunc
 
