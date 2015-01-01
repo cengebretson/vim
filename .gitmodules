@@ -13,9 +13,6 @@
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
-[submodule "bundle/grails-vim"]
-	path = bundle/grails-vim
-	url = https://github.com/cengebretson/grails-vim.git
 [submodule "bundle/closetag"]
 	path = bundle/closetag
 	url = git://github.com/docunext/closetag.vim.git
