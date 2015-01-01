@@ -19,9 +19,6 @@
 [submodule "bundle/closetag"]
 	path = bundle/closetag
 	url = git://github.com/docunext/closetag.vim.git
-[submodule "bundle/gitgutter"]
-	path = bundle/gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/edsono/vim-matchit
@@ -43,9 +40,6 @@
 [submodule "bundle/vim-vinegar"]
 	path = bundle/vim-vinegar
 	url = git://github.com/tpope/vim-vinegar.git
-[submodule "bundle/vim-sneak"]
-	path = bundle/vim-sneak
-	url = git@github.com:justinmk/vim-sneak.git
 [submodule "bundle/ag"]
 	path = bundle/ag
 	url = git@github.com:rking/ag.vim.git
