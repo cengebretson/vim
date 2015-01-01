@@ -281,10 +281,6 @@ imap <S-CR> <ESC><C-W>w
 nmap <silent> <leader>nn :call NumberToggle()<CR>
 vmap <silent> <leader>nn :call NumberToggle()<CR>
 
-" toggle cursor lines
-nmap <silent> <leader>cl :call CursorLineToggle()<CR>
-vmap <silent> <leader>cl :call CursorLineToggle()<CR>
-
 " git history
 nmap <silent> <leader>gh :Git log -5 %<CR>
 vmap <silent> <leader>gh :Git log -5 %<CR>
@@ -379,20 +375,6 @@ function! FindProjectRoot()
 
 	execute cmd
 endfunction
-
-let g:columns_is_active = 1
-
-function! CursorLineToggle()
-	if (g:columns_is_active == 0)
-		set cursorline
-		set cursorcolumn
-		let g:columns_is_active = 1
-	else
-		set cursorline!
-		set cursorcolumn!
-		let g:columns_is_active = 0
-	endif
-endfunc
 
 let g:number_is_active = 2
 
@@ -579,9 +561,13 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 	function! LimelightToggle()
 		if (g:limelight_is_active == 1)
 			Limelight!
+			set cursorline
+			set cursorcolumn
 			let g:limelight_is_active = 0
 		else
 			Limelight
+			set cursorline!
+			set cursorcolumn!
 			let g:limelight_is_active = 1
 		endif
 	endfunc
@@ -596,25 +582,25 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 	endfunc
 
 	function! s:goyo_enter()
-	  autocmd! User GoyoEnter
-	  autocmd! User GoyoLeave
 	  set noshowmode
 	  set noshowcmd
-	  set cursorline!
-	  set cursorcolumn!
 	  set scrolloff=999
-	  Limelight
-	  let g:limelight_is_active = 1
+	  set guifont=Input:h14
+	  if g:limelight_is_active == 0
+		  call LimelightToggle()
+	  endif
+	  call ToggleFullscreen()
 	endfunction
 
 	function! s:goyo_leave()
 	  set showmode
 	  set showcmd
-	  set cursorline
-	  set cursorcolumn
 	  set scrolloff=3
-	  Limelight!
-	  let g:limelight_is_active = 0
+	  set guifont=Input:h12
+	  if g:limelight_is_active == 1
+		  call LimelightToggle()
+	  endif
+	  call ToggleFullscreen()
 	endfunction
 
 	autocmd! User GoyoEnter
@@ -662,6 +648,17 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 		\]
 	\}
 
+	let g:tagbar_type_groovy = {
+		\ 'ctagstype' : 'groovy',
+		\ 'kinds'     : [
+			\ 'p:package',
+			\ 'c:class',
+			\ 'i:interface',
+			\ 'f:function',
+			\ 'v:variables',
+		\ ]
+	\ }
+
 	let g:tagbar_type_stylus = {
 		\ 'ctagstype': 'stylus',
 		\ 'kinds' : [
@@ -704,35 +701,35 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 " }
 
 " Easy Motion {
-    let g:EasyMotion_do_mapping = 0 " Disable default mappings
+	let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-    " Bi-directional find motion
-    " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-    " `s{char}{label}`
-    " nmap s <Plug>(easymotion-s)
-    " or
-    " `s{char}{char}{label}`
-    " Need one more keystroke, but on average, it may be more comfortable.
-    nmap s <Plug>(easymotion-s2)
+	" Bi-directional find motion
+	" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+	" `s{char}{label}`
+	" nmap s <Plug>(easymotion-s)
+	" or
+	" `s{char}{char}{label}`
+	" Need one more keystroke, but on average, it may be more comfortable.
+	nmap s <Plug>(easymotion-s2)
 
-    " Turn on case sensitive feature
-    let g:EasyMotion_smartcase = 1
+	" Turn on case sensitive feature
+	let g:EasyMotion_smartcase = 1
 
-    " JK motions: Line motions
-    map <Leader>l <Plug>(easymotion-lineforward)
-    map <Leader>j <Plug>(easymotion-j)
-    map <Leader>k <Plug>(easymotion-k)
-    map <Leader>h <Plug>(easymotion-linebackward)
+	" JK motions: Line motions
+	map <Leader>l <Plug>(easymotion-lineforward)
+	map <Leader>j <Plug>(easymotion-j)
+	map <Leader>k <Plug>(easymotion-k)
+	map <Leader>h <Plug>(easymotion-linebackward)
 
-    " Gif config
-    map  / <Plug>(easymotion-sn)
-    omap / <Plug>(easymotion-tn)
+	" Gif config
+	map  / <Plug>(easymotion-sn)
+	omap / <Plug>(easymotion-tn)
 
-    " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-    " Without these mappings, `n` & `N` works fine. (These mappings just provide
-    " different highlight method and have some other features )
-    map  n <Plug>(easymotion-next)
-    map  N <Plug>(easymotion-prev)
+	" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+	" Without these mappings, `n` & `N` works fine. (These mappings just provide
+	" different highlight method and have some other features )
+	map  n <Plug>(easymotion-next)
+	map  N <Plug>(easymotion-prev)
 " }
 
 " Fugitive {
