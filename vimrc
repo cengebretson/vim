@@ -124,9 +124,6 @@ autocmd BufNewFile,BufRead *.gradle set ft=groovy
 " Change to directory of file that is currently in the buffer
 autocmd BufEnter * silent! lcd %:p:h
 
-" load any local .vimrc files
-autocmd BufNewFile,BufRead * call LoadLocalVimrc()
-
 " Remove trailing white space when saving
 " autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
 
@@ -288,6 +285,9 @@ vmap <silent> <leader>nn :call NumberToggle()<CR>
 nmap <silent> <leader>cl :call CursorLineToggle()<CR>
 vmap <silent> <leader>cl :call CursorLineToggle()<CR>
 
+" git history
+nmap <silent> <leader>gh :Git log -5 %<CR>
+vmap <silent> <leader>gh :Git log -5 %<CR>
 
 
 
@@ -379,24 +379,6 @@ function! FindProjectRoot()
 
 	execute cmd
 endfunction
-
-" If the file .vimrc exists in the root of a git project - load it
-if !exists("*LoadLocalVimrc")
-	function! LoadLocalVimrc()
-		" return if this is a nonmodifiable window
-		if (&modifiable == 1)
-
-			" first jump to project root if it exists
-			call FindProjectRoot()
-
-			" check for local .lvimrc file
-			let l:configFile = '.vimrc.local'
-			if filereadable(l:configFile)
-				exec ":source " . l:configFile
-			endif
-		endif
-	endfunction
-endif
 
 let g:columns_is_active = 1
 
@@ -722,7 +704,35 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 " }
 
 " Easy Motion {
+    let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
+    " Bi-directional find motion
+    " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+    " `s{char}{label}`
+    " nmap s <Plug>(easymotion-s)
+    " or
+    " `s{char}{char}{label}`
+    " Need one more keystroke, but on average, it may be more comfortable.
+    nmap s <Plug>(easymotion-s2)
+
+    " Turn on case sensitive feature
+    let g:EasyMotion_smartcase = 1
+
+    " JK motions: Line motions
+    map <Leader>l <Plug>(easymotion-lineforward)
+    map <Leader>j <Plug>(easymotion-j)
+    map <Leader>k <Plug>(easymotion-k)
+    map <Leader>h <Plug>(easymotion-linebackward)
+
+    " Gif config
+    map  / <Plug>(easymotion-sn)
+    omap / <Plug>(easymotion-tn)
+
+    " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+    " Without these mappings, `n` & `N` works fine. (These mappings just provide
+    " different highlight method and have some other features )
+    map  n <Plug>(easymotion-next)
+    map  N <Plug>(easymotion-prev)
 " }
 
 " Fugitive {
