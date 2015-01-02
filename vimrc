@@ -730,6 +730,9 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 	" different highlight method and have some other features )
 	map  n <Plug>(easymotion-next)
 	map  N <Plug>(easymotion-prev)
+
+    " better enter key mapping
+    let g:EasyMotion_enter_jump_first = 1
 " }
 
 " Fugitive {
