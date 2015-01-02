@@ -108,17 +108,11 @@ set expandtab                                   " tabs are spaces
 " remove option that automatically inserts comment leader after hitting enter
 autocmd! FileType * setlocal formatoptions-=r
 
-" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+" handle different file types
 autocmd FileType python     setlocal sts=4 ts=4 sw=4 tw=79 et
-
-" javascript file type settings
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
-
-" Treat JSON files like JavaScript
 autocmd BufNewFile,BufRead *.json set ft=json
-
-" Treat gradle as a groovy
 autocmd BufNewFile,BufRead *.gradle set ft=groovy
 
 " Change to directory of file that is currently in the buffer
@@ -126,6 +120,9 @@ autocmd BufEnter * silent! lcd %:p:h
 
 " Remove trailing white space when saving
 " autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+
+" load any local .vimrc files
+autocmd BufNewFile,BufRead * call LoadLocalVimrc()
 
 " remap arrow keys for iterm like tab switching
 autocmd BufEnter * call RemapArrowKeysForSwitchingTabs()
@@ -312,15 +309,15 @@ imap <silent> <F3> <ESC>:call SolarizedToggle()<CR>
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
 
-	set guioptions-=T  " remove the toolbar
-	set lines=40       " 40 lines of text instead of 24
+    set guioptions-=T  " remove the toolbar
+    set lines=40       " 40 lines of text instead of 24
 
-	" automatically resize splits when resizing macvim window
-	autocmd vimresized * wincmd =
+    " automatically resize splits when resizing macvim window
+    autocmd vimresized * wincmd =
 
-	" control keys to switch viewports
-	" - Staying with the defaults of CTRL-W + J,K,L,H to move
-	" - Also have CTRL-W + W to jump buffers
+    " control keys to switch viewports
+    " - Staying with the defaults of CTRL-W + J,K,L,H to move
+    " - Also have CTRL-W + W to jump buffers
 
 endif
 
@@ -337,101 +334,101 @@ set shell=/bin/bash
 
 " keys to switch tabs
 function! RemapArrowKeysForSwitchingTabs()
-	noremap  <D-Left>  gT
-	noremap  <D-Right> gt
-	inoremap <D-Right> <esc>gt
-	inoremap <D-Left>  <esc>gT
+    noremap  <D-Left>  gT
+    noremap  <D-Right> gt
+    inoremap <D-Right> <esc>gt
+    inoremap <D-Left>  <esc>gT
 endfunction
 
 " set array of files that are found at root of project
 if !exists("g:ProjectRootFinder")
-	let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project']
+    let g:ProjectRootFinder = ['.git', 'build.xml', 'Makefile', '.project']
 endif
 
 " upwards search project file
 function! FindProjectRoot()
-	let currentdir = expand("%:p:h")
-	let cmd = 'cd '
+    let currentdir = expand("%:p:h")
+    let cmd = 'cd '
 
-	for filename in g:ProjectRootFinder
-		let file = findfile(filename, expand("%:p:h") . ';')
-		if filereadable(file)
-			let b:ProjectRootPath = fnamemodify(file, ':p:h')
-			break
-		else
-			let dir = finddir(filename, expand("%:p:h") . ';')
-			if isdirectory(dir)
-				let b:ProjectRootPath = substitute(fnamemodify(dir, ':p:h'),"/".filename . "$","","")
-				break
-			endif
-		endif
-	endfor
+    for filename in g:ProjectRootFinder
+        let file = findfile(filename, expand("%:p:h") . ';')
+        if filereadable(file)
+            let b:ProjectRootPath = fnamemodify(file, ':p:h')
+            break
+        else
+            let dir = finddir(filename, expand("%:p:h") . ';')
+            if isdirectory(dir)
+                let b:ProjectRootPath = substitute(fnamemodify(dir, ':p:h'),"/".filename . "$","","")
+                break
+            endif
+        endif
+    endfor
 
-	if exists('b:ProjectRootPath') && stridx(currentdir, b:ProjectRootPath, 0) == 0
-		let cmd .= b:ProjectRootPath
-	else
-		let cmd .= currentdir
-	endif
+    if exists('b:ProjectRootPath') && stridx(currentdir, b:ProjectRootPath, 0) == 0
+        let cmd .= b:ProjectRootPath
+    else
+        let cmd .= currentdir
+    endif
 
-	execute cmd
+    execute cmd
 endfunction
 
 let g:number_is_active = 2
 
 function! NumberToggle()
-	if (g:number_is_active == 0)
-		set number
-		let g:number_is_active = 1
-	elseif (g:number_is_active == 1)
-		set relativenumber
-		let g:number_is_active = 2
-	else
-		set nonumber
-		set norelativenumber
-		let g:number_is_active = 0
-	endif
+    if (g:number_is_active == 0)
+        set number
+        let g:number_is_active = 1
+    elseif (g:number_is_active == 1)
+        set relativenumber
+        let g:number_is_active = 2
+    else
+        set nonumber
+        set norelativenumber
+        let g:number_is_active = 0
+    endif
 endfunc
 
 if !exists("g:solarized_is_active")
-	let g:solarized_is_active = 0
-	let g:solarized_previous_bg = &background
-	redir => output
-	silent colorscheme
-	redir END
-	let g:solarized_previous_color = substitute(output, "\n", "", "")
+    let g:solarized_is_active = 0
+    let g:solarized_previous_bg = &background
+    redir => output
+    silent colorscheme
+    redir END
+    let g:solarized_previous_color = substitute(output, "\n", "", "")
 endif
 
 function! SolarizedToggle()
-	if (g:solarized_is_active == 1)
-		exec 'set bg=' . g:solarized_previous_bg
-		exec 'colorscheme ' . g:solarized_previous_color
-		let g:solarized_is_active = 0
-		set gfn=Input:h12
-		AirlineRefresh
-	else
-		set bg=light
-		colorscheme solarized
-		let g:solarized_is_active = 1
-		set gfn=Input\ Bold:h12
-		AirlineRefresh
-	endif
+    if (g:solarized_is_active == 1)
+        exec 'set bg=' . g:solarized_previous_bg
+        exec 'colorscheme ' . g:solarized_previous_color
+        let g:solarized_is_active = 0
+        set gfn=Input:h12
+        AirlineRefresh
+    else
+        set bg=light
+        colorscheme solarized
+        let g:solarized_is_active = 1
+        set gfn=Input\ Bold:h12
+        AirlineRefresh
+    endif
 endfunc
 
 function! Column80Toggle()
-	if(&colorcolumn > 0)
-		set colorcolumn=0
-		match none overlength
-	else
-		" assuming the standard 80 columns for wrapping
-		set colorcolumn=80
-		match overlength /\%81v.*/
-	endif
+    if(&colorcolumn > 0)
+        set colorcolumn=0
+        match none overlength
+    else
+        " assuming the standard 80 columns for wrapping
+        set colorcolumn=80
+        match overlength /\%81v.*/
+    endif
 endfunc
 
 function! OpenTerminal(dir)
-	" TODO: give option to simply bring focus to current terminal, perhaps ,tt mapping??
-	" TODO: also split this up so its easier to read!
-	silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
+    " TODO: give option to simply bring focus to current terminal, perhaps ,tt mapping??
+    " TODO: also split this up so its easier to read!
+    silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
 
 " plugin/stringify.vim
@@ -439,19 +436,38 @@ endfunction
 " make raw contents string
 function! Stringify() range
   for linenum in range(a:firstline, a:lastline)
-	let replaceSub = "'\\1'\ +"
-	if a:lastline == linenum
-	  let replaceSub = "'\\1'"
-	endif
-	let newline = getline(linenum)
-	" escape single quote
-	" \\\\ is \
-	" \= means previous char is optional
-	let newline = substitute(newline, "\\\\\\='", "\\\\\\\'", 'g')
-	" add single quotes and plus
-	let newline = substitute(newline,'\(\S.*\)', replaceSub ,'g')
-	call setline(linenum, newline)
+    let replaceSub = "'\\1'\ +"
+    if a:lastline == linenum
+      let replaceSub = "'\\1'"
+    endif
+    let newline = getline(linenum)
+    " escape single quote
+    " \\\\ is \
+    " \= means previous char is optional
+    let newline = substitute(newline, "\\\\\\='", "\\\\\\\'", 'g')
+    " add single quotes and plus
+    let newline = substitute(newline,'\(\S.*\)', replaceSub ,'g')
+    call setline(linenum, newline)
   endfor
+endfunction
+
+"------------------ "
+" Load local config "
+"------------------ "
+
+function! LoadLocalVimrc()
+    " return if this is a nonmodifiable window
+    if (&modifiable == 1)
+
+        " first jump to project root if it exists
+        call FindProjectRoot()
+
+        " check for local .lvimrc file
+        let l:configFile = '.vimrc.local'
+        if filereadable(l:configFile)
+            exec ":source " . l:configFile
+        endif
+    endif
 endfunction
 
 "-----------------"
@@ -465,7 +481,7 @@ function! RefreshRunningBrowser()
   silent :!ps -xc|grep -sq Chrome && osascript -e 'tell app "Google Chrome"' -e 'activate' -e 'tell app "System Events" to keystroke "r" using {command down}' -e 'end tell'
   redraw!
   if ((g:RefreshRunningBrowserReturnFocus == 1) && has('gui_macvim'))
-	silent :!ps -xc|grep -sq MacVim && osascript -e 'tell app "MacVim"' -e 'activate' -e 'end tell'
+    silent :!ps -xc|grep -sq MacVim && osascript -e 'tell app "MacVim"' -e 'activate' -e 'end tell'
   endif
 endfunction
 
@@ -480,42 +496,42 @@ command! RRB :call RefreshRunningBrowser()
 "---------------"
 
 function! TabToggle()
-	let l:winview = winsaveview()
-	if (&expandtab > 0)
-		Space2Tab
-	else
-		Tab2Space
-	endif
-	set expandtab!
-	call winrestview(l:winview)
+    let l:winview = winsaveview()
+    if (&expandtab > 0)
+        Space2Tab
+    else
+        Tab2Space
+    endif
+    set expandtab!
+    call winrestview(l:winview)
 endfunc
 
 function! NiceRetab()
-	let l:winview = winsaveview()
-	if (&expandtab == 0)
-		Space2Tab
-	else
-		Tab2Space
-	endif
-	call winrestview(l:winview)
+    let l:winview = winsaveview()
+    if (&expandtab == 0)
+        Space2Tab
+    else
+        Tab2Space
+    endif
+    call winrestview(l:winview)
 endfunc
 
 " This is a quick hack to make it possible to use tabs at the beginning of a
 " line but then use spaces after any non whitespace character for alignment.
 " Borrowed some code from Michael Geddes's Intelligent Indent plugin.
 function! TryingToBeSmarterTab()
-	if pumvisible()
-		return "\<C-n>"
-	elseif (&expandtab == 1)
-		return "\<TAB>"
-	elseif strpart(getline('.'),0,col('.')-1) =~'^\s*$'
-		return "\<TAB>"
-	else
-		let sts=(&sts==0) ? &sw : &sts
-		let sp=(virtcol('.') % sts)
-		if sp==0 | let sp=sts | endif
-		return strpart("                  ",0,1+sts-sp)
-	endif
+    if pumvisible()
+        return "\<C-n>"
+    elseif (&expandtab == 1)
+        return "\<TAB>"
+    elseif strpart(getline('.'),0,col('.')-1) =~'^\s*$'
+        return "\<TAB>"
+    else
+        let sts=(&sts==0) ? &sw : &sts
+        let sp=(virtcol('.') % sts)
+        if sp==0 | let sp=sts | endif
+        return strpart("                  ",0,1+sts-sp)
+    endif
 endfunc
 
 
@@ -527,15 +543,15 @@ endfunc
 let s:InFullScreenMode = 0
 
 function ToggleFullscreen()
-	if s:InFullScreenMode == 1
-		exe "set nofu"
-		let s:InFullScreenMode = 0
-	else
-		exe "set fu"
-		exe "set columns=128"
-		exe "set lines=128"
-		let s:InFullScreenMode = 1
-	endif
+    if s:InFullScreenMode == 1
+        exe "set nofu"
+        let s:InFullScreenMode = 0
+    else
+        exe "set fu"
+        exe "set columns=128"
+        exe "set lines=128"
+        let s:InFullScreenMode = 1
+    endif
 endfunction
 
 command! ToggleFullscreen call ToggleFullscreen()
@@ -556,180 +572,180 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 "---------"
 
 " Limelight plugin {
-	let g:limelight_is_active = 0
-	
-	function! LimelightToggle()
-		if (g:limelight_is_active == 1)
-			Limelight!
-			set cursorline
-			set cursorcolumn
-			let g:limelight_is_active = 0
-		else
-			Limelight
-			set cursorline!
-			set cursorcolumn!
-			let g:limelight_is_active = 1
-		endif
-	endfunc
+    let g:limelight_is_active = 0
 
-	nmap <silent> <leader>ll :call LimelightToggle()<CR>
-	vmap <silent> <leader>ll :call LimelightToggle()<CR>
+    function! LimelightToggle()
+        if (g:limelight_is_active == 1)
+            Limelight!
+            set cursorline
+            set cursorcolumn
+            let g:limelight_is_active = 0
+        else
+            Limelight
+            set cursorline!
+            set cursorcolumn!
+            let g:limelight_is_active = 1
+        endif
+    endfunc
+
+    nmap <silent> <leader>ll :call LimelightToggle()<CR>
+    vmap <silent> <leader>ll :call LimelightToggle()<CR>
 " }
 
 " Goyo plugin {
-	function! GoyoToggle()
-		Goyo
-	endfunc
+    function! GoyoToggle()
+        Goyo
+    endfunc
 
-	function! s:goyo_enter()
-	  set noshowmode
-	  set noshowcmd
-	  set scrolloff=999
-	  set guifont=Input:h14
-	  if g:limelight_is_active == 0
-		  call LimelightToggle()
-	  endif
-	  call ToggleFullscreen()
-	endfunction
+    function! s:goyo_enter()
+      set noshowmode
+      set noshowcmd
+      set scrolloff=999
+      set guifont=Input:h14
+      if g:limelight_is_active == 0
+          call LimelightToggle()
+      endif
+      call ToggleFullscreen()
+    endfunction
 
-	function! s:goyo_leave()
-	  set showmode
-	  set showcmd
-	  set scrolloff=3
-	  set guifont=Input:h12
-	  if g:limelight_is_active == 1
-		  call LimelightToggle()
-	  endif
-	  call ToggleFullscreen()
-	endfunction
+    function! s:goyo_leave()
+      set showmode
+      set showcmd
+      set scrolloff=3
+      set guifont=Input:h12
+      if g:limelight_is_active == 1
+          call LimelightToggle()
+      endif
+      call ToggleFullscreen()
+    endfunction
 
-	autocmd! User GoyoEnter
-	autocmd! User GoyoLeave
-	autocmd  User GoyoEnter nested call <SID>goyo_enter()
-	autocmd  User GoyoLeave nested call <SID>goyo_leave()
+    autocmd! User GoyoEnter
+    autocmd! User GoyoLeave
+    autocmd  User GoyoEnter nested call <SID>goyo_enter()
+    autocmd  User GoyoLeave nested call <SID>goyo_leave()
 
-	nmap <silent> <leader>gy :call GoyoToggle()<CR>
-	vmap <silent> <leader>gy :call GoyoToggle()<CR>
+    nmap <silent> <leader>gy :call GoyoToggle()<CR>
+    vmap <silent> <leader>gy :call GoyoToggle()<CR>
 " }
 
 " coffeescript plugin {
-	let g:coffee_compile_vert = 1
-	" mapping to perform coffee compile on file or visual selection
-	nmap <silent> <leader>cc :CoffeeCompile<CR>
-	vmap <silent> <leader>cc :CoffeeCompile<CR>
+    let g:coffee_compile_vert = 1
+    " mapping to perform coffee compile on file or visual selection
+    nmap <silent> <leader>cc :CoffeeCompile<CR>
+    vmap <silent> <leader>cc :CoffeeCompile<CR>
 " }
 
 " Tabularize {
-	nmap <leader>t=      :Tabularize /=<CR>
-	vmap <leader>t=      :Tabularize /=<CR>
-	nmap <leader>t:      :Tabularize /:<CR>
-	vmap <leader>t:      :Tabularize /:<CR>
-	nmap <leader>t::     :Tabularize /:\zs<CR>
-	vmap <leader>t::     :Tabularize /:\zs<CR>
-	nmap <leader>t,      :Tabularize /,<CR>
-	vmap <leader>t,      :Tabularize /,<CR>
-	nmap <leader>t"      :Tabularize /"<CR>
-	vmap <leader>t"      :Tabularize /"<CR>
-	nmap <leader>t<Bar>  :Tabularize /<Bar><CR>
-	vmap <leader>t<Bar>  :Tabularize /<Bar><CR>
+    nmap <leader>t=      :Tabularize /=<CR>
+    vmap <leader>t=      :Tabularize /=<CR>
+    nmap <leader>t:      :Tabularize /:<CR>
+    vmap <leader>t:      :Tabularize /:<CR>
+    nmap <leader>t::     :Tabularize /:\zs<CR>
+    vmap <leader>t::     :Tabularize /:\zs<CR>
+    nmap <leader>t,      :Tabularize /,<CR>
+    vmap <leader>t,      :Tabularize /,<CR>
+    nmap <leader>t"      :Tabularize /"<CR>
+    vmap <leader>t"      :Tabularize /"<CR>
+    nmap <leader>t<Bar>  :Tabularize /<Bar><CR>
+    vmap <leader>t<Bar>  :Tabularize /<Bar><CR>
 " }
 
 " Tagbar {
-	let g:tagbar_sort      = 0
-	let g:tagbar_compact   = 0
-	let g:tagbar_autofocus = 1
+    let g:tagbar_sort      = 0
+    let g:tagbar_compact   = 0
+    let g:tagbar_autofocus = 1
 
-	let g:tagbar_type_css = {
-		\ 'ctagstype': 'css',
-		\ 'kinds' : [
-				\'c:classes',
-				\'i:ids',
-				\'t:tags'
-		\]
-	\}
+    let g:tagbar_type_css = {
+        \ 'ctagstype': 'css',
+        \ 'kinds' : [
+                \'c:classes',
+                \'i:ids',
+                \'t:tags'
+        \]
+    \}
 
-	let g:tagbar_type_groovy = {
-		\ 'ctagstype' : 'groovy',
-		\ 'kinds'     : [
-			\ 'p:package',
-			\ 'c:class',
-			\ 'i:interface',
-			\ 'f:function',
-			\ 'v:variables',
-		\ ]
-	\ }
+    let g:tagbar_type_groovy = {
+        \ 'ctagstype' : 'groovy',
+        \ 'kinds'     : [
+            \ 'p:package',
+            \ 'c:class',
+            \ 'i:interface',
+            \ 'f:function',
+            \ 'v:variables',
+        \ ]
+    \ }
 
-	let g:tagbar_type_stylus = {
-		\ 'ctagstype': 'stylus',
-		\ 'kinds' : [
-				\'c:classes',
-				\'i:ids',
-				\'t:tags'
-		\]
-	\}
+    let g:tagbar_type_stylus = {
+        \ 'ctagstype': 'stylus',
+        \ 'kinds' : [
+                \'c:classes',
+                \'i:ids',
+                \'t:tags'
+        \]
+    \}
 " }
 
 " airline settings {
-	set laststatus=2
-	let g:airline_powerline_fonts = 1
-	let g:airline_inactive_collapse = 1
+    set laststatus=2
+    let g:airline_powerline_fonts = 1
+    let g:airline_inactive_collapse = 1
 " }
 
 " browser refresh {
-	let g:RefreshRunningBrowserReturnFocus = 0
-	" write file and refresh browser with cmd-r
-	nmap <silent> <d-r> :w<cr>:RRB<cr>
-	imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
-	vmap <silent> <d-r> :w<cr>:RRB<cr>
+    let g:RefreshRunningBrowserReturnFocus = 0
+    " write file and refresh browser with cmd-r
+    nmap <silent> <d-r> :w<cr>:RRB<cr>
+    imap <silent> <d-r> <esc>:w<cr>:RRB<cr>i
+    vmap <silent> <d-r> :w<cr>:RRB<cr>
 " }
 
 " Tern Plugin {
-	let g:tern_map_keys=1
-	let g:tern_show_argument_hints='on_hold'
+    let g:tern_map_keys=1
+    let g:tern_show_argument_hints='on_hold'
 " }
 
 " Ultisnip {
-	let g:UltiSnipsExpandTrigger="<c-j>"
-	let g:UltiSnipsJumpForwardTrigger="<c-j>"
-	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " }
 
 " YouCompleteMe {
-	" since youcompleteme steals the tabs we need to remap them
-	au BufEnter * exec "inoremap <expr><TAB> TryingToBeSmarterTab()"
-	au BufEnter * exec "inoremap <expr><s-TAB> pumvisible() ? \"\<C-p>\" : \"\<s-TAB>\""
+    " since youcompleteme steals the tabs we need to remap them
+    au BufEnter * exec "inoremap <expr><TAB> TryingToBeSmarterTab()"
+    au BufEnter * exec "inoremap <expr><s-TAB> pumvisible() ? \"\<C-p>\" : \"\<s-TAB>\""
 " }
 
 " Easy Motion {
-	let g:EasyMotion_do_mapping = 0 " Disable default mappings
+    let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-	" Bi-directional find motion
-	" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-	" `s{char}{label}`
-	" nmap s <Plug>(easymotion-s)
-	" or
-	" `s{char}{char}{label}`
-	" Need one more keystroke, but on average, it may be more comfortable.
-	nmap s <Plug>(easymotion-s2)
+    " Bi-directional find motion
+    " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+    " `s{char}{label}`
+    " nmap s <Plug>(easymotion-s)
+    " or
+    " `s{char}{char}{label}`
+    " Need one more keystroke, but on average, it may be more comfortable.
+    nmap s <Plug>(easymotion-s2)
 
-	" Turn on case sensitive feature
-	let g:EasyMotion_smartcase = 1
+    " Turn on case sensitive feature
+    let g:EasyMotion_smartcase = 1
 
-	" JK motions: Line motions
-	map <Leader>l <Plug>(easymotion-lineforward)
-	map <Leader>j <Plug>(easymotion-j)
-	map <Leader>k <Plug>(easymotion-k)
-	map <Leader>h <Plug>(easymotion-linebackward)
+    " JK motions: Line motions
+    map <Leader>l <Plug>(easymotion-lineforward)
+    map <Leader>j <Plug>(easymotion-j)
+    map <Leader>k <Plug>(easymotion-k)
+    map <Leader>h <Plug>(easymotion-linebackward)
 
-	" Gif config
-	map  / <Plug>(easymotion-sn)
-	omap / <Plug>(easymotion-tn)
+    " Gif config
+    map  / <Plug>(easymotion-sn)
+    omap / <Plug>(easymotion-tn)
 
-	" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-	" Without these mappings, `n` & `N` works fine. (These mappings just provide
-	" different highlight method and have some other features )
-	" map  n <Plug>(easymotion-next)
-	" map  N <Plug>(easymotion-prev)
+    " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+    " Without these mappings, `n` & `N` works fine. (These mappings just provide
+    " different highlight method and have some other features )
+    " map  n <Plug>(easymotion-next)
+    " map  N <Plug>(easymotion-prev)
 
     " better enter key mapping
     let g:EasyMotion_enter_jump_first = 1
@@ -740,27 +756,27 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 " }
 
 " Wildfire {
-	let g:wildfire_objects = {
-		\ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
-		\ "html,xml" : ["at"]
-	\ }
+    let g:wildfire_objects = {
+        \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
+        \ "html,xml" : ["at"]
+    \ }
 " }
 
 " Ag Helpers {
-	" in quickfix window...
-	" e    to open file and close the quickfix window
-	" o    to open (same as enter)
-	" go   to preview file (open but maintain focus on ag.vim results)
-	" t    to open in new tab
-	" T    to open in new tab silently
-	" h    to open in horizontal split
-	" H    to open in horizontal split silently
-	" v    to open in vertical split
-	" gv   to open in vertical split silently
-	" q    to close the quickfix window"
+    " in quickfix window...
+    " e    to open file and close the quickfix window
+    " o    to open (same as enter)
+    " go   to preview file (open but maintain focus on ag.vim results)
+    " t    to open in new tab
+    " T    to open in new tab silently
+    " h    to open in horizontal split
+    " H    to open in horizontal split silently
+    " v    to open in vertical split
+    " gv   to open in vertical split silently
+    " q    to close the quickfix window"
 " }
 
 " Zen Coding {
-	" keep default mapping of <c-y>,
+    " keep default mapping of <c-y>,
 " }
 
