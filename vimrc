@@ -728,8 +728,8 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 	" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 	" Without these mappings, `n` & `N` works fine. (These mappings just provide
 	" different highlight method and have some other features )
-	map  n <Plug>(easymotion-next)
-	map  N <Plug>(easymotion-prev)
+	" map  n <Plug>(easymotion-next)
+	" map  N <Plug>(easymotion-prev)
 
     " better enter key mapping
     let g:EasyMotion_enter_jump_first = 1
