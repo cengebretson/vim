@@ -279,8 +279,8 @@ nmap <silent> <leader>nn :call NumberToggle()<CR>
 vmap <silent> <leader>nn :call NumberToggle()<CR>
 
 " git history
-nmap <silent> <leader>gh :Git log -5 %<CR>
-vmap <silent> <leader>gh :Git log -5 %<CR>
+nmap <silent> <leader>gh :Git log -u -5 %<CR>
+vmap <silent> <leader>gh :Git log -u -5 %<CR>
 
 
 
@@ -629,7 +629,11 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
 " }
 
 " coffeescript plugin {
+    " make sure to run sudo ln -s /usr/local/bin/coffee /usr/bin/coffee
+    " make sure to run sudo ln -s /usr/local/bin/node /usr/bin/node
+    " so that the correct binaries are available
     let g:coffee_compile_vert = 1
+    let g:coffee_compiler = '/usr/local/bin/coffee'
     " mapping to perform coffee compile on file or visual selection
     nmap <silent> <leader>cc :CoffeeCompile<CR>
     vmap <silent> <leader>cc :CoffeeCompile<CR>
@@ -689,6 +693,7 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     set laststatus=2
     let g:airline_powerline_fonts = 1
     let g:airline_inactive_collapse = 1
+    let g:airline#extensions#tagbar#enabled = 0
 " }
 
 " browser refresh {
