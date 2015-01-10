@@ -566,7 +566,7 @@ endfunction
 
 let s:InFullScreenMode = 0
 
-function ToggleFullscreen()
+function! ToggleFullscreen()
     if s:InFullScreenMode == 1
         exe "set nofu"
         let s:InFullScreenMode = 0
