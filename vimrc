@@ -25,7 +25,6 @@ set history=1000                                " Store a ton of history (defaul
 
 " better unix / windows compatibility
 set viewoptions=folds,options,cursor,unix,slash
-
 " Turn backup off, since most stuff is in svn/git anyway...
 set nobackup
 set nowb
@@ -788,20 +787,6 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
         \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
         \ "html,xml" : ["at"]
     \ }
-" }
-
-" Ag Helpers {
-    " in quickfix window...
-    " e    to open file and close the quickfix window
-    " o    to open (same as enter)
-    " go   to preview file (open but maintain focus on ag.vim results)
-    " t    to open in new tab
-    " T    to open in new tab silently
-    " h    to open in horizontal split
-    " H    to open in horizontal split silently
-    " v    to open in vertical split
-    " gv   to open in vertical split silently
-    " q    to close the quickfix window"
 " }
 
 " Zen Coding {
