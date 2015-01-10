@@ -219,13 +219,15 @@ nnoremap k gk
 nnoremap <C-j> <C-d>
 nnoremap <C-k> <C-u>
 
-" mapping to setup ack with the current file type
-nmap <leader>a :call FindProjectRoot()<CR>:Ag!<space>
-
 " remap peepopen to first try to find the project root
 nmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
 vmap <silent> <c-p> :call FindProjectRoot()<CR><Plug>PeepOpen
 imap <silent> <c-p> <esc> :call FindProjectRoot()<CR><Plug>PeepOpen
+
+" toggle tagbar
+nmap <silent> <c-b> :TagbarToggle<CR>
+vmap <silent> <c-b> :TagbarToggle<CR>
+imap <silent> <c-b> <esc> :TagbarToggle<CR>
 
 " mapping to reset the expandtab values for a file
 nmap <silent> <leader>tt :call TabToggle()<cr>
@@ -282,23 +284,23 @@ vmap <silent> <leader>nn :call NumberToggle()<CR>
 nmap <silent> <leader>gh :Shell git log -u -5 %<CR>
 vmap <silent> <leader>gh :Shell git log -u -5 %<CR>
 
+" git blame
+nmap <silent> <leader>gb :Gblame<CR>
+vmap <silent> <leader>gb :Gblame<CR>
 
 
 "---------------"
 " Function Keys "
 "---------------"
 
-" Toggle Tagbar display
-nmap <silent> <F1> :TagbarToggle<CR>
-imap <silent> <F1> <ESC>:TagbarToggle<CR>
-
 " Toggle Color Column display
-nmap <silent> <F2> :call Column80Toggle()<CR>
-imap <silent> <F2> <ESC>:call Column80Toggle()<CR>
+nmap <silent> <F1> :call Column80Toggle()<CR>
+imap <silent> <F1> <ESC>:call Column80Toggle()<CR>
 
 " Toggle colorscheme mode
-nmap <silent> <F3> :call SolarizedToggle()<CR>
-imap <silent> <F3> <ESC>:call SolarizedToggle()<CR>
+nmap <silent> <F2> :call SolarizedToggle()<CR>
+imap <silent> <F2> <ESC>:call SolarizedToggle()<CR>
+
 
 
 
