@@ -199,7 +199,7 @@ inoremap <c-a> <c-o>I
 inoremap <c-e> <c-o>A
 
 " clearing highlighted search
-nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <silent> <leader><leader> :nohlsearch<CR>
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
@@ -765,8 +765,8 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     map <Leader>h <Plug>(easymotion-linebackward)
 
     " Gif config
-    map  / <Plug>(easymotion-sn)
-    omap / <Plug>(easymotion-tn)
+    map  <Leader>/ <Plug>(easymotion-sn)
+    omap <Leader>/ <Plug>(easymotion-tn)
 
     " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
     " Without these mappings, `n` & `N` works fine. (These mappings just provide
