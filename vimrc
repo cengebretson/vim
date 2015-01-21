@@ -365,9 +365,9 @@ function! FindProjectRoot()
     endfor
 
     if exists('b:ProjectRootPath') && stridx(currentdir, b:ProjectRootPath, 0) == 0
-        let cmd .= b:ProjectRootPath
+        let cmd .= escape(b:ProjectRootPath, ' ')
     else
-        let cmd .= currentdir
+        let cmd .= escape(currentdir, ' ')
     endif
 
     execute cmd
@@ -431,25 +431,9 @@ function! OpenTerminal(dir)
     silent :execute "!osascript -e 'tell application \"iTerm\"' -e 'activate' -e 'try' -e 'set t to the last terminal' -e 'on error' -e 'set t to (make new terminal)' -e 'end try' -e 'tell t' -e 'launch session \"Default Session\"' -e 'tell the last session' -e 'write text \"cd " . a:dir . ";clear;ls\"' -e 'end tell' -e 'end tell' -e 'end tell'"
 endfunction
 
-" plugin/stringify.vim
-" Author: 29decibel
-" make raw contents string
-function! Stringify() range
-  for linenum in range(a:firstline, a:lastline)
-    let replaceSub = "'\\1'\ +"
-    if a:lastline == linenum
-      let replaceSub = "'\\1'"
-    endif
-    let newline = getline(linenum)
-    " escape single quote
-    " \\\\ is \
-    " \= means previous char is optional
-    let newline = substitute(newline, "\\\\\\='", "\\\\\\\'", 'g')
-    " add single quotes and plus
-    let newline = substitute(newline,'\(\S.*\)', replaceSub ,'g')
-    call setline(linenum, newline)
-  endfor
-endfunction
+
+
+
 
 "------------------ "
 " Load local config "
@@ -671,7 +655,7 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     nmap <leader>t,      :Tabularize /,<CR>
     vmap <leader>t,      :Tabularize /,<CR>
     nmap <leader>t"      :Tabularize /"<CR>
-    vmap <leader>t"      :Tabularize /"<CR>
+    nmap <leader>t"      :Tabularize /"<CR>
     nmap <leader>t<Bar>  :Tabularize /<Bar><CR>
     vmap <leader>t<Bar>  :Tabularize /<Bar><CR>
 " }
