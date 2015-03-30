@@ -51,7 +51,7 @@
 	url = git@github.com:junegunn/limelight.vim.git
 [submodule "bundle/youcomplete2"]
 	path = bundle/youcomplete2
-	url = https://github.com/Valloric/YouCompleteMe
+    url = https://github.com/Valloric/YouCompleteMe
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
