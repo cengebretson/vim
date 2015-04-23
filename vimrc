@@ -725,6 +725,7 @@ command! -range=% -nargs=0 Space2Tab exec "silent! <line1>,<line2>s/^\\( \\{".&t
     " since youcompleteme steals the tabs we need to remap them
     au BufEnter * exec "inoremap <expr><TAB> TryingToBeSmarterTab()"
     au BufEnter * exec "inoremap <expr><s-TAB> pumvisible() ? \"\<C-p>\" : \"\<s-TAB>\""
+    let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 " }
 
 " Easy Motion {
