@@ -18,7 +18,7 @@ Create a symlink to the new `.vim` directory (or wherever you cloned the project
 
 	ln -s ~/.vim/vimrc ~/.vimrc
 	
-For the most part I try to use the amazing [pathogen](https://github.com/tpope/vim-pathogen) and git submodules maintain the different vim plugins that I use. The easiest way to load and update all of the git submodules is to run the following commands (assumes you are using `.vim` for your vim setup):
+For the most part I try to use the amazing [pathogen plugin](https://github.com/tpope/vim-pathogen) and git submodules to maintain the different vim plugins that I use. The easiest way to load and update all of the git submodules is to run the following commands (assumes you are using `.vim` for your vim setup):
 
 	cd ~/.vim
 	git submodule init
@@ -49,23 +49,7 @@ To remove a submodule that you don't want to use, follow the steps below.
 
 ----
 
-## Custom Key Mappings
-
-Some of the custom key mappings that I have been using...
-
-----
-
-## Plugins
-
-A couple of notes on some of the vim plugins and bundles that are included.
-
-----
-
 ## Other Notes
-
-Currently I use vim mostly with [MacVim](http://code.google.com/p/macvim/) but in the not so distant future I hope to put some time into making this setup a little more cross platform friendly.
-
-Another thing I did with my `.vimrc` setup is turn backups and swap files off since I figure this is what version control is for.
 
 The font I ended up using is called `Inconsolata` which is a free font created by Raph Levien. The website [Hivelogic](http://hivelogic.com/) has a great [article](http://hivelogic.com/articles/top-10-programming-fonts/) on some of the best programming fonts.
 
